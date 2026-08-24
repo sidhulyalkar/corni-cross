@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.5.0 - Dual Captains
+
+- replaced one-at-a-time global cycling with simultaneous WASD and Arrow-key captains
+- split the herd into left and right trios with independent Left Shift / Right Shift rotation
+- made controlled captains visibly ~1.5× larger with wider paint, larger interaction radius and stronger structural damage
+- changed Space into a synchronized two-captain dash
+- added DOUBLE PRISM +2500 when both captains connect during the same dash
+- raised the main target to 70% takeover plus 38% coverage in every quadrant
+- added a Clock Tower, destructible market stalls, duck pond, shop signs, crosswalks and larger buses
+- improved powerup silhouettes and contextual distraction labeling
+- biased autonomous roaming toward each trio's side to preserve split-screen spatial legibility
+
 ## 0.4.0 - The Great Rainbow Invasion
 
 - replaced manual horn/charge painting with automatic movement splatter and autonomous rage destruction

@@ -1,48 +1,70 @@
-# Corni Cross v0.4 Design
+# Corni Cross v0.5 Design
 
 ## Core fantasy
 
-A quaint town has been invaded by six magical unicorns. The player is not responsible for firing attacks. The unicorns are perfectly capable of causing trouble on their own. The player's skill is deciding **which unicorn deserves steering attention right now**.
+A quaint town is being overrun by six magical unicorns. You are not a shooter and you are not a shepherd. You are operating two enormous, barely cooperative captains while four unattended unicorns keep making their own decisions.
 
-## Two-stage teaching structure
+The desired feeling is **split-brain arcade logistics**: one hand fixes the left half of town while the other hand steers a second crisis on the right.
 
-### Level 1: Little Cross
+## Dual-captain architecture
 
-Two unicorns, a small town, one-screen layout. The tutorial teaches movement, switching, powerups, and distractions in that order. It has no punitive hard failure; reaching the small takeover goal releases the herd.
+The herd is organized into two stable spatial teams:
 
-### Level 2: The Great Invasion
+- left team: Bolt, Daisy, Bumper
+- right team: Mallow, Comet, Pickles
 
-Six unicorns in a 3200 × 1800 town. The entire map remains visible at once. Each unicorn begins in a different region, turning the screen into a live tactical board rather than a scrolling camera problem.
+`WASD` always controls one left-team captain and arrows always control one right-team captain. Left Shift and Right Shift rotate the captain within the corresponding trio.
 
-## Decision loop
+This replaces six-character cycling with two persistent fields of attention. Unselected herd members retain autonomous AI.
 
-1. Identify an idle or distracted unicorn.
-2. Switch to it.
-3. Route it toward an unpainted district, destructible block, or powerup.
-4. Let automatic splatter / frenzy begin doing productive work.
-5. Switch away before another unicorn wastes too much time.
+## Shared dash
 
-The desired sensation is plate-spinning with tiny magical disasters.
+`Space` dashes both captains at once along their current facing vectors.
+
+This is intentionally not a free mobility button. The player should line up two useful trajectories before firing it. If both captains damage or collect a useful target during one dash window, the game awards **DOUBLE PRISM +2500**.
+
+The mechanic converts simultaneous control into a timing challenge rather than merely doubling player power.
+
+## Captain authority
+
+A controlled unicorn visibly grows to roughly 1.5× scale. The same state has gameplay authority:
+
+- wider automatic paint footprint
+- larger collision / pickup radius
+- increased structural damage
+- more readable civilian avoidance
+
+The visual and mechanical enlargement make control state unmistakable even in the zoomed-out full-town view.
+
+## Town grammar
+
+The 3200 × 1800 town now contains four named visual districts plus clearer landmarks:
+
+- storefront blocks with readable shop signs
+- a high-value Clock Tower
+- a destructible market cluster
+- fountains and a duck pond
+- flower gardens and moving butterflies
+- hedges, crosswalks and traffic corridors
+- larger buses mixed into normal traffic
+
+Powerups create productive routing goals while distractions create attention debt.
 
 ## Paint model
 
-The world is represented by a 4px raster mask. A splatter rasterizes a disk into the mask. Newly touched pixels increment paint area exactly once. The visible paint layer is drawn into a matching offscreen canvas, so scoring and visual coverage share the same stamp geometry.
+The 4px persistent raster mask remains authoritative. Paint area is incremented only when a previously untouched mask pixel enters a splatter disk. The visible offscreen paint canvas receives the same geometry.
 
-This avoids coarse-cell artifacts and avoids expensive `getImageData()` scans during play.
+No per-frame image scan is required.
 
-## Difficulty systems
+## Difficulty
 
-Power is not scarce, **attention is scarce**.
+v0.5 raises the large-town gate to 70% takeover plus 38% ground coverage in every quadrant. Passive AI remains far below this target, while a simple policy that actively routes both captains through powerups can exceed it.
 
-- Powerups turn a well-routed unicorn into temporary autonomous productivity.
-- Fountains, flowers and butterflies turn an unattended unicorn into temporary dead weight.
-- Buildings and hedges create pathing topology.
-- Cars create recoverable stuns and anger spikes.
-- Civilians create motion, readable town life and occasional provocation.
-- Four district quotas require geographic distribution rather than local farming.
+The intended mastery ladder is:
 
-## Win calibration
-
-Current large-town target: 66% takeover plus 32% paint in every quadrant during an 88-second run.
-
-Passive simulation should lose. A simple purposeful routing policy should win narrowly enough that human optimization still has headroom.
+1. keep both captains moving
+2. rotate each trio without losing spatial orientation
+3. rescue distractions before they become dead time
+4. route powerups, then rotate away while frenzy works autonomously
+5. align synchronized dashes for double impacts
+6. use quadrant coverage rather than raw destruction as the late-run routing signal

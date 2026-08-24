@@ -1,36 +1,35 @@
-# Corni Cross v0.4 Playtest Checklist
+# Corni Cross v0.5 Playtest Checklist
 
 ## Tutorial
 
-- Can a new player understand that paint is automatic without being told verbally?
-- Do they discover Shift after controlling the first unicorn?
-- Does the first powerup visibly communicate “route here, then leave it alone”?
-- Does a fountain / flower / butterfly distraction read as a problem rather than a bug?
-- Does the two-unicorn level feel useful and brief rather than like a mandatory chore?
+- Does a new player immediately understand that WASD and arrows control different unicorns simultaneously?
+- Does the shared Space dash feel surprising but fair?
+- Can the player learn automatic paint without looking for an attack button?
+- Are powerups and distractions visually self-explanatory?
 
-## Big-town readability
+## Dual-control feel
 
-- All six unicorns must remain visible simultaneously at common desktop aspect ratios.
-- Active-unicorn highlighting must be obvious without hiding the rest of the town.
-- Powerups and distractions must be readable at the zoomed-out scale.
-- Civilian speech should add town character without becoming visual noise.
+- Can players mentally separate the left and right halves of the map?
+- Is Left Shift / Right Shift rotation materially better than one global cycle key?
+- Do the 1.5× captain size and colored halos make control ownership obvious at a glance?
+- Does simultaneous dash create deliberate setup, or just accidental chaos?
+- Is DOUBLE PRISM understandable when it happens?
+
+## Town readability
+
+- Can players distinguish shops, Clock Tower, market, fountain, duck pond, hedges and powerups at full-town zoom?
+- Are crosswalks and buses readable before collision?
+- Do civilian comments add life without covering important targets?
+- Are distraction labels helpful rather than noisy?
 
 ## Difficulty
 
-Record paint %, structure %, four quadrant paint values, powerups collected and switching frequency.
+Record total takeover, four quadrant values, powerups collected, left/right rotations, synchronized dash attempts and Double Prism successes.
 
-Desired bands after learning the controls:
+Current calibration anchors:
 
-- passive / very weak play: 40–55%, loss
-- novice active play: 55–65%, near miss
-- competent routing: 66–75%, win
-- strong play: 75–85%
-- exceptional: 85%+
+- passive simulation: ~41%, loss
+- simple dual-route policy: ~81%, win
+- target: 70% takeover + 38% in every quadrant
 
-## Feel questions
-
-- Is switching a meaningful decision or just frantic key tapping?
-- Are autonomous unicorns useful without making the player irrelevant?
-- Do distractions create funny rescue moments or merely annoyance?
-- Are powerups exciting enough to justify detours?
-- Does the town feel like a place being invaded rather than a flat obstacle field?
+Human target bands should be retuned after fresh-player data rather than inferred from simulation alone.

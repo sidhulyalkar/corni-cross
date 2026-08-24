@@ -2,68 +2,76 @@
 
 **Corni Cross: The Great Rainbow Invasion** is a 13KB desktop arcade-strategy game for the js13kGames 2026 theme **Unicorns and Rainbows**.
 
-A herd of magical unicorns has escaped into a quaint town. Rainbow splatter and destruction happen automatically. The player can steer only **one unicorn at a time**, so the game is about rapidly switching between them, routing them into productive chaos, and rescuing them from absurd distractions.
+Six magical unicorns have escaped into a quaint town. Paint and destruction are automatic. The player operates **two giant captains at once** while the other four continue roaming, getting distracted, finding powerups and improvising rainbow chaos.
 
-## Current v0.4 loop
+## v0.5 dual-captain controls
 
-The game now opens with a tiny two-unicorn tutorial town where the entire problem fits on screen. Clearing it releases the full six-unicorn herd into a much larger 3200 × 1800 town, also shown as one tactical view so every unicorn remains visible.
+The town is split into two attention lanes:
 
-Controls are intentionally small:
-
-- `WASD` / arrows — steer the selected unicorn
-- `Shift` — cycle unicorns
-- `1`–`6` — select directly
+- `WASD` — steer the current **left captain**
+- Arrow keys — steer the current **right captain**
+- `Left Shift` — rotate Bolt / Daisy / Bumper
+- `Right Shift` — rotate Mallow / Comet / Pickles
+- `1`–`6` — direct captain selection for expert play
+- `Space` — dash **both captains simultaneously** in their current facing directions
 - `M` — mute
 - `P` / `Esc` — pause
 
-There is no manual paint gun. Moving unicorns splatter automatically. Angry or powered-up unicorns generate extra random rainbow bursts and automatically attack nearby destructible structures.
+Controlled captains render about 1.5× larger, paint a wider trail, have a larger interaction radius and deal more structural damage. A synchronized `Space` dash is deliberately risky: if both captains connect with useful targets in the same dash window, the player earns **DOUBLE PRISM +2500**.
 
-## Powerups and distractions
+## Two-stage learning structure
 
-### Powerups
+### Little Cross
 
-- **Rage Corn** — temporary rabid speed, automatic target seeking, large rapid splatter and strong building damage.
-- **Prism Pop** — immediate radial paint explosion plus nearby structural damage.
-- **Rainbow Soda** — sustained speed and wider automatic paint trail.
+A tiny one-screen tutorial with only Bolt and Daisy. `WASD` and arrows immediately teach simultaneous control, then the game introduces the shared dash, powerups and distractions.
 
-Powerups respawn in the large town, creating routing decisions instead of one-use collectibles.
+### The Great Invasion
 
-### Distractions
+A 3200 × 1800 full-town tactical view keeps all six unicorns visible. The left trio tends to operate on the western half and the right trio on the eastern half, so the player's eyes and hands can naturally split the screen.
 
-Unicorns can lose productive time to things they find more interesting than urban destruction:
+The current win target is **70% total takeover** plus **38% paint in every town quadrant** during an 88-second run.
 
-- fountains mesmerize them,
-- flower gardens make them stop and investigate,
-- moving butterflies pull them off course,
-- cars can stun them while also increasing anger,
-- townspeople flee, heckle, cheer and sometimes provoke nearby unicorns.
+## Automatic chaos
 
-Distracted unicorns stop painting until they are pulled away. This makes unattended herd members a problem to revisit rather than passive score generators.
+Normal movement paints automatically. Anger and powerups produce increasingly wild splatter and structural attacks, so the player's job is route planning rather than manual firing.
 
-## Town = scoreboard
+Powerups:
 
-Ground coverage uses a persistent **4-pixel world-space raster mask**. Every circular splatter is rasterized into that mask and only previously unpainted pixels count as new area. Overlapping paint therefore does not double-score and coverage is far more spatially precise than the earlier 80px tile system.
+- **Rage Corn** — rabid speed, aggressive target seeking, rapid random splatter and heavy damage
+- **Prism Pop** — immediate radial paint explosion and structural blast
+- **Rainbow Soda** — sustained speed and wider automatic trail
 
-The large-town takeover score is:
+Distractions:
 
-- **76% unique paint area**
-- **24% weighted structural rainbow damage**
+- fountains mesmerize nearby unicorns
+- flower gardens stop productive painting
+- butterflies pull unattended unicorns off course
+- the duck pond is a particularly compelling waste of everyone’s time
+- traffic can stun unicorns while also increasing anger
 
-Winning currently requires:
+## A more legible town
 
-- **66% total takeover**, and
-- at least **32% ground paint in each of the four town quadrants**.
+v0.5 adds a named clock tower, destructible market stalls, duck pond, shop signs, crosswalks, larger buses and clearer powerup silhouettes. Buildings now read as recognizable bakery/bank/books/cafe/florist storefronts rather than anonymous rectangles.
 
-The quadrant requirement prevents one easy colorful crater from winning the entire run.
+Town residents continue to flee, heckle and comment while remaining non-targets.
+
+## Precise paint coverage
+
+Coverage uses a persistent **4px world-space raster mask**. Every circular splatter is rasterized into that mask and only previously untouched mask pixels increase area, so overlapping rainbows never double-count.
+
+Takeover is currently:
+
+- **76% unique ground paint**
+- **24% weighted structural damage**
 
 ## Difficulty calibration
 
-The v0.4 simulation gate intentionally separates passive and purposeful play:
+The current v0.5 simulation gate gives a useful separation:
 
-- a passive/no-input herd reaches about **50% takeover** and loses,
-- a simple switch-and-route bot reaches about **70% takeover** and wins.
+- passive/no-input run: about **41% takeover**, loss
+- simple two-captain route/powerup policy: about **81% takeover**, win
 
-That gives real-player tuning room between “the game plays itself” and “the target is impossible.”
+This leaves a wide human skill band between surviving the controls and mastering synchronized routing.
 
 ## 13KB build
 
@@ -71,6 +79,6 @@ That gives real-player tuning room between “the game plays itself” and “th
 npm test
 ```
 
-The dependency-free build creates `dist/index.html` and `dist/corni-cross.zip`. CI rejects archives larger than **13,312 bytes**.
+The dependency-free build creates `dist/index.html` and `dist/corni-cross.zip`. CI rejects anything over **13,312 bytes**.
 
-Local v0.4 qualification: **10,889 bytes zipped**, leaving **2,423 bytes** for final feel and polish.
+Local v0.5 qualification: **12,859 bytes zipped**, leaving **453 bytes** before CI normalization.
