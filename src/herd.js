@@ -2,7 +2,7 @@ function updateUnicorns(dt){
   let cx=0,cy=0,avx=0,avy=0;for(let u of unis){cx+=u.x;cy+=u.y;avx+=u.vx;avy+=u.vy}cx/=unis.length;cy/=unis.length;avx/=unis.length;avy/=unis.length;
   let linked=0,totalSpread=0;
   for(let u of unis){
-    u.daze=Math.max(0,u.daze-dt);u.wander+=dt*(.6+u.p.wander*.2);let ax=58*u.p.speed,ay=0,nearN=0,sx=0,sy=0;
+    u.daze=Math.max(0,u.daze-dt);u.wander+=dt*(.6+u.p.wander*.2);let ax=58*u.p.speed*(1+(chainNow-1)*.026),ay=0,nearN=0,sx=0,sy=0;
     for(let o of unis)if(o!==u){let dx=u.x-o.x,dy=u.y-o.y,d2=dx*dx+dy*dy;if(d2<170*170){nearN++;sx+=o.x;sy+=o.y;if(d2<48*48&&d2>1){let d=Math.sqrt(d2);ax+=dx/d*220*(1-d/48);ay+=dy/d*220*(1-d/48)}}}
     if(nearN){sx/=nearN;sy/=nearN;ax+=(sx-u.x)*.34*u.p.coh+(avx-u.vx)*.24;ay+=(sy-u.y)*.34*u.p.coh+(avy-u.vy)*.24}
     ax+=(cx-u.x)*.045*u.p.coh;ay+=(cy-u.y)*.045*u.p.coh;ay+=(360-u.y)*.08;
@@ -18,7 +18,7 @@ function updateUnicorns(dt){
     if(u.y<65){u.y=65;u.vy=Math.abs(u.vy)*.55}if(u.y>H-65){u.y=H-65;u.vy=-Math.abs(u.vy)*.55}if(u.x<40){u.x=40;u.vx=Math.abs(u.vx)}
     if(u.x>finish&&!u.home){u.home=1;fx(u.x,u.y,22,150);tone(460+u.h,.16,'triangle',.025,760+u.h)}u.a=Math.atan2(u.vy,u.vx||1);u.near=nearN;linked+=nearN>0;totalSpread+=Math.hypot(u.x-cx,u.y-cy);
     u.trail.push([u.x,u.y]);if(u.trail.length>(burst?20:10))u.trail.shift();
-    for(let c of cars){let dx=u.x-c.x,dy=u.y-c.y,d=Math.hypot(dx,dy);if(d<90&&d>50&&Math.abs(c.vy)>80&&Math.abs(u.vx)>40&&rng()<dt*.25){near++;meter=cl(meter+.04,0,1);fx(u.x,u.y,4,60)}}
+    for(let c of cars){let dx=u.x-c.x,dy=u.y-c.y,d=Math.hypot(dx,dy);if(d<90&&d>50&&Math.abs(c.vy)>80&&Math.abs(u.vx)>40&&!c.nearT&&rng()<dt*.32){c.nearT=.55;near++;meter=cl(meter+.045,0,1);fx(u.x,u.y,5,70);tone(760,.045,'sine',.009,980)}}
   }
   let cohesion=cl(1-totalSpread/unis.length/220,0,1),chain=Math.round(cohesion*5)+1;chainNow=chain;chainMax=Math.max(chainMax,chain);meter=cl(meter+dt*(cohesion>.46?cohesion*.055:.006),0,1);score+=dt*(20+chain*5);if(meter>=1&&!readyPing){readyPing=1;ping(2)}if(meter<1)readyPing=0;if(AC&&clock>musicNext){musicNext=clock+.48;tone(70+chain*8,.07,'triangle',.009);if(chain>4)tone(360+chain*45,.045,'sine',.008)}
 }

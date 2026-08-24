@@ -6,19 +6,21 @@ You are a Rainbow Wrangler trying to escort six semi-autonomous unicorns through
 
 ## Current playable build
 
-The first complete vertical slice is implemented on `agent/v0.1-playable-herd`.
+The competition-shaped playable build is developed on `agent/v0.1-playable-herd` and tracked through draft PR #1.
 
 - Six unicorn personalities with flocking, separation, wandering, food attraction and distinct speed/cohesion traits
 - Mouse-directed whistle and shoo fields
 - Momentum dash that can punch a direction through the herd
 - Cohesion-driven Rainbow Chain and Prism meter
 - Prism Burst that tightens the herd, accelerates it and slows nearby traffic
-- Increasing traffic pressure, including oversized buses
+- Increasing traffic pressure, including oversized buses and readable GO/WAIT crossing windows
 - Crosswalks, fountains, food carts, construction cones and pigeons
 - Recoverable vehicle collisions with knockback, daze, particles, sound and screen feedback
 - Procedural Canvas 2D art, animation and rainbow trails
 - Procedural WebAudio feedback whose musical density increases with herd cohesion
 - First-run contextual tutorial, pause/mute controls, daily deterministic town seed, score and best-score persistence
+- Route-progress dots and edge indicators keep stragglers readable without a minimap
+- Final Rainbow Parade stretch adds spectators, confetti and a celebratory destination arch
 - Fully offline, single-file competition output
 
 ## Controls
@@ -55,7 +57,7 @@ The dependency-free build pipeline creates:
 
 `npm run size` hard-fails if the zip exceeds **13 * 1024 = 13,312 bytes**.
 
-Current v0.1 baseline: **8,652 bytes zipped**, leaving roughly **4.6 KB** for tuning and final polish.
+Current v0.2 baseline: **9,271 bytes zipped**, leaving **4,041 bytes** for final tuning and polish.
 
 ## Design principles
 

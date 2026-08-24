@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.0 - crossing readability and parade payoff
+
+- added synchronized GO / WAIT crossing signals and traffic stop windows
+- added six-dot herd route progress plus off-screen straggler indicators
+- added explicit whistle line, cursor pulse and shoo cone feedback
+- made high Rainbow Chain slightly increase herd forward momentum
+- debounced and sweetened near-miss scoring/audio feedback
+- transformed the destination into a Rainbow Parade with spectators and confetti
+- smoke-simulated a complete all-six-home run to rule out obvious route soft locks
+
 ## 0.1.0 - playable herd vertical slice
 
 - established dependency-free 13KB build pipeline and hard size gate

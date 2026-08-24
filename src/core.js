@@ -32,14 +32,16 @@ function reset(){
 function buildTown(){
   const xs=[900,1680,2500,3380,4300,5150].map(x=>x+R(60,-60));
   xs.forEach((x,i)=>{
-    props.push({t:'cross',x,w:150});
+    props.push({t:'cross',x,w:150,i});
     let count=i>3?4:3;
     for(let j=0;j<count;j++)cars.push(makeCar(x+R(80,-80),-180-j*250-R(220),i,j));
   });
   props.push({t:'fountain',x:1370+R(80,-80),y:R(250,195),r:62},{t:'cart',x:2140+R(80,-80),y:R(535,485),r:32},{t:'cones',x:3000+R(70,-70),y:R(270,220),w:260,h:70},{t:'fountain',x:3900+R(80,-80),y:R(530,480),r:54},{t:'cart',x:4820+R(80,-80),y:R(235,185),r:32},{t:'cones',x:5450+R(70,-70),y:R(480,430),w:250,h:66});
   for(let i=0;i<15;i++)pigeons.push({x:R(5650,550),y:R(580,130),vx:0,vy:0,f:0,a:R(TAU)});
 }
-function makeCar(x,y,i,j){let bus=(i===3&&j===0)||(i===5&&j===1);return{x,y,w:bus?76:42,h:bus?150:82,vy:(105+i*12)*(j%2?1:1),base:y,phase:R(6),bus,col:(i+j)%3};}
+function makeCar(x,y,i,j){let bus=(i===3&&j===0)||(i===5&&j===1);return{x,y,w:bus?76:42,h:bus?150:82,vy:105+i*12,base:y,phase:R(6),bus,col:(i+j)%3,i,nearT:0};}
+
+function crossGo(i){return (clock+i*1.43)%8>5.35}
 
 addEventListener('keydown',e=>{keys[e.code]=1;if(['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code))e.preventDefault();if((e.code==='Enter'||e.code==='Space')&&state==='title'){audio();reset()}if(e.code==='KeyP'||e.code==='Escape')paused=!paused;if(e.code==='KeyM'&&master){muted=!muted;master.gain.value=muted?0:.18}if(e.code==='KeyR'&&state==='play'&&meter>=1){meter=0;burst=2.7;fx(player.x,player.y,40,170);tone(180,.22,'sawtooth',.08,360)}});
 addEventListener('keyup',e=>keys[e.code]=0);
@@ -65,7 +67,7 @@ function update(dt){
   if(unis.every(u=>u.x>finish)){score=Math.max(0,Math.round(6000+meter*1800+chainMax*500+Math.max(0,220-runTime)*18-damage*180+near*90));best=Math.max(best,score);S.set('ccBest',best);state='end';tone(330,.55,'triangle',.05,880);setTimeout(()=>tone(660,.55,'triangle',.04,1100),120)}
 }
 function updateCars(dt){
-  for(let c of cars){c.y+=c.vy*dt*(burst&&Math.abs(c.x-player.x)<430?.24:1); if(c.y>H+220)c.y=-220-R(360); c.x+=Math.sin(clock*.5+c.phase)*dt*4;
+  for(let c of cars){c.nearT=Math.max(0,c.nearT-dt);let go=crossGo(c.i),approach=go&&c.y>45&&c.y<175,crawl=approach?.03:1;c.y+=c.vy*dt*crawl*(burst&&Math.abs(c.x-player.x)<430?.24:1);if(c.y>H+220)c.y=-220-R(360);c.x+=Math.sin(clock*.5+c.phase)*dt*4;
     for(let u of unis){if(u.daze>.1)continue;let dx=Math.abs(u.x-c.x),dy=Math.abs(u.y-c.y);if(dx<c.w*.5+16&&dy<c.h*.5+13){let s=Math.sign(u.y-c.y)||1;u.vx+=(u.x-c.x)*5+R(250,80);u.vy=s*430;u.daze=.7;damage++;shake=12;flash=.65;fx(u.x,u.y,18,180);ping(1)}}
     let dx=player.x-c.x,dy=player.y-c.y;if(Math.abs(dx)<c.w*.5+14&&Math.abs(dy)<c.h*.5+14){player.x-=player.vx*dt*2;player.y-=player.vy*dt*2;player.vx*=-.35;player.vy*=-.35}
   }

@@ -2,11 +2,11 @@
 
 ## Build integrity
 
-- [ ] all four source modules pass `node --check`
-- [ ] `npm run build` completes
-- [ ] `npm run size` reports <= 13,312 bytes
-- [ ] submission ZIP contains `index.html` at archive root
-- [ ] game starts offline without network requests
+- [x] all four source modules pass `node --check`
+- [x] `npm run build` completes
+- [x] `npm run size` reports <= 13,312 bytes
+- [x] submission ZIP contains `index.html` at archive root
+- [x] game starts offline without network requests
 
 ## First 60 seconds
 
@@ -44,13 +44,19 @@
 
 ## Browser pass
 
-- [ ] Chromium desktop
+- [x] Chromium desktop
 - [ ] Firefox desktop
 - [ ] Safari desktop if available
-- [ ] 16:9 viewport
+- [x] 16:9 viewport
 - [ ] ultrawide viewport
 - [ ] lower-resolution laptop viewport
 - [ ] keyboard + mouse only, no touch assumptions
+
+## Automated recovery smoke test
+
+- [x] continuous eastward/whistle/dash policy completes today's deterministic route
+- [x] all six unicorns cross the finish in the smoke run
+- [x] collision-heavy run still remains recoverable (80.4 s, 19 bonks in current baseline)
 
 ## Competition submission
 
