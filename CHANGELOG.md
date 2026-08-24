@@ -1,32 +1,32 @@
 # Changelog
 
+## 0.6.0 - Agency and mastery
+
+- made captain facing follow player input directly so shared dashes are predictable
+- added 2.4 second directional run orders when a moving captain is handed off
+- added captain-wake influence so nearby teammates partially follow deliberate captain motion
+- made direct steering override distraction instead of suppressing player acceleration
+- added mastery callouts and score rewards for run orders, rescues, rabid handoffs, synchronized Double Prism dashes and secured districts
+- removed hidden number-key/direct-selection shortcuts so the control model stays teachable and consistent
+- increased controlled-unicorn scale and added facing/order arrows for clearer spatial reading
+- replaced repeated generic building windows with Bakery, Bank, Books, Cafe and Florist facade grammars
+- made building identity affect gameplay: banks are tougher/more valuable while cafes and bakeries are easier targets
+- rewrote title, tutorial, transition and end-state copy around steer → handoff → rescue → synchronize
+- retained precise 4px paint accounting, full-town view, powerups, distractions, civilians and quadrant win requirements
+
 ## 0.5.0 - Dual Captains
 
-- replaced one-at-a-time global cycling with simultaneous WASD and Arrow-key captains
-- split the herd into left and right trios with independent Left Shift / Right Shift rotation
-- made controlled captains visibly ~1.5× larger with wider paint, larger interaction radius and stronger structural damage
-- changed Space into a synchronized two-captain dash
-- added DOUBLE PRISM +2500 when both captains connect during the same dash
-- raised the main target to 70% takeover plus 38% coverage in every quadrant
-- added a Clock Tower, destructible market stalls, duck pond, shop signs, crosswalks and larger buses
-- improved powerup silhouettes and contextual distraction labeling
-- biased autonomous roaming toward each trio's side to preserve split-screen spatial legibility
+- split the six-unicorn herd into left and right control teams
+- added simultaneous WASD + Arrow-key control
+- added shared Space dash and Double Prism scoring
+- enlarged controlled captains and enriched town landmarks
 
 ## 0.4.0 - The Great Rainbow Invasion
 
-- replaced manual horn/charge painting with automatic movement splatter and autonomous rage destruction
-- added a two-unicorn small-world tutorial before the six-unicorn main town
-- changed the main level to a 3200 × 1800 full-town tactical view so all unicorns remain visible
-- replaced coarse 80px paint cells with a 4px persistent raster coverage mask
-- added four-quadrant coverage requirements to prevent single-district farming
-- added Rage Corn, Prism Pop and Rainbow Soda powerups with respawning routing opportunities
-- added fountains, flower gardens and moving butterflies as productivity-stopping distractions
-- added hedges, buildings and traffic as spatial blockers
-- retained civilian fleeing, comments and provocation while keeping people non-targets
-- made high anger and frenzy automatically seek/damage nearby structures
-- calibrated passive simulation to lose and a basic switch/route policy to win
+- replaced manual painting with automatic splatter and autonomous rage
+- added the two-unicorn tutorial and full-town tactical view
+- added precise 4px paint coverage, quadrant goals, powerups and distractions
 
 ## 0.3.0 - Rainbow Rampage
 
-- pivoted from herd escorting to one-at-a-time unicorn control
-- added autonomous anger, town destruction, civilians, surface/volume scoring and multi-unicorn switching
+- pivoted from escort herding into destructible rainbow-town strategy

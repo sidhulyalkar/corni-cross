@@ -1,77 +1,108 @@
 # Corni Cross
 
-**Corni Cross: The Great Rainbow Invasion** is a 13KB desktop arcade-strategy game for the js13kGames 2026 theme **Unicorns and Rainbows**.
+**Corni Cross: The Great Rainbow Invasion** is a desktop arcade-strategy game built for the js13kGames 2026 theme **Unicorns and Rainbows**.
 
-Six magical unicorns have escaped into a quaint town. Paint and destruction are automatic. The player operates **two giant captains at once** while the other four continue roaming, getting distracted, finding powerups and improvising rainbow chaos.
+Six magical unicorns have escaped into a quaint town. They paint and wreck things automatically, but they are distractible, excitable and only loosely sensible. The player has two live control channels and learns to turn that chaos into deliberate routes.
 
-## v0.5 dual-captain controls
+## v0.6 control philosophy
 
-The town is split into two attention lanes:
+The core skill is no longer raw character switching. It is **steer → hand off → rescue → synchronize**.
 
-- `WASD` — steer the current **left captain**
-- Arrow keys — steer the current **right captain**
-- `Left Shift` — rotate Bolt / Daisy / Bumper
-- `Right Shift` — rotate Mallow / Comet / Pickles
-- `1`–`6` — direct captain selection for expert play
-- `Space` — dash **both captains simultaneously** in their current facing directions
-- `M` — mute
-- `P` / `Esc` — pause
+| Input | Action |
+| --- | --- |
+| `WASD` | Steer the current left-side captain |
+| Arrow keys | Steer the current right-side captain |
+| Left Shift | Hand off the left captain and rotate Bolt / Daisy / Bumper |
+| Right Shift | Hand off the right captain and rotate Mallow / Comet / Pickles |
+| `Space` | Dash both current captains in their facing directions |
+| `P` / `Esc` | Pause |
+| `M` | Mute |
+| `T` on title | Replay the tutorial |
 
-Controlled captains render about 1.5× larger, paint a wider trail, have a larger interaction radius and deal more structural damage. A synchronized `Space` dash is deliberately risky: if both captains connect with useful targets in the same dash window, the player earns **DOUBLE PRISM +2500**.
+### Direct control should feel authoritative
 
-## Two-stage learning structure
+A captain is visibly larger, paints wider and damages structures more strongly. Its facing direction follows player input directly, so the shared Space dash is predictable rather than being determined by collision drift.
+
+Direct steering also breaks distraction. Fountains, flowerbeds, ponds and butterflies are attention traps for unattended unicorns, not input locks for the player.
+
+### Handoff orders
+
+When a moving captain is rotated out with Shift, it receives a **2.4 second run order** in the direction the player was steering. During that window it:
+
+- keeps the chosen heading,
+- resists distractions,
+- continues painting productively,
+- remains visually marked with a white order arrow.
+
+This creates the intended plate-spinning rhythm: set a route, release it, immediately solve another problem.
+
+### Captain wake
+
+Unattended teammates near their side's current captain inherit part of the captain's motion. This gives the player a soft way to shape a small group without directly controlling all three unicorns.
+
+## Mastery feedback
+
+The game now calls out and scores learned techniques rather than only rewarding final coverage:
+
+- **RUN ORDER** — successfully hand off a moving captain for the first time on each side
+- **RESCUE** — take control of a distracted unicorn and actively pull it away
+- **RABID HANDOFF** — trigger a Rage Corn frenzy, then release that unicorn while it is still productive
+- **DOUBLE PRISM** — line up both captains and land useful impacts during the same shared dash
+- **DISTRICT SECURED** — push one of the four town quadrants over its required paint threshold
+
+The HUD tracks `SKILL` events during the run so players can see themselves learning a repeatable vocabulary rather than simply watching a percentage rise.
+
+## Two-stage learning curve
 
 ### Little Cross
 
-A tiny one-screen tutorial with only Bolt and Daisy. `WASD` and arrows immediately teach simultaneous control, then the game introduces the shared dash, powerups and distractions.
+A tiny two-unicorn town teaches:
+
+1. WASD steering,
+2. Arrow-key steering at the same time,
+3. the shared Space dash,
+4. powerups,
+5. distractions and rescue.
+
+Reaching 28% takeover releases the herd.
 
 ### The Great Invasion
 
-A 3200 × 1800 full-town tactical view keeps all six unicorns visible. The left trio tends to operate on the western half and the right trio on the eastern half, so the player's eyes and hands can naturally split the screen.
+The full town is 3200 × 1800 world units but stays entirely visible. The six unicorns are split into stable left and right teams, allowing the player's eyes and hands to build a spatial mental model.
 
-The current win target is **70% total takeover** plus **38% paint in every town quadrant** during an 88-second run.
+Winning currently requires:
 
-## Automatic chaos
+- **70% total takeover**, and
+- at least **38% unique ground paint in every quadrant**.
 
-Normal movement paints automatically. Anger and powerups produce increasingly wild splatter and structural attacks, so the player's job is route planning rather than manual firing.
+## Town as scoreboard
 
-Powerups:
+Ground coverage uses a persistent **4px world-space raster mask**. Every circular splatter is written into that mask and only newly touched pixels increase coverage. Overlapping paint therefore cannot double-score.
 
-- **Rage Corn** — rabid speed, aggressive target seeking, rapid random splatter and heavy damage
-- **Prism Pop** — immediate radial paint explosion and structural blast
-- **Rainbow Soda** — sustained speed and wider automatic trail
+Takeover combines:
 
-Distractions:
-
-- fountains mesmerize nearby unicorns
-- flower gardens stop productive painting
-- butterflies pull unattended unicorns off course
-- the duck pond is a particularly compelling waste of everyone’s time
-- traffic can stun unicorns while also increasing anger
-
-## A more legible town
-
-v0.5 adds a named clock tower, destructible market stalls, duck pond, shop signs, crosswalks, larger buses and clearer powerup silhouettes. Buildings now read as recognizable bakery/bank/books/cafe/florist storefronts rather than anonymous rectangles.
-
-Town residents continue to flee, heckle and comment while remaining non-targets.
-
-## Precise paint coverage
-
-Coverage uses a persistent **4px world-space raster mask**. Every circular splatter is rasterized into that mask and only previously untouched mask pixels increase area, so overlapping rainbows never double-count.
-
-Takeover is currently:
-
-- **76% unique ground paint**
+- **76% unique painted area**
 - **24% weighted structural damage**
 
-## Difficulty calibration
+## Buildings now have readable identities
 
-The current v0.5 simulation gate gives a useful separation:
+Generic repeated facades were replaced by five compact architectural grammars:
 
-- passive/no-input run: about **41% takeover**, loss
-- simple two-captain route/powerup policy: about **81% takeover**, win
+- **Bakery** — warm storefront, striped awning, large display windows; relatively fragile
+- **Bank** — stone pediment and columns; substantially tougher and more valuable
+- **Books** — brick facade with tall vertical windows; medium durability
+- **Cafe** — low awning and broad glass front; easy to smash
+- **Florist** — greenhouse-like roof and flower detailing; medium-light durability
 
-This leaves a wide human skill band between surviving the controls and mastering synchronized routing.
+The town also contains the Clock Tower, market stalls, fountains, hedges, flower gardens, a duck pond, traffic, crosswalks, powerups, butterflies and reactive townspeople.
+
+## Powerups
+
+- **Rage Corn** — temporary rabid speed, large random splatter and aggressive building damage
+- **Prism Pop** — immediate radial rainbow explosion and nearby structural damage
+- **Rainbow Soda** — sustained speed and a wider paint trail
+
+Powerups respawn, so they are routing objectives rather than one-use collectibles.
 
 ## 13KB build
 
@@ -79,6 +110,11 @@ This leaves a wide human skill band between surviving the controls and mastering
 npm test
 ```
 
-The dependency-free build creates `dist/index.html` and `dist/corni-cross.zip`. CI rejects anything over **13,312 bytes**.
+The dependency-free build creates:
 
-Local v0.5 qualification: **12,859 bytes zipped**, leaving **453 bytes** before CI normalization.
+- `dist/index.html`
+- `dist/corni-cross.zip`
+
+CI rejects any competition archive larger than **13,312 bytes**.
+
+See `docs/DESIGN.md` for the agency/progression model and `docs/PLAYTEST.md` for the current qualification checklist.
