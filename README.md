@@ -1,29 +1,68 @@
 # Corni Cross
 
-**Corni Cross** is a tiny desktop arcade herding game built for the js13kGames 2026 theme **Unicorns and Rainbows**.
+**Corni Cross** is a tiny desktop arcade herding game for the js13kGames 2026 theme **Unicorns and Rainbows**.
 
-You play a Rainbow Wrangler trying to escort a rambunctious herd of semi-autonomous unicorns across a living town. The player does not directly control the herd: they whistle to attract, shoo to repel, dash to impart momentum, and build enough cohesion to trigger a Prism Burst.
+You are a Rainbow Wrangler trying to escort six semi-autonomous unicorns through rush-hour streets. You never directly command the herd. You **whistle** to attract, **shoo** to repel, **dash** to impart momentum, and build enough cohesion to trigger a traffic-slowing **Prism Burst**.
 
-## Design pillars
+## Current playable build
 
-- **Herd, don't command.** The unicorns are a small flocking simulation with distinct personalities and recoverable chaos.
-- **Readable traffic puzzle.** Cars, buses, lights, construction, pigeons, food carts and fountains combine into timing problems rather than arbitrary damage.
-- **Failure should be funny.** Collisions scatter and daze unicorns instead of killing them.
-- **Skill should become visible.** Cohesion creates rainbow chains, speed, music layers and scoring multipliers.
-- **13KB-native spectacle.** Canvas primitives, procedural animation and WebAudio synths replace image and audio assets.
+The first complete vertical slice is implemented on `agent/v0.1-playable-herd`.
 
-## Target controls
+- Six unicorn personalities with flocking, separation, wandering, food attraction and distinct speed/cohesion traits
+- Mouse-directed whistle and shoo fields
+- Momentum dash that can punch a direction through the herd
+- Cohesion-driven Rainbow Chain and Prism meter
+- Prism Burst that tightens the herd, accelerates it and slows nearby traffic
+- Increasing traffic pressure, including oversized buses
+- Crosswalks, fountains, food carts, construction cones and pigeons
+- Recoverable vehicle collisions with knockback, daze, particles, sound and screen feedback
+- Procedural Canvas 2D art, animation and rainbow trails
+- Procedural WebAudio feedback whose musical density increases with herd cohesion
+- First-run contextual tutorial, pause/mute controls, daily deterministic town seed, score and best-score persistence
+- Fully offline, single-file competition output
 
-- `WASD` / arrows: move the Wrangler
-- Mouse: aim
-- Left mouse: whistle / attract
-- Right mouse: shoo / repel
-- `Space`: rainbow dash
-- `R`: Prism Burst when charged
-- `P` / `Esc`: pause
+## Controls
 
-## Repository plan
+| Input | Action |
+| --- | --- |
+| `WASD` / arrows | Move the Wrangler |
+| Mouse | Aim |
+| Left mouse | Whistle / attract |
+| Right mouse | Shoo / repel |
+| `Space` | Rainbow dash |
+| `R` | Prism Burst when charged |
+| `M` | Mute / unmute |
+| `P` / `Esc` | Pause |
 
-Source code remains readable in `src/`. `npm run build` creates the competition-ready `dist/index.html` and `dist/corni-cross.zip`, while `npm run size` enforces the compressed 13KB budget.
+## Run locally
 
-Development is tracked through small, reviewable commits and pull requests so gameplay tuning can evolve without losing known-good states.
+```bash
+npm run dev
+```
+
+Then open `http://localhost:4173`.
+
+## Competition build
+
+```bash
+npm test
+```
+
+The dependency-free build pipeline creates:
+
+- `dist/index.html` - the complete single-file game
+- `dist/corni-cross.zip` - the js13kGames submission archive
+
+`npm run size` hard-fails if the zip exceeds **13 * 1024 = 13,312 bytes**.
+
+Current v0.1 baseline: **8,652 bytes zipped**, leaving roughly **4.6 KB** for tuning and final polish.
+
+## Design principles
+
+1. **Herd, don't command.** The player shapes a moving system rather than steering six puppets.
+2. **Chaos must be recoverable.** A bad collision creates a rescue story, not a dead run.
+3. **Skill should look beautiful.** Better play naturally creates longer rainbow trails, tighter formations, denser music and higher multipliers.
+4. **The town is a kinetic puzzle.** Traffic, geometry and distractions are tools as well as hazards.
+5. **Spend bytes on interaction.** Every visual and audio system is procedural; no image, font or audio assets are required.
+
+See [`docs/DESIGN.md`](docs/DESIGN.md) for the full interaction model and [`docs/PLAYTEST.md`](docs/PLAYTEST.md) for the qualification checklist.

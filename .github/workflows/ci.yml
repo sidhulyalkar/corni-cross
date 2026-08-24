@@ -1,0 +1,21 @@
+name: qualify-13kb
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm test
+      - name: Verify archive root
+        run: unzip -t dist/corni-cross.zip && test "$(unzip -Z1 dist/corni-cross.zip)" = "index.html"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corni-cross-submission
+          path: dist/corni-cross.zip
