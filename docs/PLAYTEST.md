@@ -1,67 +1,36 @@
-# Corni Cross Playtest / Release Checklist
+# Corni Cross v0.4 Playtest Checklist
 
-## Build integrity
+## Tutorial
 
-- [x] all four source modules pass `node --check`
-- [x] `npm run build` completes
-- [x] `npm run size` reports <= 13,312 bytes
-- [x] submission ZIP contains `index.html` at archive root
-- [x] game starts offline without network requests
+- Can a new player understand that paint is automatic without being told verbally?
+- Do they discover Shift after controlling the first unicorn?
+- Does the first powerup visibly communicate “route here, then leave it alone”?
+- Does a fountain / flower / butterfly distraction read as a problem rather than a bug?
+- Does the two-unicorn level feel useful and brief rather than like a mandatory chore?
 
-## First 60 seconds
+## Big-town readability
 
-- [ ] title makes the premise and controls legible without README context
-- [ ] first-run tutorial cannot deadlock if the player experiments early
-- [ ] whistle direction is visually understandable
-- [ ] shoo direction is visually understandable
-- [ ] dash feels materially different from normal movement
-- [ ] first crossing demonstrates why herd positioning matters
+- All six unicorns must remain visible simultaneously at common desktop aspect ratios.
+- Active-unicorn highlighting must be obvious without hiding the rest of the town.
+- Powerups and distractions must be readable at the zoomed-out scale.
+- Civilian speech should add town character without becoming visual noise.
 
-## Herd feel
+## Difficulty
 
-- [ ] individual unicorns feel related but not identical
-- [ ] cohesion does not collapse into a single overlapping blob
-- [ ] recovering one straggler is satisfying rather than tedious
-- [ ] the herd cannot permanently soft-lock behind props
-- [ ] Prism Burst creates an obvious temporary power spike
+Record paint %, structure %, four quadrant paint values, powerups collected and switching frequency.
 
-## Traffic / town
+Desired bands after learning the controls:
 
-- [ ] car paths can be read before contact
-- [ ] bus contact is dramatic but recoverable
-- [ ] fountains noticeably bend trajectories
-- [ ] food cart attraction is discoverable during normal play
-- [ ] construction meaningfully changes routing
-- [ ] pigeons add life without obscuring hazards
+- passive / very weak play: 40–55%, loss
+- novice active play: 55–65%, near miss
+- competent routing: 66–75%, win
+- strong play: 75–85%
+- exceptional: 85%+
 
-## Feedback
+## Feel questions
 
-- [ ] collisions communicate impact through motion, particles, BONK text and sound
-- [ ] Rainbow Chain state is visible at a glance
-- [ ] Prism-ready state is unmistakable
-- [ ] mute and pause work after audio has initialized
-- [ ] end screen makes improvement targets obvious
-
-## Browser pass
-
-- [x] Chromium desktop
-- [ ] Firefox desktop
-- [ ] Safari desktop if available
-- [x] 16:9 viewport
-- [ ] ultrawide viewport
-- [ ] lower-resolution laptop viewport
-- [ ] keyboard + mouse only, no touch assumptions
-
-## Automated recovery smoke test
-
-- [x] continuous eastward/whistle/dash policy completes today's deterministic route
-- [x] all six unicorns cross the finish in the smoke run
-- [x] collision-heavy run still remains recoverable (80.4 s, 19 bonks in current baseline)
-
-## Competition submission
-
-- [ ] exact final ZIP size recorded in README / release notes
-- [ ] exact Git SHA recorded with submission
-- [ ] competition-hosted draft tested, not only local build
-- [ ] screenshots taken from the exact submitted build
-- [ ] no code changes after final qualification without rebuilding and rechecking ZIP
+- Is switching a meaningful decision or just frantic key tapping?
+- Are autonomous unicorns useful without making the player irrelevant?
+- Do distractions create funny rescue moments or merely annoyance?
+- Are powerups exciting enough to justify detours?
+- Does the town feel like a place being invaded rather than a flat obstacle field?

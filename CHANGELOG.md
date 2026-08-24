@@ -1,24 +1,20 @@
 # Changelog
 
-## 0.2.0 - crossing readability and parade payoff
+## 0.4.0 - The Great Rainbow Invasion
 
-- added synchronized GO / WAIT crossing signals and traffic stop windows
-- added six-dot herd route progress plus off-screen straggler indicators
-- added explicit whistle line, cursor pulse and shoo cone feedback
-- made high Rainbow Chain slightly increase herd forward momentum
-- debounced and sweetened near-miss scoring/audio feedback
-- transformed the destination into a Rainbow Parade with spectators and confetti
-- smoke-simulated a complete all-six-home run to rule out obvious route soft locks
+- replaced manual horn/charge painting with automatic movement splatter and autonomous rage destruction
+- added a two-unicorn small-world tutorial before the six-unicorn main town
+- changed the main level to a 3200 × 1800 full-town tactical view so all unicorns remain visible
+- replaced coarse 80px paint cells with a 4px persistent raster coverage mask
+- added four-quadrant coverage requirements to prevent single-district farming
+- added Rage Corn, Prism Pop and Rainbow Soda powerups with respawning routing opportunities
+- added fountains, flower gardens and moving butterflies as productivity-stopping distractions
+- added hedges, buildings and traffic as spatial blockers
+- retained civilian fleeing, comments and provocation while keeping people non-targets
+- made high anger and frenzy automatically seek/damage nearby structures
+- calibrated passive simulation to lose and a basic switch/route policy to win
 
-## 0.1.0 - playable herd vertical slice
+## 0.3.0 - Rainbow Rampage
 
-- established dependency-free 13KB build pipeline and hard size gate
-- implemented deterministic daily town generation
-- implemented six-personality flocking herd simulation
-- implemented whistle, shoo, dash and Prism Burst interaction model
-- implemented traffic, buses, crosswalks, fountains, carts, cones and pigeons
-- implemented recoverable collision physics, particles, shake and BONK feedback
-- implemented procedural Canvas rendering and WebAudio feedback
-- implemented Rainbow Chain, Prism meter, scoring, best score and completion state
-- implemented first-run tutorial, pause and mute controls
-- added release and playtest documentation
+- pivoted from herd escorting to one-at-a-time unicorn control
+- added autonomous anger, town destruction, civilians, surface/volume scoring and multi-unicorn switching
