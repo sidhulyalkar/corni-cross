@@ -1,31 +1,33 @@
 # Changelog
 
+## 0.7.0 - Learn two, command six
+
+- removed Shift/modifier keys from gameplay; `Q` is left handoff and `Enter` is right handoff
+- intercept Ctrl/Meta/Alt combinations during active play to prevent accidental browser shortcuts
+- made Little Cross objective-gated so players must demonstrate every core lesson before graduating
+- aligned the tutorial with the permanent control teams: Bolt on WASD, Mallow on arrows
+- changed the main town into a 2 → 4 → 6 unicorn progression instead of immediate six-agent overload
+- added early skill-based wave releases plus safety timers so learning is rewarded but never blocks a run
+- extended directional handoff orders from 2.4 to 4 seconds
+- increased direct captain responsiveness and top speed
+- dimmed not-yet-released unicorns in the HUD and added wave-specific coaching
+- retuned the win gate to 68% takeover plus 35% paint in every quadrant
+- added headless regression coverage for browser-shortcut containment, tutorial gating and wave/handoff progression
+
 ## 0.6.0 - Agency and mastery
 
 - made captain facing follow player input directly so shared dashes are predictable
-- added 2.4 second directional run orders when a moving captain is handed off
-- added captain-wake influence so nearby teammates partially follow deliberate captain motion
-- made direct steering override distraction instead of suppressing player acceleration
-- added mastery callouts and score rewards for run orders, rescues, rabid handoffs, synchronized Double Prism dashes and secured districts
-- removed hidden number-key/direct-selection shortcuts so the control model stays teachable and consistent
-- increased controlled-unicorn scale and added facing/order arrows for clearer spatial reading
-- replaced repeated generic building windows with Bakery, Bank, Books, Cafe and Florist facade grammars
-- made building identity affect gameplay: banks are tougher/more valuable while cafes and bakeries are easier targets
-- rewrote title, tutorial, transition and end-state copy around steer → handoff → rescue → synchronize
-- retained precise 4px paint accounting, full-town view, powerups, distractions, civilians and quadrant win requirements
+- added directional handoff orders, captain wake and direct-control rescue
+- added mastery callouts for run orders, rescues, rabid handoffs, Double Prism and secured districts
+- replaced repeated building windows with distinct Bakery, Bank, Books, Cafe and Florist facade grammars
 
 ## 0.5.0 - Dual Captains
 
-- split the six-unicorn herd into left and right control teams
-- added simultaneous WASD + Arrow-key control
-- added shared Space dash and Double Prism scoring
-- enlarged controlled captains and enriched town landmarks
+- added simultaneous WASD + Arrow-key captains, synchronized dash and richer town landmarks
 
 ## 0.4.0 - The Great Rainbow Invasion
 
-- replaced manual painting with automatic splatter and autonomous rage
-- added the two-unicorn tutorial and full-town tactical view
-- added precise 4px paint coverage, quadrant goals, powerups and distractions
+- added autonomous splatter, precise 4px paint accounting, powerups, distractions and the full-town tactical view
 
 ## 0.3.0 - Rainbow Rampage
 

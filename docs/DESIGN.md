@@ -1,109 +1,86 @@
-# Corni Cross v0.6 Design
+# Corni Cross v0.7 Design
 
 ## Design thesis
 
-The game should generate chaos, but the **player should generate intent**.
+**Chaos proposes. The player disposes.**
 
-Random movement, traffic, civilian provocation and distractions are there to create situations. They should never make the player feel that inputs are decorative. Every time the player learns a mechanic, they gain a more powerful way to impose structure on the herd.
+Unicorn personality, traffic, civilians and distractions should continuously create funny problems, but direct input and learned techniques must be strong enough that an expert run looks visibly more intentional than a first run.
 
-## Agency ladder
+## Cognitive-load ramp
 
-### 1. Direct steering
+The game now teaches the same control architecture it later tests.
 
-WASD and Arrow keys are two simultaneous high-authority control channels. The selected captains are larger, faster, paint wider, damage more and face exactly where the player steers.
+### 1. Little Cross: two direct captains
 
-A direct captain should feel deterministic enough that failure is legible: the player chose a bad line, hit a blocker, or committed a shared dash at the wrong time.
+Bolt is permanently associated with the left/WASD channel and Mallow with the right/Arrow channel. The tutorial has no meaningful time pressure and cannot complete from paint percentage alone.
 
-### 2. Rescue
+The player must demonstrate the interaction sequence before graduation. This prevents accidental tutorial completion.
 
-Distractions are intentionally strong on unattended unicorns but weak against a controlled one. Moving a distracted captain quickly breaks the fixation and earns a RESCUE mastery event.
+### 2. Big town Wave 1: route planning
 
-This turns fountains/flowers/ponds/butterflies into an attention-economy problem instead of an input-frustration mechanic.
+Only Bolt and Mallow are active. The town is already large, but the control problem remains two-dimensional: keep both captains productive and learn where powerups, distractions and valuable structures live.
 
-### 3. Handoff order
+Wave 2 releases at 10% takeover or after a safety timeout.
 
-Cycling a moving captain does not instantly surrender it to AI. The outgoing unicorn stores the player's last facing direction and continues that route for 2.4 seconds.
+### 3. Big town Wave 2: command persistence
 
-That is the core intermediate skill:
+Daisy and Comet join. The game now introduces `Q` and `Enter` handoffs. A moving outgoing captain receives a four-second run order.
 
-1. line up a useful corridor,
-2. move with intent,
-3. Shift to hand off,
-4. immediately steer the next unicorn,
-5. return before the order expires or chaos reasserts itself.
+The preferred unlock is one successful handoff on each side. A safety timeout releases the final pair if the player never performs them.
 
-### 4. Captain wake
+### 4. Big town Wave 3: full orchestration
 
-A moving captain gently biases nearby teammates on the same side. Skilled players can therefore move a small cluster through a corridor or toward a powerup without individually possessing every unicorn.
+Bumper and Pickles join. Only now does the six-unicorn game exist.
 
-The wake is intentionally soft: it helps organization but does not turn the herd into a rigid formation.
+At this point the player has already practiced direct control, rescue, powerups and handoff persistence. The final challenge is combining those tools rather than discovering them under pressure.
 
-### 5. Powerup handoff
+## Input safety and ergonomics
 
-Powerups become most interesting when combined with the handoff system. A player should route a captain into Rage Corn or Rainbow Soda, point it toward productive geometry, then switch away while the effect continues.
+Modifier keys are no longer gameplay controls. Left Shift sat too close to Ctrl and increased accidental browser-shortcut risk under frantic play.
 
-A rabid handoff receives explicit mastery feedback.
+The ergonomic layout is:
 
-### 6. Synchronized dual dash
+- left hand: `WASD` + `Q`
+- right hand: arrows + `Enter`
+- shared action: `Space`
 
-Space remains the advanced coordination mechanic because it commits both captains at once. Their facing arrows make the setup readable.
+During `play`, Ctrl/Meta/Alt combinations are cancelled before they enter the game key state. This both avoids stale modifier state and blocks common cancellable browser shortcuts.
 
-Landing productive impacts with both during the same dash window awards DOUBLE PRISM. This is intended to be a visible skill ceiling rather than a basic requirement.
+## Agency tools
 
-## Learning progression
+### Direct steering
 
-The tutorial teaches only the verbs that are meaningful with two unicorns: steer both, dash, collect powerups, escape distractions.
+Captain input is high-authority, sets facing directly and now has higher acceleration/top speed. A player should feel responsible for a bad line rather than feel that the simulation ignored them.
 
-The transition into the six-unicorn town explicitly introduces handoff orders. The main run then teaches through immediate mastery callouts rather than long tutorial text.
+### Rescue
 
-The desired feeling is:
+Distractions are strong against unattended unicorns and intentionally weak against direct control. Reasserting control is a skill event.
 
-- first run: survive the control scheme,
-- second run: discover useful handoffs,
-- third run: deliberately rescue and powerup-handoff,
-- later runs: set two routes in parallel and synchronize Double Prism hits while closing weak districts.
+### Four-second run orders
 
-## Skill feedback
+A moving captain handed off with `Q` or `Enter` keeps its chosen heading for four seconds, continues painting and resists distractions. This makes one control channel capable of maintaining several concurrent intentions.
 
-`SKILL` events are not cosmetic achievements. They name the behaviors the score system wants the player to repeat:
+### Captain wake
 
-- RUN ORDER
-- RESCUE
-- RABID HANDOFF
-- DOUBLE PRISM
-- DISTRICT SECURED
+Nearby autonomous teammates receive a soft bias from the current captain's movement. It rewards route planning without making the herd rigid.
 
-A high takeover with few skill events should feel different from a technically sophisticated run.
+### Powerup handoff + shared dash
 
-## Town readability
+Powerups provide temporary autonomous productivity. The shared Space dash remains the high-risk/high-reward coordination mechanic, culminating in DOUBLE PRISM when both sides connect productively.
 
-The town remains one tactical screen. Spatial continuity is more important than cinematic camera movement.
+## Scoring and difficulty
 
-Each building family now has a different silhouette/facade grammar so the player can learn target value without reading every label:
+The town remains the score surface. Ground paint is authoritative at 4px resolution and structural damage is weighted by target value.
 
-- Bakery: awning + display glass
-- Bank: pediment + columns
-- Books: brick + vertical windows
-- Cafe: awning + broad storefront
-- Florist: greenhouse roof + flower strip
+Current win gate:
 
-Durability/value roughly follows visual expectation. The Bank is hard/high-value, Cafe/Bakery are easier, and the others sit between them.
+- 68% total takeover
+- 35% unique ground paint in every quadrant
+- 105 second large-town clock
 
-Large landmarks and distractions remain distinct by geometry: Clock Tower, market, circular fountains, duck pond, hedges and flower gardens.
+Deterministic local anchors for v0.7:
 
-## Difficulty philosophy
+- passive/no-input policy: roughly 34% takeover, loss
+- simple purposeful dual-route policy: roughly 89% takeover, win
 
-The game should not be won by passive simulation. A no-input herd should leave much of the town untouched.
-
-The current deterministic qualification runs show:
-
-- passive main-town policy: roughly 24% takeover, decisive loss
-- simple purposeful route/powerup policy: roughly 87% takeover, decisive win
-
-That large separation is intentional. Human tuning should determine where ordinary first-time play lands between those anchors.
-
-## Paint accuracy
-
-The paint model remains a 4px persistent raster mask. Each stamp counts only pixels that were previously untouched, and the same stamp geometry is drawn to the visible offscreen paint canvas.
-
-This keeps coverage measurement spatially meaningful while avoiding full-frame pixel scans.
+The gap is intentional. Improvement should come primarily from learned control, not favorable randomness.

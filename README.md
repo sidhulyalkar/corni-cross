@@ -1,120 +1,74 @@
 # Corni Cross
 
-**Corni Cross: The Great Rainbow Invasion** is a desktop arcade-strategy game built for the js13kGames 2026 theme **Unicorns and Rainbows**.
+**Corni Cross: The Great Rainbow Invasion** is a 13KB desktop arcade-strategy game for the js13kGames 2026 theme **Unicorns and Rainbows**.
 
-Six magical unicorns have escaped into a quaint town. They paint and wreck things automatically, but they are distractible, excitable and only loosely sensible. The player has two live control channels and learns to turn that chaos into deliberate routes.
+Six magical unicorns invade a quaint town. They paint and wreck things automatically, but the player gradually learns to turn their chaos into deliberate routes.
 
-## v0.6 control philosophy
+## v0.7 control model
 
-The core skill is no longer raw character switching. It is **steer → hand off → rescue → synchronize**.
+The game no longer uses modifier keys for gameplay.
 
 | Input | Action |
 | --- | --- |
-| `WASD` | Steer the current left-side captain |
-| Arrow keys | Steer the current right-side captain |
-| Left Shift | Hand off the left captain and rotate Bolt / Daisy / Bumper |
-| Right Shift | Hand off the right captain and rotate Mallow / Comet / Pickles |
-| `Space` | Dash both current captains in their facing directions |
+| `WASD` | Steer the left captain |
+| Arrow keys | Steer the right captain |
+| `Q` | Hand off / rotate the left team |
+| `Enter` | Hand off / rotate the right team |
+| `Space` | Dash both current captains |
 | `P` / `Esc` | Pause |
 | `M` | Mute |
-| `T` on title | Replay the tutorial |
+| `T` on title | Replay Little Cross |
 
-### Direct control should feel authoritative
+During active play Ctrl/Meta/Alt combinations are intercepted so accidental modifier presses do not trigger ordinary browser shortcuts such as save/bookmark while the game has keyboard control.
 
-A captain is visibly larger, paints wider and damages structures more strongly. Its facing direction follows player input directly, so the shared Space dash is predictable rather than being determined by collision drift.
-
-Direct steering also breaks distraction. Fountains, flowerbeds, ponds and butterflies are attention traps for unattended unicorns, not input locks for the player.
-
-### Handoff orders
-
-When a moving captain is rotated out with Shift, it receives a **2.4 second run order** in the direction the player was steering. During that window it:
-
-- keeps the chosen heading,
-- resists distractions,
-- continues painting productively,
-- remains visually marked with a white order arrow.
-
-This creates the intended plate-spinning rhythm: set a route, release it, immediately solve another problem.
-
-### Captain wake
-
-Unattended teammates near their side's current captain inherit part of the captain's motion. This gives the player a soft way to shape a small group without directly controlling all three unicorns.
-
-## Mastery feedback
-
-The game now calls out and scores learned techniques rather than only rewarding final coverage:
-
-- **RUN ORDER** — successfully hand off a moving captain for the first time on each side
-- **RESCUE** — take control of a distracted unicorn and actively pull it away
-- **RABID HANDOFF** — trigger a Rage Corn frenzy, then release that unicorn while it is still productive
-- **DOUBLE PRISM** — line up both captains and land useful impacts during the same shared dash
-- **DISTRICT SECURED** — push one of the four town quadrants over its required paint threshold
-
-The HUD tracks `SKILL` events during the run so players can see themselves learning a repeatable vocabulary rather than simply watching a percentage rise.
-
-## Two-stage learning curve
+## Learning curve
 
 ### Little Cross
 
-A tiny two-unicorn town teaches:
+The opening two-unicorn town is objective-gated rather than time-gated. It does not release the player until they have demonstrated:
 
 1. WASD steering,
-2. Arrow-key steering at the same time,
-3. the shared Space dash,
-4. powerups,
-5. distractions and rescue.
+2. Arrow-key steering,
+3. simultaneous control,
+4. the dual Space dash,
+5. powerup collection,
+6. entering a distraction,
+7. actively steering away to rescue the unicorn.
 
-Reaching 28% takeover releases the herd.
+### Big town: 2 → 4 → 6
 
-### The Great Invasion
+The large town no longer drops all six unicorns on the player immediately.
 
-The full town is 3200 × 1800 world units but stays entirely visible. The six unicorns are split into stable left and right teams, allowing the player's eyes and hands to build a spatial mental model.
+- **Wave 1:** Bolt + Mallow. Learn routes and powerups with one unicorn per hand.
+- **Wave 2:** Daisy + Comet join. `Q` and `Enter` introduce four-second directional handoff orders.
+- **Wave 3:** Bumper + Pickles arrive. The full six-unicorn invasion begins only after the player has had time to practice handoffs.
 
-Winning currently requires:
+Fast learners release later waves early. Safety timers prevent a new player from getting permanently stuck.
 
-- **70% total takeover**, and
-- at least **38% unique ground paint in every quadrant**.
+## Agency vocabulary
 
-## Town as scoreboard
+- **RUN ORDER** — hand off a moving captain; it keeps the chosen heading for four seconds.
+- **RESCUE** — directly steer a distracted unicorn away. Player input beats distraction.
+- **RABID HANDOFF** — aim a Rage Corn frenzy, then hand it off while productive.
+- **DOUBLE PRISM** — hit useful targets with both captains during one shared dash.
+- **DISTRICT SECURED** — meet a quadrant paint quota.
 
-Ground coverage uses a persistent **4px world-space raster mask**. Every circular splatter is written into that mask and only newly touched pixels increase coverage. Overlapping paint therefore cannot double-score.
+Nearby teammates also inherit a soft portion of their captain's deliberate movement, giving skilled players indirect control over more than two unicorns at once.
 
-Takeover combines:
+## Town systems
 
-- **76% unique painted area**
-- **24% weighted structural damage**
+The town includes distinct Bakery, Bank, Books, Cafe and Florist facades with different durability/value, plus the Clock Tower, market stalls, fountains, a duck pond, flower gardens, butterflies, hedges, traffic, crosswalks, powerups and reactive townspeople.
 
-## Buildings now have readable identities
+Unique paint coverage is measured with a persistent **4px world-space raster mask**. Repainting the same area never double-counts.
 
-Generic repeated facades were replaced by five compact architectural grammars:
+The current main-town target is **68% takeover** plus **35% unique paint in every quadrant** during the 105-second run.
 
-- **Bakery** — warm storefront, striped awning, large display windows; relatively fragile
-- **Bank** — stone pediment and columns; substantially tougher and more valuable
-- **Books** — brick facade with tall vertical windows; medium durability
-- **Cafe** — low awning and broad glass front; easy to smash
-- **Florist** — greenhouse-like roof and flower detailing; medium-light durability
-
-The town also contains the Clock Tower, market stalls, fountains, hedges, flower gardens, a duck pond, traffic, crosswalks, powerups, butterflies and reactive townspeople.
-
-## Powerups
-
-- **Rage Corn** — temporary rabid speed, large random splatter and aggressive building damage
-- **Prism Pop** — immediate radial rainbow explosion and nearby structural damage
-- **Rainbow Soda** — sustained speed and a wider paint trail
-
-Powerups respawn, so they are routing objectives rather than one-use collectibles.
-
-## 13KB build
+## Build and qualification
 
 ```bash
 npm test
 ```
 
-The dependency-free build creates:
+`npm test` now runs source syntax checks, a headless input/progression regression suite, the dependency-free single-file build, and the hard 13,312-byte size gate.
 
-- `dist/index.html`
-- `dist/corni-cross.zip`
-
-CI rejects any competition archive larger than **13,312 bytes**.
-
-See `docs/DESIGN.md` for the agency/progression model and `docs/PLAYTEST.md` for the current qualification checklist.
+The build creates `dist/index.html` and `dist/corni-cross.zip`, with exactly one root `index.html` in the competition archive.
