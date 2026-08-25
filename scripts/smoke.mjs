@@ -5,7 +5,7 @@ function game(){
  const ctx=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:10})},{get:(o,k)=>k in o?o[k]:(()=>{})});
  const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),addEventListener:(n,f)=>on('c:'+n,f)};
  const node=()=>({gain:{value:0,setValueAtTime(){},exponentialRampToValueAtTime(){}},frequency:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},start(){},stop(){}});class AudioContext{constructor(){this.currentTime=0;this.destination={}}createGain(){return node()}createOscillator(){return node()}}
- const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx})},addEventListener:on,requestAnimationFrame:()=>{}};vm.createContext(box);vm.runInContext(['core.js','herd.js','render.js','ui.js','top10.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
+ const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx})},addEventListener:on,requestAnimationFrame:()=>{}};vm.createContext(box);vm.runInContext(['core.js','herd.js','render.js','ui.js','top10.js','polish.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
  const ev=s=>vm.runInContext(s,box),fire=(n,e={})=>{for(const f of H[n]||[])f({code:'',repeat:false,button:0,clientX:0,clientY:0,preventDefault(){},...e})};
  const click=()=>{fire('c:mousemove',{clientX:ev('unis[caps[1]].x*z+ox'),clientY:ev('unis[caps[1]].y*z+oy')});fire('c:mousedown')};return{ev,fire,click,box};
 }
