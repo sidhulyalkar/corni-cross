@@ -12,10 +12,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - run: npm install --no-audit --no-fund
       - run: npm test
+      - name: Compression report
+        run: cat dist/compression.json
       - name: Verify archive root
         run: unzip -t dist/corni-cross.zip && test "$(unzip -Z1 dist/corni-cross.zip)" = "index.html"
       - uses: actions/upload-artifact@v4
         with:
           name: corni-cross-submission
-          path: dist/corni-cross.zip
+          path: |
+            dist/corni-cross.zip
+            dist/compression.json
