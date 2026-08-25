@@ -1,86 +1,69 @@
-# Corni Cross v0.7 Design
+# Corni Cross v0.11 Design
 
 ## Design thesis
 
 **Chaos proposes. The player disposes.**
 
-Unicorn personality, traffic, civilians and distractions should continuously create funny problems, but direct input and learned techniques must be strong enough that an expert run looks visibly more intentional than a first run.
+Unicorn personality, traffic, civilians, cleanup crews and distractions continuously create funny problems, but direct input and learned techniques must be strong enough that an expert run looks visibly more intentional than a first run.
+
+The competition-facing one-sentence game is:
+
+> Six unicorns are destroying a town. Keep them productively rampaging with short WASD route orders and moving-target Prism Chase clicks, destroy four landmark setpieces, then shatter Town Hall before the town cleans up too much of your rainbow invasion.
+
+See `TOP10_CAMPAIGN.md` for the complete current design contract.
+
+## Control architecture
+
+The game deliberately has two different control languages.
+
+### Left hand — planning
+
+`WASD` directly steers the current left captain. Releasing the final movement key while moving commits a four-second run order. The Smart Attention Director then automatically chooses the next useful left-side intervention.
+
+### Mouse — reaction
+
+The highlighted right captain is a moving arcade target. Clicking it splashes paint and launches it along a productive route. A second and third reacquisition within the chain window escalate to 2X and 3X Prism rewards.
+
+### Shared action
+
+`Space` dashes both current captains in their existing directions. It is a synchronization tool, not a required movement input.
 
 ## Cognitive-load ramp
 
-The game now teaches the same control architecture it later tests.
+The same vocabulary is learned and then combined:
 
-### 1. Little Cross: two direct captains
+1. **Little Cross:** two unicorns, direct movement, first Prism chain, powerup, distraction/rescue and Bakery objective.
+2. **Act I — The Escape:** two unicorns in the full town, route planning and landmark navigation.
+3. **Act II — Town Fights Back:** four unicorns and cleanup vans that erase rainbow progress.
+4. **Act III — Full Unicorn Emergency:** all six unicorns, increased cleanup pressure and the final landmark push.
 
-Bolt is permanently associated with the left/WASD channel and Mallow with the right/Arrow channel. The tutorial has no meaningful time pressure and cannot complete from paint percentage alone.
+## Victory and mastery
 
-The player must demonstrate the interaction sequence before graduation. This prevents accidental tutorial completion.
+Victory is concrete: complete Bakery, Market, Greenhouse and Clock Tower to remove Town Hall's shield, then destroy Town Hall.
 
-### 2. Big town Wave 1: route planning
+Paint percentage is not a hidden second win gate. It is the quality layer. Better players paint more fresh ground, finish landmarks faster, chain more Prism hits, preserve territory against cleanup and complete the campaign with more time remaining.
 
-Only Bolt and Mallow are active. The town is already large, but the control problem remains two-dimensional: keep both captains productive and learn where powerups, distractions and valuable structures live.
+## Smart Attention Director
 
-Wave 2 releases at 10% takeover or after a safety timeout.
+Selection automation removes bookkeeping, not strategy. The director favors distracted, stalled, weak-area or powerup-adjacent unicorns and deprioritizes animals already following useful orders or productively rampaging.
 
-### 3. Big town Wave 2: command persistence
+The selected captain is accompanied by an explainable reason cue so players can learn the system instead of experiencing it as random switching.
 
-Daisy and Comet join. The game now introduces `Q` and `Enter` handoffs. A moving outgoing captain receives a four-second run order.
+## World-as-HUD
 
-The preferred unlock is one successful handoff on each side. A safety timeout releases the final pair if the player never performs them.
+The town communicates state directly:
 
-### 4. Big town Wave 3: full orchestration
+- unique rainbow paint persists on the streets;
+- cleanup vans visibly erase scored paint;
+- landmarks have distinct silhouettes, beacons and health state;
+- Town Hall visibly remains locked until the outer four objectives fall;
+- landmark destruction changes the simulation;
+- soundtrack density grows with productive herd activity.
 
-Bumper and Pickles join. Only now does the six-unicorn game exist.
+HUD numbers support the town rather than replacing it.
 
-At this point the player has already practiced direct control, rescue, powerups and handoff persistence. The final challenge is combining those tools rather than discovering them under pressure.
+## Byte philosophy
 
-## Input safety and ergonomics
+Readable source remains readable. The production pipeline measures raw, Terser and Terser→Roadroller candidates and chooses the smallest final competition ZIP. Manual code golfing is a last resort, not the development model.
 
-Modifier keys are no longer gameplay controls. Left Shift sat too close to Ctrl and increased accidental browser-shortcut risk under frantic play.
-
-The ergonomic layout is:
-
-- left hand: `WASD` + `Q`
-- right hand: arrows + `Enter`
-- shared action: `Space`
-
-During `play`, Ctrl/Meta/Alt combinations are cancelled before they enter the game key state. This both avoids stale modifier state and blocks common cancellable browser shortcuts.
-
-## Agency tools
-
-### Direct steering
-
-Captain input is high-authority, sets facing directly and now has higher acceleration/top speed. A player should feel responsible for a bad line rather than feel that the simulation ignored them.
-
-### Rescue
-
-Distractions are strong against unattended unicorns and intentionally weak against direct control. Reasserting control is a skill event.
-
-### Four-second run orders
-
-A moving captain handed off with `Q` or `Enter` keeps its chosen heading for four seconds, continues painting and resists distractions. This makes one control channel capable of maintaining several concurrent intentions.
-
-### Captain wake
-
-Nearby autonomous teammates receive a soft bias from the current captain's movement. It rewards route planning without making the herd rigid.
-
-### Powerup handoff + shared dash
-
-Powerups provide temporary autonomous productivity. The shared Space dash remains the high-risk/high-reward coordination mechanic, culminating in DOUBLE PRISM when both sides connect productively.
-
-## Scoring and difficulty
-
-The town remains the score surface. Ground paint is authoritative at 4px resolution and structural damage is weighted by target value.
-
-Current win gate:
-
-- 68% total takeover
-- 35% unique ground paint in every quadrant
-- 105 second large-town clock
-
-Deterministic local anchors for v0.7:
-
-- passive/no-input policy: roughly 34% takeover, loss
-- simple purposeful dual-route policy: roughly 89% takeover, win
-
-The gap is intentional. Improvement should come primarily from learned control, not favorable randomness.
+A new byte should ideally serve more than one role: information + spectacle, objective + environment, audio + state feedback, or mechanic + tutorial.
