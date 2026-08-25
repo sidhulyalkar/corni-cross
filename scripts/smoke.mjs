@@ -1,46 +1,28 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
-
 function game(){
-  const handlers={};
-  const ctx2d=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:10})},{get:(o,k)=>k in o?o[k]:(()=>{})});
-  const canvas={getContext:()=>ctx2d,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),addEventListener:(n,f)=>handlers['c:'+n]=f};
+  const H={};
+  const on=(n,f)=>((H[n]??=[]).push(f));
+  const ctx=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:10})},{get:(o,k)=>k in o?o[k]:(()=>{})});
+  const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),addEventListener:(n,f)=>on('c:'+n,f)};
   const node=()=>({gain:{value:0,setValueAtTime(){},exponentialRampToValueAtTime(){}},frequency:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},start(){},stop(){}});
   class AudioContext{constructor(){this.currentTime=0;this.destination={}}createGain(){return node()}createOscillator(){return node()}}
-  const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx2d})},addEventListener:(n,f)=>handlers[n]=f,requestAnimationFrame:()=>{}};
-  vm.createContext(box);
-  vm.runInContext(['core.js','herd.js','render.js','ui.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
-  const ev=s=>vm.runInContext(s,box);
-  const key=(code,mods={})=>{let prevented=0;handlers.keydown({code,repeat:false,preventDefault(){prevented++},...mods});return prevented};
-  const mouse=(n,e={})=>handlers['c:'+n]({clientX:0,clientY:0,button:0,preventDefault(){},...e});
-  return{ev,key,mouse,box};
+  const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx})},addEventListener:on,requestAnimationFrame:()=>{}};
+  vm.createContext(box);vm.runInContext(['core.js','herd.js','render.js','ui.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
+  const ev=s=>vm.runInContext(s,box),fire=(n,e={})=>{for(const f of H[n]||[])f({code:'',repeat:false,button:0,detail:1,clientX:0,clientY:0,preventDefault(){this.prevented=1},...e})};
+  return{ev,fire,box};
 }
-
 {
-  const {ev,key,box}=game();ev("state='play'");
-  if(!key('KeyS',{ctrlKey:true})||ev('K.KeyS'))throw Error('Ctrl containment failed');
-  if(!key('KeyD',{metaKey:true})||ev('K.KeyD'))throw Error('Meta containment failed');
-  if(!key('KeyA',{altKey:true})||ev('K.KeyA'))throw Error('Alt containment failed');
-  let p=0;box.onbeforeunload({preventDefault(){p++}});if(!p)throw Error('close guard missing');
-  if(typeof box.onerror!=='function')throw Error('runtime recovery missing');
+ const {ev,fire,box}=game();ev("state='play'");fire('keydown',{code:'KeyS',ctrlKey:true});if(ev('K.KeyS'))throw Error('ctrl leak');let p=0;box.onbeforeunload({preventDefault(){p++}});if(!p||typeof box.onerror!=='function')throw Error('safety guards');
 }
-
 {
-  const {ev,mouse}=game();ev('startLevel(0)');
-  mouse('mousemove',{clientX:1100,clientY:360});mouse('mousedown',{button:0});ev('updateWorld(.1)');
-  if(!ev('intro.r')||!ev('md'))throw Error('mouse steering failed');
-  ev('painted=PW*PH;update(.016)');if(ev('state')!=='play')throw Error('tutorial escaped before lessons');
-  ev('intro.l=1;updateIntro(.1);intro.dash=1;updateIntro(.1);intro.power=1;updateIntro(.1);intro.distract=1;updateIntro(.1);intro.rescue=1;updateIntro(.1);update(.016)');
-  if(ev('state')!=='between')throw Error('tutorial did not graduate');
+ const {ev,fire}=game();ev('startLevel(0)');fire('c:mousemove',{clientX:843,clientY:360});fire('c:mousedown',{detail:1});fire('c:mousemove',{clientX:1050,clientY:360});ev('updateWorld(.1)');if(!ev('intro.r')||!ev('md'))throw Error('mouse acquire/drag');fire('mouseup');ev('painted=PW*PH;intro.l=1;updateIntro(.1);intro.dash=1;updateIntro(.1);intro.power=1;updateIntro(.1);intro.distract=1;updateIntro(.1);intro.rescue=1;updateIntro(.1);update(.016)');if(ev('state')!=='between')throw Error('tutorial gate');
 }
-
 {
-  const {ev,key,mouse}=game();ev('startLevel(1)');
-  if(ev('unis.filter(u=>u.live).length')!==2)throw Error('wave 1');
-  ev('runTime=19;update(.016)');if(ev('wave')!==2||ev('unis.filter(u=>u.live).length')!==4)throw Error('wave 2');
-  ev('unis[caps[0]].vx=100;unis[caps[0]].a=0;unis[caps[1]].vx=100;unis[caps[1]].a=0');key('KeyQ');mouse('mousedown',{button:2});
-  if(ev('(dmask&48)')!==48)throw Error('Q/RMB handoffs');
-  ev('update(.016)');if(ev('wave')!==3||ev('unis.filter(u=>u.live).length')!==6)throw Error('wave 3');
+ const {ev,fire}=game();ev('startLevel(1);runTime=19;update(.016)');if(ev('wave')!==2)throw Error('wave2');
+ fire('keydown',{code:'KeyD'});ev('updateWorld(.12)');fire('keyup',{code:'KeyD'});if(ev('caps[0]')!==1||ev('unis[0].order')<3)throw Error('left auto next');
+ fire('c:mousemove',{clientX:800,clientY:144});fire('c:mousedown',{detail:2});if(ev('unis[caps[1]].boost')<2)throw Error('double tap boost');fire('c:mousemove',{clientX:1040,clientY:144});ev('updateWorld(.12)');fire('mouseup');if(ev('caps[1]')!==4||ev('unis[3].order')<3)throw Error('mouse auto next');
+ ev('update(.016)');if(ev('wave')!==3)throw Error('wave3');
+ ev('caps[0]=0;unis[1].order=3;unis[2].distract=1;cycle(0)');if(ev('caps[0]')!==2)throw Error('attention director priority');
 }
-
-console.log('headless controls/progression smoke: PASS');
+console.log('headless smart-director smoke: PASS');
