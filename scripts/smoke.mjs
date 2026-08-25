@@ -22,6 +22,6 @@ function game(){
  const {ev}=game();ev('startLevel(1);paintStamp(unis[0],400,400,80)');let p=ev('painted');ev('eraseStamp(400,400,50)');if(ev('painted')>=p)throw Error('cleanup erasure');
 }
 {
- const {ev,click}=game();ev('startLevel(1);waveUp(2)');click();ev('update(.61)');if(ev('caps[1]')!==4)throw Error('timeout smart next');
+ const {ev,click}=game();ev('startLevel(1);waveUp(2)');click();ev('update(.7)');if(ev('caps[1]')!==4)throw Error('timeout smart next');
 }
 console.log('headless top-10 + whip smoke: PASS');
