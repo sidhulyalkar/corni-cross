@@ -17,10 +17,13 @@ jobs:
       - name: Compression report
         run: cat dist/compression.json
       - name: Verify archive root
-        run: unzip -t dist/corni-cross.zip && test "$(unzip -Z1 dist/corni-cross.zip)" = "index.html"
+        run: unzip -t dist/unicorn-stampede.zip && test "$(unzip -Z1 dist/unicorn-stampede.zip)" = "index.html"
+      - name: Verify browser-safe preview
+        run: test -s dist/preview.html && ! grep -q "document.write" dist/preview.html
       - uses: actions/upload-artifact@v4
         with:
-          name: corni-cross-submission
+          name: unicorn-stampede-submission
           path: |
-            dist/corni-cross.zip
+            dist/unicorn-stampede.zip
+            dist/preview.html
             dist/compression.json

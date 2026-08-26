@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.14.0 - Unicorn Stampede recovery / browser-safe preview
+
+- renamed the game from **Corni Cross** to **Unicorn Stampede**
+- replaced the text-only title with a procedural cover/title scene that visibly shows a six-unicorn rainbow stampede through a town
+- fixed the repository root so `index.html` loads the complete current module stack instead of only the original four modules
+- split release artifacts into a browser-safe self-contained `dist/preview.html` and the aggressively Roadroller-packed competition `dist/index.html`
+- added preview qualification that rejects `document.write` / dynamic `eval` in the browser-safe artifact
+- renamed the competition archive to `unicorn-stampede.zip`
+- cleaned `dist/` before every build so stale artifacts cannot masquerade as current output
+- kept the js13k compression tournament and exact packed-runtime campaign smoke as separate qualification gates
+
 ## 0.11.0 - Landmark campaign / Top-10 pass
 
 - replaced the abstract percentage-only victory with a five-landmark campaign: Bakery, Market, Greenhouse, Clock Tower, then shielded Town Hall
