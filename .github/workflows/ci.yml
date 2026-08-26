@@ -1,0 +1,29 @@
+name: qualify-13kb
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - name: Compression report
+        run: cat dist/compression.json
+      - name: Verify archive root
+        run: unzip -t dist/unicorn-stampede.zip && test "$(unzip -Z1 dist/unicorn-stampede.zip)" = "index.html"
+      - name: Verify browser-safe preview
+        run: test -s dist/preview.html && ! grep -q "document.write" dist/preview.html
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unicorn-stampede-submission
+          path: |
+            dist/unicorn-stampede.zip
+            dist/preview.html
+            dist/compression.json
