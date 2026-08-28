@@ -1,4 +1,5 @@
 let zone=S.g('ccZone')%3,runN=S.g('ccRun'),seedZone=0,pwash=[],washT=0,heli=0,wind=1,windT=0,splash=0,chains=0,crowns=0;
+const _rain=paintStamp;paintStamp=(u,x=u.x,y=u.y,r=28)=>_rain(u,x,y,r+(level?stamp:0));
 const ZN=['PRISMBOROUGH','WASHWATER BAY','CLOUDTOP HEIGHTS'],_day=today;today=()=>_day()+seedZone*173+runN*19;
 function grade(){return landWin?1+(paintPct()>[.6,.48,.54][zone])+(chains>=[2,2,3][zone]):0}
 function finishZone(){crowns=grade();let k='ccC'+zone;if(crowns>S.g(k))S.s(k,crowns)}
