@@ -19,6 +19,9 @@ function game(){
  const {ev,fire,click}=game();ev('startLevel(1)');if(ev('zone')!==0||ev('LM.length')!==5||ev("S.g('ccRun')")!==1)throw Error('prismborough/remix');let hp=ev("LM[4].os[0].hp");ev("hitObj(unis[0],LM[4].os[0],999)");if(ev("LM[4].os[0].hp")!==hp)throw Error('town hall shield');ev("LM.slice(0,-1).forEach(l=>l.os.forEach(o=>o.hp=0));hitObj(unis[0],LM[4].os[0],10)");if(ev("LM[4].os[0].hp")>=hp)throw Error('town hall unlock');ev('runTime=19;update(.016)');if(ev('wave')!==2||ev('cleaners.length')!==2)throw Error('act2 cleanup');ev('unis[0].order=3;unis[3].order=3;update(.01)');if(ev('stamp')<2)throw Error('stampede state');ev('stamp=6;cleaners[0].spray=0;updateCleaners(.01)');if(ev('cleaners[0].spray')>.17)throw Error('adaptive cleanup');fire('keydown',{code:'KeyD'});ev('updateWorld(.1)');fire('keyup',{code:'KeyD'});if(ev('caps[0]')!==1||ev('unis[0].order')<3)throw Error('left smart next');click();click();if(ev('unis[caps[1]].tap')!==2||ev('unis[caps[1]].boost')<1)throw Error('2x prism');click();if(ev('caps[1]')!==4||ev('unis[3].order')<3||ev('chains')!==1)throw Error('3x smart next/mastery');ev('update(.016)');if(ev('wave')!==3||ev('cleaners.length')!==4)throw Error('act3');ev('caps[0]=0;unis[1].order=3;unis[2].distract=1;cycle(0)');if(ev('caps[0]')!==2||ev('cueWhy[0]')!==1)throw Error('director reason');ev('hud()');
 }
 {
+ const {ev}=game();ev('startLevel(1);paintReset();stamp=0;paintStamp(unis[0],400,400,20)');let low=ev('painted');ev('paintReset();stamp=6;paintStamp(unis[0],400,400,20)');if(ev('painted')<=low)throw Error('stampede paint reward');
+}
+{
  const {ev}=game();ev('startLevel(1);paintStamp(unis[0],400,400,80)');let p=ev('painted');ev('eraseStamp(400,400,50)');if(ev('painted')>=p)throw Error('cleanup erasure');
 }
 {
