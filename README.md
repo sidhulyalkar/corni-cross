@@ -16,11 +16,11 @@ Each large world contains five landmark objectives:
 
 Destroy the first four to drop Town Hall's shield, then shatter Town Hall to conquer the world. Paint coverage, speed and successful Prism chains determine the quality of the victory and mastery crowns.
 
-## STAMP 0/6: the mastery economy
+## ACTIVE 0/6: the mastery economy
 
-`STAMP` measures how many unicorns are simultaneously doing useful work through orders, dashes, rage, boosts or active painting. It is deliberately both reward and danger.
+`ACTIVE` is the player-facing count of unicorns currently doing useful work through orders, dashes, rage, boosts or active painting. Internally, this is the stampede intensity: more productive unicorns make the herd stronger while provoking a harder cleanup response.
 
-As Stampede rises:
+As activity rises:
 
 - the herd paints wider rainbow territory;
 - the procedural soundtrack gains layers;
@@ -68,11 +68,26 @@ The whip resolves on the click. Advanced play is therefore about placing the cra
 
 Modifier keys are not gameplay controls. Ctrl/Meta/Alt combinations are filtered during play, focus loss clears held state, accidental close/reload is guarded where browsers permit it, and uncaught runtime errors recover to the title loop.
 
-## Campaign mastery ladder
+## Onboarding philosophy
+
+The game now follows a **teach when actionable** rule. It does not explain Smart Next before another unicorn exists to switch to, and it does not force optional mechanics into the opening lesson merely because they exist.
 
 ### Little Cross
 
-Objective-gated tutorial for the permanent verbs: WASD orders, Rainbow Whip spacing/timing, Prism chaining, powerups, distractions, rescue and landmark destruction.
+Little Cross is a short four-beat control lesson:
+
+1. steer Blue with `WASD`, then release to leave a route running;
+2. click Yellow's ring to crack the instant Rainbow Whip;
+3. chase Yellow for a three-hit Prism chain;
+4. smash the Bakery using the verbs you just learned.
+
+Powerups, distractions and rescue remain part of the sandbox, but they are discovered contextually rather than required before the player can reach the main game.
+
+### Main-town escalation
+
+Prismborough begins with one Blue and one Yellow unicorn. At **four unicorns**, switching becomes possible and the HUD explicitly teaches the handoff. At **all six**, the player is told to keep the other four running while continuing to break landmarks. Early switch callouts name both sides of the transfer, for example `BLUE → DAISY • BOLT RUNS`.
+
+## Campaign mastery ladder
 
 ### Prismborough
 
@@ -98,7 +113,7 @@ Mastery goals: conquer Town Hall, 48% final paint, 2 successful 3X chains.
 
 **Skill: prediction**
 
-Periodic crosswinds bias every unicorn's motion, Rainbow Whips launch farther, and the follow-up chain window becomes tighter. Higher Stampede levels strengthen the wind, turning successful orchestration into a harder target-leading problem.
+Periodic crosswinds bias every unicorn's motion, Rainbow Whips launch farther, and the follow-up chain window becomes tighter. Higher activity strengthens the wind, turning successful orchestration into a harder target-leading problem.
 
 Time: **90 s**
 
@@ -171,7 +186,7 @@ The smallest valid artifact wins. The exact competition artifact is then execute
 npm test
 ```
 
-The test contract includes source syntax, gameplay regressions, six-unicorn briefing/switching copy, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, Stampede risk/reward, mastery accounting, release-pruning checks, browser-safe preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
+The test contract includes source syntax, the four-step tutorial, contextual switch teaching, Blue/Yellow handoff explanations, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, activity risk/reward, mastery accounting, release-pruning checks, browser-safe preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
 
 GitHub Actions uploads the exact submission ZIP, browser-safe preview and compression report for every qualified head.
 
