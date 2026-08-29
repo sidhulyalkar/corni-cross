@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0 - Six-unicorn control clarity / smaller competition shell
+
+- made the title state the actual mental model: **6 unicorns, control 2, 4 keep running**
+- split the roster clearly into Blue direct steering and Yellow Rainbow Whip control
+- made Blue handoff explicit: `WASD → release → route → next Blue`
+- made Yellow handoff explicit: `3X Prism → next Yellow`, with chain timeout also rotating Yellow automatically
+- added short `BLUE → name` / `YELLOW → name` handoff callouts and opening HUD reminders so switching is learned during play rather than only from a manual
+- corrected documentation to match the current instant-on-click Rainbow Whip instead of the older delayed-travel description
+- retained the v0.17 deterministic low-speed WASD release, rounded anti-stuck town boundary and HUD avoidance behavior
+- stripped nonessential title metadata and preview-only CSS behavior from the competition shell while keeping the browser-safe preview unchanged
+- extended packed-runtime qualification to require the six-unicorn / next-Blue / next-Yellow briefing contract
+- qualified the exact v0.18 gameplay head at **13,292 / 13,312 bytes**, leaving **20 bytes free**
+
 ## 0.14.0 - Unicorn Stampede recovery / browser-safe preview
 
 - renamed the game from **Corni Cross** to **Unicorn Stampede**
