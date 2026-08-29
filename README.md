@@ -2,7 +2,7 @@
 
 **Unicorn Stampede** is a single-file desktop arcade-strategy game for js13kGames 2026 and the theme **Unicorns and Rainbows**.
 
-Six semi-autonomous unicorns escape into increasingly hostile towns. Your job is not to micromanage all six. Make short, decisive interventions, leave useful routes running, crack a delayed Rainbow Whip beside moving unicorns, trust the Smart Attention Director to surface the next problem, and turn each town into a rainbow catastrophe before its cleanup response contains the herd.
+Six semi-autonomous unicorns escape into increasingly hostile towns. Your job is not to micromanage all six. Make short, decisive interventions, leave useful routes running, crack an instant Rainbow Whip beside moving unicorns, trust the Smart Attention Director to surface the next problem, and turn each town into a rainbow catastrophe before its cleanup response contains the herd.
 
 ## The objective
 
@@ -32,20 +32,31 @@ The design target is a readable arcade heat system: expert orchestration makes t
 
 ## Controls
 
+### Six-unicorn control model
+
+The herd contains six distinct unicorns, but only two direct-control slots are active at once:
+
+- **Blue roster — Bolt, Daisy, Bumper.** Hold `WASD` to steer the current Blue unicorn. Releasing the final movement key commits the outgoing unicorn to a route, then Smart Next selects another live Blue-roster unicorn when one is available.
+- **Yellow roster — Mallow, Comet, Pickles.** Crack the yellow-ring Rainbow Whip around the current Yellow unicorn. Completing a 3-hit Prism chain immediately hands Yellow control to the next live Yellow-roster unicorn; letting the chain timer expire also triggers Smart Next.
+- **Everyone else keeps running.** Other live unicorns remain semi-autonomous, following a committed route or their local AI. The campaign introduces this gradually as the herd grows **2 → 4 → 6**.
+
+So the player is orchestrating six characters without juggling six simultaneous input schemes: direct two, leave useful work behind, then rotate attention.
+
 ### Left hand: route planning
 
-- Hold `WASD` to directly steer the current left-side captain.
+- Hold `WASD` to directly steer the current Blue captain.
 - Release the final movement key while moving to commit a short run order.
-- The Smart Attention Director automatically selects the next left-side unicorn that most needs intervention.
+- The Smart Attention Director selects the next live Blue-roster unicorn that most needs intervention when another is available.
 
 ### Mouse: Rainbow Whip / Prism Chase
 
-- Aim slightly **beside** the highlighted right-side captain, inside the visible whip orbit.
-- Click to crack a rainbow lash toward the moving unicorn.
+- Aim slightly **beside** the highlighted Yellow captain, inside the visible whip orbit.
+- Click to crack the Rainbow Whip instantly from that point toward the moving unicorn.
 - A successful hit splashes paint and launches the unicorn away from the whip origin.
 - Reacquire it before the shrinking chain arc expires for 2X and 3X Prism rewards.
+- A completed 3X chain rotates Yellow immediately; an expired chain rotates Yellow when its timer closes.
 
-The whip has real travel time, so advanced play is about leading the moving target rather than clicking its current position.
+The whip resolves on the click. Advanced play is therefore about placing the crack beside a moving target so the launch vector sends it somewhere useful, then deciding whether another Prism hit is worth chasing before the handoff.
 
 ### Shared
 
@@ -143,6 +154,7 @@ Readable source stays modular. Release code is aggressively transformed only dur
 The tournament currently compares combinations of:
 
 - release pruning of superseded interaction and UI layers;
+- competition-only shell/CSS stripping that leaves the readable preview untouched;
 - multi-pass Terser;
 - narrow and wider safe internal-property mangling;
 - release-only integer enums for internal object, powerup, landmark and game-state strings;
@@ -159,7 +171,7 @@ The smallest valid artifact wins. The exact competition artifact is then execute
 npm test
 ```
 
-The test contract includes source syntax, gameplay regressions, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, Stampede risk/reward, mastery accounting, release-pruning checks, browser-safe preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
+The test contract includes source syntax, gameplay regressions, six-unicorn briefing/switching copy, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, Stampede risk/reward, mastery accounting, release-pruning checks, browser-safe preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
 
 GitHub Actions uploads the exact submission ZIP, browser-safe preview and compression report for every qualified head.
 
