@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.19.0 - Teach when actionable / faster fun
+
+- shortened Little Cross from seven mandatory lessons to four core beats: Blue steer/release, Yellow Whip, 3X Prism, then smash the Bakery
+- removed mandatory powerup, distraction and rescue chores from the tutorial; those mechanics remain discoverable in normal play
+- lowered tutorial Bakery durability so the control lesson ends with a quick destructive payoff instead of a grind
+- stopped advertising Smart Next before another Blue or Yellow unicorn is actually live
+- made the four-unicorn arrival explicitly announce that switching is now available
+- made early switch callouts explain both sides of the handoff, e.g. `BLUE → DAISY • BOLT RUNS`
+- changed the HUD's opaque `STAMP` label to the clearer `ACTIVE` count
+- changed landmark celebrations to concrete progress such as `BAKERY SMASHED • 1/4`
+- reinforced the six-unicorn escalation with `ALL 6 • KEEP 4 RUNNING!`
+- added regressions for the shorter tutorial, switch-arrival teaching and Blue/Yellow handoff explanations
+
 ## 0.18.0 - Six-unicorn control clarity / smaller competition shell
 
 - made the title state the actual mental model: **6 unicorns, control 2, 4 keep running**
