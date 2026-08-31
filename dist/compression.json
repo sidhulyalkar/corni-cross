@@ -1,0 +1,122 @@
+[
+  {
+    "variant": "road-enum-wide+zopfli",
+    "html": 17455,
+    "zip": 13193
+  },
+  {
+    "variant": "road-enum-wide-hard+zopfli",
+    "html": 17457,
+    "zip": 13193
+  },
+  {
+    "variant": "road-enum-wide+zopfli+adv",
+    "html": 17455,
+    "zip": 13193
+  },
+  {
+    "variant": "road-enum-wide-hard+zopfli+adv",
+    "html": 17457,
+    "zip": 13193
+  },
+  {
+    "variant": "road-enum-wide+adv",
+    "html": 17455,
+    "zip": 13197
+  },
+  {
+    "variant": "road-enum-wide-hard+adv",
+    "html": 17457,
+    "zip": 13197
+  },
+  {
+    "variant": "road-wide+zopfli",
+    "html": 17563,
+    "zip": 13271
+  },
+  {
+    "variant": "road-wide+zopfli+adv",
+    "html": 17563,
+    "zip": 13271
+  },
+  {
+    "variant": "road-wide+adv",
+    "html": 17563,
+    "zip": 13273
+  },
+  {
+    "variant": "road-enum-wide",
+    "html": 17455,
+    "zip": 13292
+  },
+  {
+    "variant": "road-enum-wide-hard",
+    "html": 17457,
+    "zip": 13299
+  },
+  {
+    "variant": "road-props+adv",
+    "html": 17632,
+    "zip": 13323
+  },
+  {
+    "variant": "road-unsafe-props+adv",
+    "html": 17668,
+    "zip": 13352
+  },
+  {
+    "variant": "road-wide",
+    "html": 17563,
+    "zip": 13389
+  },
+  {
+    "variant": "road-safe+adv",
+    "html": 17737,
+    "zip": 13407
+  },
+  {
+    "variant": "road-props",
+    "html": 17632,
+    "zip": 13443
+  },
+  {
+    "variant": "road-unsafe-props",
+    "html": 17668,
+    "zip": 13475
+  },
+  {
+    "variant": "road-safe",
+    "html": 17737,
+    "zip": 13532
+  },
+  {
+    "variant": "terser-enum-wide",
+    "html": 39994,
+    "zip": 16446
+  },
+  {
+    "variant": "terser-wide",
+    "html": 40600,
+    "zip": 16581
+  },
+  {
+    "variant": "terser-unsafe-props",
+    "html": 40496,
+    "zip": 16607
+  },
+  {
+    "variant": "terser-props",
+    "html": 40813,
+    "zip": 16617
+  },
+  {
+    "variant": "terser-safe",
+    "html": 41660,
+    "zip": 16732
+  },
+  {
+    "variant": "raw",
+    "html": 47812,
+    "zip": 17852
+  }
+]
