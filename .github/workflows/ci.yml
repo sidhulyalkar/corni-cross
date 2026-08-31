@@ -19,12 +19,14 @@ jobs:
         run: cat dist/compression.json
       - name: Verify archive root
         run: unzip -t dist/unicorn-stampede.zip && test "$(unzip -Z1 dist/unicorn-stampede.zip)" = "index.html"
-      - name: Verify browser-safe preview
-        run: test -s dist/preview.html && ! grep -q "document.write" dist/preview.html
+      - name: Verify browser-safe local build
+        run: test -s dist/local.html && ! grep -q "document.write" dist/local.html && cmp dist/local.html dist/preview.html
       - uses: actions/upload-artifact@v4
         with:
-          name: unicorn-stampede-submission
+          name: unicorn-stampede-dist
           path: |
+            dist/local.html
             dist/unicorn-stampede.zip
+            dist/index.html
             dist/preview.html
             dist/compression.json
