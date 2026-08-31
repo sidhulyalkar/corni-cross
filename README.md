@@ -1,246 +1,247 @@
 # 🦄 Unicorn Stampede
 
-**A six-unicorn arcade-strategy riot built for js13kGames 2026.** You directly control only two unicorns at a time. The other four keep running the routes and impulses you leave behind, so the game becomes a fast loop of **steer → release → whip → switch → improvise** while an increasingly alarmed town tries to clean up your rainbow catastrophe.
+**A six-unicorn arcade-strategy score chase built for js13kGames 2026.** You directly control two unicorns at a time while the others keep executing the routes and impulses you leave behind. The rhythm is **steer → release → whip → switch → improvise**, then do it faster and cleaner than everyone else.
 
 <p align="center">
-  <img src="docs/how-to-play.svg" alt="Unicorn Stampede visual how-to-play guide" width="100%" />
+  <img src="docs/how-to-play.svg" alt="Unicorn Stampede competitive how-to-play guide" width="100%" />
 </p>
 
 ## 🎮 Play it
 
-The repository now keeps the **qualified `dist/` build on `main`**, so you do not need Node just to try the game:
+On `main`, the repository keeps a qualified `dist/` snapshot:
 
-- **`dist/local.html`** — recommended human-playable build. Download it and open it in a desktop browser.
-- **`dist/unicorn-stampede.zip`** — exact js13k submission archive, containing one root `index.html`.
-- **`dist/index.html`** — aggressively compressed competition HTML.
-- **`dist/preview.html`** — browser-safe self-contained build, byte-identical to `local.html`.
-- **`dist/compression.json`** — compression provenance for the checked-in submission.
+- **`dist/local.html`** — recommended standalone playable build.
+- **`dist/unicorn-stampede.zip`** — exact js13k submission archive.
+- **`dist/index.html`** — aggressively packed competition HTML.
+- **`dist/preview.html`** — browser-safe self-contained build.
+- **`dist/compression.json`** — exact compression/size provenance.
 
-The checked-in `dist/` is generated from the green `main` build. Do not hand-edit it; change `src/`, qualify the game, then refresh `dist/` from the successful build.
+The current v0.21 work lives in draft PR #10 until its score economy and 13 KB package are qualified.
 
 ## ⚡ The 20-second mental model
 
 You have **six unicorns**, but only two direct-control roles:
 
-| Role | Unicorns | You do | When you let go |
+| Role | Unicorns | Your input | What happens next |
 | --- | --- | --- | --- |
-| 🔵 **Blue** | Bolt, Daisy, Bumper | Hold **WASD** to steer | Releasing the final movement key leaves that unicorn running its route and Smart Next can hand you another Blue |
-| 🟡 **Yellow** | Mallow, Comet, Pickles | Aim the rainbow-whip cursor beside the highlighted Yellow and **click** | A **3X Prism** chain, or chain timeout, rotates control to another Yellow |
-| 🌈 **Everyone else** | the other live unicorns | Let them work | They keep moving semi-autonomously from your last useful setup |
+| 🔵 **Blue** | Bolt, Daisy, Bumper | Hold **WASD** | Release the final key to leave that unicorn running and rotate attention |
+| 🟡 **Yellow** | Mallow, Comet, Pickles | Aim beside Yellow and **click** | The Rainbow Whip launches it away from the cursor; 3X Prism rotates Yellow |
+| 🌈 **Others** | everyone not currently selected | none | They keep following useful routes / local AI |
 
-The campaign teaches this as **2 → 4 → 6 unicorns**. You are not supposed to perfectly micromanage the herd. You are supposed to create useful motion, leave it behind, and jump to the next interesting problem.
+The campaign introduces this as **2 → 4 → 6**. You are not meant to micromanage six characters. You are meant to create useful motion, leave it alive, and jump to the next high-value problem.
 
 ## 🕹️ Controls
 
 ### Blue: route planning
 
-- **W / A / S / D** — directly steer the current Blue unicorn.
-- **Release the last held WASD key** — commit its current run direction and rotate to the next useful Blue when another is live.
-- Think of release as **“keep doing that while I solve something else.”**
+- **W / A / S / D** — steer the current Blue unicorn.
+- **Release the last held movement key** — commit its current direction and let it keep running.
+- When another Blue is available, Smart Next can hand your control to the unicorn that most needs intervention.
 
-### Yellow: Rainbow Whip
+Think: **“that route is good enough; what else can I improve?”**
 
-- Move the mouse. The cursor is a large **coiled rainbow whip**; its white center is the exact strike origin.
-- Aim **beside** the highlighted Yellow unicorn, inside its glowing orbit.
-- **Left click** — crack the whip instantly. Yellow launches *away from the cursor*, so your aim controls the launch vector.
-- Hit again before the chain timer expires for **2X**, then **3X Prism**.
-- **3X Prism** gives the biggest smash/paint payoff and rotates control to another Yellow.
+### Yellow: Rainbow Whip / Prism Chase
+
+- Move the mouse. The large coiled rainbow cursor is your Whip; its white center is the exact strike origin.
+- Aim **beside** the highlighted Yellow unicorn, inside the glowing orbit.
+- **Left click** — crack instantly. Yellow launches *away from your cursor*, so position is direction.
+- Reacquire and hit again for **2X**, then **3X Prism**.
+- 3X gives a strong reward and rotates control to another Yellow.
+
+The best Whip is rarely just a hit. It should launch Yellow toward useful paint, a landmark, a powerup, a cleaner, or the next route.
 
 ### Shared / utility
 
-- **Space** — dash both currently controlled unicorns.
-- **A / D on the title screen** — choose an unlocked campaign world.
-- **P** or **Esc** — pause.
+- **Space** — dash both current captains.
+- **A / D on the title** — select an unlocked campaign world.
+- **L on title/results** — open the top-50 leaderboard.
+- **P** or **Esc** — pause. `Esc` also closes the leaderboard.
 - **M** — mute/unmute.
-- **T on the title screen** — replay the Little Cross tutorial.
+- **T on title** — replay Little Cross.
 
-## 🏙️ How you win
+## 🏙️ Conquest is not the same as a good score
 
-Every full town has five landmarks:
+Every town has five landmark objectives:
 
-1. **Bakery**
-2. **Market**
-3. **Greenhouse**
-4. **Clock Tower**
-5. **Town Hall**
+1. Bakery
+2. Market
+3. Greenhouse
+4. Clock Tower
+5. Town Hall
 
-The Town Hall begins shielded. **Destroy the first four landmarks to drop the shield, then smash Town Hall.**
+Town Hall now has **two locks**:
 
-A basic Town Hall conquest advances the campaign. Better runs earn up to **★★★** by combining the win with strong rainbow territory coverage and successful Prism chains.
+1. destroy the first four landmarks;
+2. reach at least **28% combined town chaos** from paint coverage + structural destruction.
 
-## 🌪️ How the game is meant to feel
+Only then can Town Hall be smashed to complete the conquest.
 
-The fun is not “drive one unicorn perfectly.” It is **controlled chaos**.
+That rule exists because landmark sniping should not be enough. A player who races through five buildings while barely affecting the rest of the town can finish, but cannot produce an elite leaderboard run.
 
-A satisfying sequence looks like this:
+## 🏁 Competitive score
 
-1. Send Bolt down a useful street with WASD.
-2. Release him so he keeps working.
-3. Immediately jump your attention to Mallow.
-4. Crack the whip from an angle that launches her toward a landmark.
-5. Chase the 2X/3X opportunity if it is worth it.
-6. Notice a cleaner erasing an important district.
-7. Switch back to Blue, intercept it, then abandon that unicorn on another productive route.
-8. Use `Space` when both current captains can convert one button press into two useful interventions.
+Your final score combines **six different kinds of skill** instead of rewarding one exploit:
 
-You should frequently be thinking **“that one is fine for now, what can I make happen somewhere else?”**
+- **Speed** — every second left is worth points.
+- **Paint coverage** — spread the stampede across the map.
+- **Structural destruction** — wreck more than the five mandatory objectives.
+- **Prism execution** — successful 3X chains matter, with a cap to prevent farming.
+- **Orchestration** — maintaining a high average `ACTIVE` herd is valuable.
+- **Counterplay** — stunning cleanup vehicles matters.
+- **Stampede+ routing** — Prism Gates add optional score and speed opportunities.
 
-## 🧠 Strategies to discover
+The live HUD shows a projected score and score class while you play, so you can see immediately whether a decision is improving the run.
 
-### 1. Route-and-rotate
+### Score classes
 
-Do not keep steering Blue after the route is already useful. The moment a unicorn is headed somewhere productive, **release and spend your attention elsewhere**. Strong play comes from several acceptable plans running at the same time, not one perfect plan.
+| Tier | Score | What it means |
+| --- | ---: | --- |
+| **LOW** | `< 120,000` | A clear or partial run with little optimization |
+| **MEDIUM** | `120,000–189,999` | Solid play with some speed / territory / combo quality |
+| **HIGH** | `190,000–259,999` | Strong multi-system execution |
+| **HIGHER** | `260,000–339,999` | Expert orchestration |
+| **HIGHEST** | `340,000+` | Record-hunting territory |
 
-### 2. Whip for direction, not just damage
+The exact formula is documented in [`docs/COMPETITIVE_SCORING.md`](docs/COMPETITIVE_SCORING.md).
 
-The Rainbow Whip is a vector tool. Clicking to the left of Yellow sends it right; cracking below it sends it upward. A well-angled whip can simultaneously:
+These bands are goals, not fixed population percentiles. Once enough real leaderboard runs exist, we can recalibrate the labels from the observed distribution without changing the underlying score ordering.
 
-- continue a Prism chain;
-- cross a weakly painted district;
-- collide with a landmark;
-- hit a powerup;
-- stun a cleanup vehicle while boosted;
-- set up the next autonomous run.
+## 🌍 World progression
 
-The best crack is usually the one whose **aftermath** is useful.
+Winning a world advances directly into the next one. The results screen explicitly tells you what comes next.
 
-### 3. Know when *not* to chase 3X
+### 1. Prismborough — orchestration
 
-3X Prism is powerful, but tunnel vision is expensive. If another unicorn is stalled, a landmark is nearly broken, or cleanup is deleting your best territory, abandoning a chain can be correct. The game rewards attention management more than ritual completion.
+The baseline exam. Learn to keep multiple useful plans alive while traffic, cleanup, distractions, and landmarks compete for attention.
 
-### 4. Treat `ACTIVE` as your heat meter
+- **100 seconds**
+- score multiplier **×1.00**
 
-`ACTIVE 5/6` means five unicorns are currently doing useful work through routes, boosts, frenzy, dashes, or active painting.
+### 2. Washwater Bay — defend success
 
-Higher activity gives you more paint and momentum, **but the city fights back harder**. Cleaners accelerate their response, Washwater becomes more aggressive, and Cloudtop winds become nastier. High `ACTIVE` is both power and danger.
+Powerwashers and a helicopter attack areas where you are doing well. Helicopter drops are telegraphed, so strong players can reroute before impact or reclaim the area immediately afterward.
 
-### 5. Choose landmark order tactically
+- **94 seconds**
+- score multiplier **×1.12**
 
-You only need all four outer landmarks before Town Hall, but their side effects make order matter:
+### 3. Cloudtop Heights — prediction
 
-- **Market** drops useful powerups.
-- **Greenhouse** creates a burst of visual/territory momentum.
-- **Clock Tower** raises herd anger and can help turn the closing phase into a rampage.
-- **Bakery** is a straightforward early target and a good place to build rhythm.
+Crosswinds bias the entire herd, Whips launch farther, and the chain window tightens. This is the first world where prediction becomes as important as reaction.
 
-There is no single correct order. Your current routes and where the herd already is should influence the plan.
+- **90 seconds**
+- score multiplier **×1.25**
 
-### 6. Weaponize cleanup
+### 4. Stampede+ — record hunting
 
-Cleanup vans are not merely obstacles. A boosted, dashing, or frenzied unicorn can **stun** them. That creates a tactical choice: spend momentum smashing the objective, or temporarily remove the thing erasing your score and territory.
-
-### 7. Use the Smart Attention Director as a suggestion, not an autopilot
-
-When control rotates, the game can surface reasons such as:
-
-- `DISTRACTED`
-- `WEAK AREA`
-- `POWERUP`
-- `STALLED`
-- `NEXT`
-
-That is an attention hint. You still decide what the intervention should be.
-
-### 8. Build two-fire `Space` moments
-
-`Space` dashes both current captains. Instead of pressing it whenever it is available, look for moments where **both Blue and Yellow are pointed at something valuable**. One key press can then become two collisions, two escapes, or two territory pushes.
-
-## 🌍 Campaign worlds
-
-### Prismborough — orchestration
-
-The baseline town. Learn to keep multiple plans alive while traffic, cleanup, distractions, and five landmark objectives compete for your attention.
-
-- Time: **100 s**
-- Mastery: Town Hall + 60% paint + 2 Prism chains
-
-### Washwater Bay — defend success
-
-Powerwashers and a helicopter attack the areas where you are doing best. The helicopter telegraphs its drops, so you can route away, reclaim territory, or use the attack as a cue to pressure somewhere else.
-
-- Time: **94 s**
-- Mastery: Town Hall + 48% paint + 2 Prism chains
-
-### Cloudtop Heights — prediction
-
-Crosswinds push the whole herd, Rainbow Whips launch farther, and chain timing gets tighter. The better your stampede is doing, the stronger the wind pressure becomes.
-
-- Time: **90 s**
-- Mastery: Town Hall + 54% paint + 3 Prism chains
-
-## ✨ Stampede+
-
-Conquering Cloudtop unlocks an encore loop instead of ending the game.
-
-Stampede+ recombines mechanics you already learned:
+Conquering Cloudtop unlocks the encore loop. Prismborough, Washwater, and Cloudtop cycle again with mixed pressure:
 
 - six fewer seconds;
 - an extra cleanup van immediately;
 - 10% faster traffic;
-- roaming gusts in Prismborough and Washwater;
-- four optional **Prism Gates**.
+- roaming gusts in earlier worlds;
+- four optional **Prism Gates**;
+- an additional **×1.15 score multiplier**.
 
-Route any live unicorn through a Prism Gate to collect it for **score + a temporary speed boost**. Gates are deliberately made from the same tiny canvas primitives used elsewhere, so they function as scenery, navigation, collectibles, and route-planning temptations without adding image assets.
+Harder worlds therefore pay more for the same underlying skill. Serious record hunting should naturally migrate from Prismborough toward Cloudtop and Stampede+ instead of farming the easiest map forever.
 
-## 👑 Three-crown mastery and replaying
+## 🏆 Top-50 leaderboard
 
-One crown is enough to progress. Additional crowns reward better territory control and Prism execution. Your best crowns persist per world, so replaying is about becoming better at the system rather than grinding stats.
+The hosted/local build includes a leaderboard layer **outside the 13 KB competition payload**.
 
-Each attempt also advances a deterministic remix seed. Buildings, civilians, local geometry, and several landmark placements vary while the strategic grammar stays recognizable: **same exam, different questions**.
+- Finish a conquest and your run metrics are recorded.
+- Press **L** from the title or results screen to view the top 50.
+- A reachable shared service is labeled **GLOBAL TOP 50**.
+- If the service is unavailable, the game falls back to this browser's saved scores and clearly labels them **LOCAL TOP 50**.
 
-## 🦄 Meet the herd
+The leaderboard payload stores the score *and* the underlying metrics: world, time, paint, destruction, Prism chains, average ACTIVE, cleanup stuns, Prism Gates, duration, and game version.
 
-The six unicorns share the same core rules but have different movement/impact tendencies:
+A real public leaderboard must **recompute the score server-side** rather than trust the submitted number. The client contract is implemented in `src/leaderboard.js`; persistent global storage is intentionally separate from the js13k game payload.
 
-- 🔵 **Bolt** — quick and eager to cover ground.
-- 🔵 **Daisy** — steadier and easier to place precisely.
-- 🔵 **Bumper** — heavier destructive personality.
-- 🟡 **Mallow** — controlled Whip target with a tighter feel.
-- 🟡 **Comet** — fast, energetic Prism chaser.
-- 🟡 **Pickles** — wilder movement and stronger momentum.
+## 🌪️ How the game should feel
 
-You do not need to memorize a stat sheet. Their differences are meant to become something you *feel* and exploit over repeated runs.
+A strong sequence might look like this:
 
-## 🧪 Tutorial philosophy
+1. steer Bolt toward the Market;
+2. release him before he arrives so he keeps doing useful work;
+3. Whip Mallow from below-left so her 2X launch crosses an unpainted district and clips the Greenhouse;
+4. abandon the 3X chase because a cleaner is deleting your strongest territory;
+5. rotate Blue, stun the cleaner while boosted, and send that unicorn toward the Clock Tower;
+6. use `Space` only when both current captains can turn the dash into value;
+7. glance at the projected score and decide whether the run needs more speed, more destruction, or more ACTIVE herd time;
+8. break Town Hall only when ending now is worth more than squeezing extra score from the remaining seconds.
 
-**Little Cross** is intentionally short and teaches only mechanics that are immediately actionable:
+The tension is deliberate: **finishing earlier preserves the time bonus, but staying longer may earn paint, damage, Prism, ACTIVE, and cleanup points.** The best run finds the frontier between those incentives.
 
-1. steer Blue with WASD and release to leave it working;
-2. click Yellow's ring to crack the Whip;
+## 🧠 Strategies worth learning
+
+### Route-and-rotate
+
+Once Blue has a productive trajectory, stop babysitting it. Release it and solve another problem. High scores depend on several acceptable plans existing simultaneously.
+
+### Aim Whips for aftermath
+
+Cursor placement determines Yellow's launch vector. Use one crack to satisfy multiple objectives: continue a chain, cross weak territory, collide with an objective, grab a powerup, or intercept cleanup.
+
+### Do not worship 3X
+
+Prism chains are valuable, but they are capped and opportunity cost matters. Dropping a chain to save a district or finish a critical route can be the higher-scoring decision.
+
+### Treat `ACTIVE` as a mastery meter
+
+A high `ACTIVE` count means several unicorns are currently productive. That directly contributes to competitive score, but it also causes stronger pressure. You are rewarded for sustaining success under the consequences of success.
+
+### Destroy beyond the objective list
+
+Mandatory landmarks get you through the campaign; broad structural destruction gets you up the board. The town itself is part of the score surface.
+
+### Fight cleanup when the math says so
+
+A cleaner stun scores directly *and* protects painted territory. A perfectly timed intercept can therefore pay twice.
+
+### Use harder worlds when you are ready
+
+Washwater, Cloudtop, and Stampede+ multiply the same core score. Learn the route grammar in Prismborough, then carry it into environments that pay more because they demand more.
+
+## 🧪 Little Cross tutorial
+
+The tutorial deliberately teaches only the permanent verbs:
+
+1. steer Blue with WASD and release it;
+2. crack Yellow with the Whip;
 3. complete a 3X Prism chase;
 4. smash the Bakery.
 
-Powerups, distractions, rescue, cleanup, world hazards, and advanced routing are learned through the actual campaign instead of front-loading a manual.
+The campaign then teaches attention switching, cleanup, world hazards, score chasing, and advanced routing through play rather than through a wall of instructions.
+
+## 🦄 The herd
+
+- 🔵 **Bolt** — fast coverage.
+- 🔵 **Daisy** — steadier placement.
+- 🔵 **Bumper** — heavier impact.
+- 🟡 **Mallow** — controlled Whip target.
+- 🟡 **Comet** — quick Prism chaser.
+- 🟡 **Pickles** — wilder momentum.
+
+Their differences are intended to become something you feel and exploit rather than a stat sheet you must memorize.
 
 ## 🛠️ Development
-
-Readable source stays modular under `src/`.
 
 ```bash
 npm install
 npm run build:fast   # quick browser-safe dist/local.html
-npm test             # full behavioral + compression + packed-runtime qualification
+npm test             # behavior + competitive + compression + packed-runtime qualification
 npm run build        # full compression tournament
 ```
 
-The repository root `index.html` is the readable development entrypoint. For quick human testing, use `dist/local.html`.
+Readable gameplay source lives in `src/`. The leaderboard host layer is also readable source but is excluded from the 13 KB packed game.
 
-### Build pipeline
+The submission build compares Terser/property-mangling/Roadroller/DEFLATE/AdvZIP/Zopfli variants and selects the smallest valid archive. `dist/unicorn-stampede.zip` must remain below the **13,312-byte** js13k limit; `dist/compression.json` is the authoritative size record for a qualified snapshot.
 
-The submission build compares several Terser / property-mangling / Roadroller / DEFLATE / AdvZIP / Zopfli combinations and selects the smallest artifact that still passes the packed-runtime smoke tests.
-
-The checked-in `dist/unicorn-stampede.zip` is required to remain below the **13,312-byte** js13k limit. The compression search has a small stochastic component, so **`dist/compression.json` is the authoritative exact-size record** for the qualified snapshot currently committed to `main`.
-
-### Why `dist/` is committed
-
-`dist/` used to be ignored and existed only as a GitHub Actions artifact, which made the actual playable/submission files unnecessarily hard to find. The repository now tracks the **qualified distribution snapshot** on `main` so players, reviewers, and competition submission work all have an obvious canonical build.
-
-Source remains authoritative. `dist/` is a release snapshot, not a place to edit gameplay.
+`dist/` is committed only as a qualified release snapshot. Source remains authoritative.
 
 ## 📚 Design notes
 
-Deeper implementation/design contracts live in:
-
+- [`docs/COMPETITIVE_SCORING.md`](docs/COMPETITIVE_SCORING.md)
 - `docs/CAMPAIGN_WORLDS.md`
 - `docs/CREATIVE_RESERVE.md`
 - `docs/COMPRESSION.md`
@@ -250,4 +251,4 @@ Deeper implementation/design contracts live in:
 
 ---
 
-**Design target:** every few seconds, the player should either create a useful route, land a satisfying Whip, switch attention, smash something, rescue a failing plan, or watch a plan they left behind pay off. If the screen looks slightly ridiculous but your decisions still feel intentional, Unicorn Stampede is doing its job. 🌈
+**Design target:** a first-time player can conquer a town; a good player learns to orchestrate it; an expert starts seeing the whole map as a score optimization problem. 🌈
