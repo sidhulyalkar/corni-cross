@@ -187,7 +187,7 @@ Every build recreates one authoritative `dist/` folder:
 
 Do not use the aggressively packed competition HTML as the everyday test build. `local.html` deliberately uses **no Terser, Roadroller, `eval`, or `document.write`**, so it is the convenient human-facing artifact while the ZIP remains the competition artifact.
 
-The readable/local build keeps the richer cover and onboarding presentation. The competition build may compress redundant title/intermission briefing text more aggressively so scarce ZIP bytes remain available for gameplay; both builds retain the same controls, worlds, cursor, objectives, and Stampede+ mechanics.
+The readable/local build keeps the richer cover, onboarding and victory presentation. The competition build compresses redundant title/intermission/victory rendering more aggressively so scarce ZIP bytes remain available for gameplay; both builds retain the same controls, worlds, cursor, objectives, scoring, progression and Stampede+ mechanics.
 
 ## Compression laboratory
 
@@ -196,7 +196,7 @@ Readable source stays modular. Release code is aggressively transformed only dur
 The tournament currently compares combinations of:
 
 - release pruning of superseded interaction and UI layers;
-- competition-only title/intermission compaction that leaves `local.html` untouched;
+- competition-only title/intermission/victory compaction that leaves `local.html` untouched;
 - competition-only shell/CSS stripping that leaves the readable preview untouched;
 - multi-pass Terser;
 - narrow and wider safe internal-property mangling;
@@ -208,7 +208,7 @@ The tournament currently compares combinations of:
 
 The smallest valid artifact wins. The exact competition artifact is then executed again in a browser-like runtime smoke before the size gate is accepted. A separate module-safe preview smoke protects the real-browser script semantics that the packed release is intentionally free to transform.
 
-Current v0.20 gameplay qualification selected `road-enum-wide-hard+zopfli` at **13,301 / 13,312 bytes**, leaving **11 bytes free**.
+Current buffered v0.20 gameplay qualification selected `road-enum-wide-hard+zopfli` at **13,182 / 13,312 bytes**, leaving **130 bytes free**. The extra buffer was added after repeated compression searches showed that an earlier 11-byte margin was not stable enough for release confidence.
 
 ## Qualification
 
