@@ -46,7 +46,7 @@ function game(){
  const {ev,click}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==2||ev('timeLeft')!==90)throw Error('cloudtop unlock');let v=ev('unis[0].vx');ev('stamp=6;windT=0;updateZone(.2)');if(ev('unis[0].vx')===v)throw Error('cloudtop crosswind');click();if(ev('unis[caps[1]].tapT')>.51)throw Error('cloudtop whip window');
 }
 {
- const {ev}=game();ev("startLevel(1);zone=2;landWin=1;state='end';startLevel(1)");if(ev('plus')!==1||ev("S.g('ccPlus')")!==1||ev('zone')!==0||ev('timeLeft')!==96||ev('cleaners.length')!==1)throw Error('stampede+ unlock/escalation');let v=ev('unis[0].vx');ev('windT=0;updateZone(.1)');if(ev('unis[0].vx')===v)throw Error('stampede+ roaming gust');ev('unis[0].x=390;unis[0].y=540;updateZone(.01)');if(!(ev('gates')&1)||ev('unis[0].boost')<2)throw Error('prism gate reward');ev('draw()');
+ const {ev}=game();ev("S.s('ccC2',1);startLevel(1)");if(!ev('plus')||ev('timeLeft')!==94||ev('cleaners.length')!==1||!ev("lmText.includes('STAMPEDE+')"))throw Error('stampede+ mastery unlock/escalation');let v=ev('unis[0].vx');ev('clock=1;updateZone(.1)');if(ev('unis[0].vx')===v)throw Error('stampede+ roaming gust');ev('unis[0].x=550;unis[0].y=1130;updateZone(.01)');if(!(ev('dmask')&64)||ev('unis[0].boost')<2)throw Error('prism gate reward');ev('draw()');
 }
 if(!fs.readFileSync('src/style.css','utf8').includes('cursor:none'))throw Error('native cursor not hidden');
 console.log('headless v0.20 cursor/encore smoke: PASS');
