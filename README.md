@@ -143,24 +143,32 @@ The player still chooses routes, landmark order, whether to chase another Prism 
 
 ## Running locally
 
-The repository root is the readable development build:
+For the quickest playtest, build once and then double-click **`dist/local.html`**. It is a complete single-file browser-safe copy of the game and does not depend on the `src/` directory after it has been generated.
 
 ```bash
 npm install
 npm run build:fast
 ```
 
-You can also serve the repository root with any static server and open `index.html`. The root page loads **all current gameplay modules**, not a historical subset.
+For the full js13k compression tournament and submission ZIP:
+
+```bash
+npm run build
+```
+
+The repository root `index.html` remains the readable development build if you prefer serving the source tree directly.
 
 ## Build outputs
 
-`npm run build` produces three intentionally different artifacts:
+Every build recreates one authoritative `dist/` folder:
 
-- `dist/preview.html` — self-contained browser-safe preview assembled from the nine readable classic-script modules. It deliberately uses **no Terser, Roadroller, `eval`, or `document.write`**.
+- `dist/local.html` — the easiest file to download or double-click for quick human playtesting; self-contained and browser-safe.
+- `dist/preview.html` — the same qualified browser-safe build retained under the CI/reference name. `local.html` and `preview.html` are verified byte-identical.
 - `dist/index.html` — exact smallest competition HTML selected by the compression tournament.
 - `dist/unicorn-stampede.zip` — js13k submission archive containing exactly one root `index.html`.
+- `dist/compression.json` — measured compression tournament results and size provenance.
 
-Do not use the aggressively packed competition HTML as a general-purpose hosted preview. The browser-safe preview exists specifically so CSP/sandboxed viewers can render the game without dynamic evaluation.
+Do not use the aggressively packed competition HTML as the everyday test build. `local.html` deliberately uses **no Terser, Roadroller, `eval`, or `document.write`**, so it is the convenient human-facing artifact while the ZIP remains the competition artifact.
 
 ## Compression laboratory
 
@@ -186,9 +194,9 @@ The smallest valid artifact wins. The exact competition artifact is then execute
 npm test
 ```
 
-The test contract includes source syntax, the four-step tutorial, contextual switch teaching, Blue/Yellow handoff explanations, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, activity risk/reward, mastery accounting, release-pruning checks, browser-safe preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
+The test contract includes source syntax, the four-step tutorial, contextual switch teaching, Blue/Yellow handoff explanations, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, activity risk/reward, mastery accounting, release-pruning checks, browser-safe local/preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
 
-GitHub Actions uploads the exact submission ZIP, browser-safe preview and compression report for every qualified head.
+GitHub Actions publishes a single **`unicorn-stampede-dist`** artifact containing `local.html`, the exact submission ZIP, packed `index.html`, browser-safe `preview.html`, and `compression.json` for every qualified head.
 
 ## Design documentation
 
