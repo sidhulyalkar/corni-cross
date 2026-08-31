@@ -12,7 +12,7 @@
 - extended the build to include the expansion module and widened safe internal-property mangling
 - made the competition-only title/intermission/victory presentation more compact while leaving `dist/local.html` and the readable source presentation unchanged
 - after detecting compression-search variance near the limit, increased release headroom instead of accepting a lucky near-boundary build
-- qualified the buffered gameplay head at **13,182 / 13,312 bytes**, leaving **130 bytes free**
+- two independent buffered qualification passes produced **13,182** and **13,190** bytes; the worst observed package is **13,190 / 13,312 bytes**, leaving **122 bytes free**
 
 ## 0.19.0 - Teach when actionable / faster fun
 
