@@ -10,8 +10,9 @@
 - built Prism Gates entirely from stacked canvas arcs and reused high bits in the existing district mask for collection state, adding no sprite assets or dedicated gate-state array
 - added v0.20 headless regressions for the custom cursor contract, Stampede+ unlock/escalation, roaming gusts, and Prism Gate rewards
 - extended the build to include the expansion module and widened safe internal-property mangling
-- made the competition-only title/intermission briefing more compact while leaving `dist/local.html` and the readable source presentation unchanged
-- qualified the exact gameplay head at **13,301 / 13,312 bytes**, leaving **11 bytes free**
+- made the competition-only title/intermission/victory presentation more compact while leaving `dist/local.html` and the readable source presentation unchanged
+- after detecting compression-search variance near the limit, increased release headroom instead of accepting a lucky near-boundary build
+- qualified the buffered gameplay head at **13,182 / 13,312 bytes**, leaving **130 bytes free**
 
 ## 0.19.0 - Teach when actionable / faster fun
 
