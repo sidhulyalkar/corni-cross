@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.20.0 - Whip reticle / Stampede+ encore
+
+- replaced the tiny native crosshair with a large animated three-band rainbow whip cursor and a crisp white precision center at the exact click origin
+- hid the browser cursor over the game canvas so aiming feedback has one authoritative visual target
+- added a post-campaign **Stampede+** encore that unlocks from the existing Cloudtop mastery crown instead of introducing another persistent progression structure
+- made encore towns tighter and more chaotic with six fewer seconds, an extra cleaner, faster traffic, and roaming lateral gusts outside Cloudtop
+- added four optional **Prism Gates** per encore town; crossing one grants score and a temporary speed boost
+- built Prism Gates entirely from stacked canvas arcs and reused high bits in the existing district mask for collection state, adding no sprite assets or dedicated gate-state array
+- added v0.20 headless regressions for the custom cursor contract, Stampede+ unlock/escalation, roaming gusts, and Prism Gate rewards
+- extended the build to include the expansion module and widened safe internal-property mangling
+- made the competition-only title/intermission briefing more compact while leaving `dist/local.html` and the readable source presentation unchanged
+- qualified the exact gameplay head at **13,301 / 13,312 bytes**, leaving **11 bytes free**
+
 ## 0.19.0 - Teach when actionable / faster fun
 
 - shortened Little Cross from seven mandatory lessons to four core beats: Blue steer/release, Yellow Whip, 3X Prism, then smash the Bakery
