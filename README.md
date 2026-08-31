@@ -229,7 +229,7 @@ The repository root `index.html` is the readable development entrypoint. For qui
 
 The submission build compares several Terser / property-mangling / Roadroller / DEFLATE / AdvZIP / Zopfli combinations and selects the smallest artifact that still passes the packed-runtime smoke tests.
 
-The checked-in v0.20 `main` snapshot is **13,193 / 13,312 bytes**, leaving **119 bytes** under the js13k limit. The compression search has a small stochastic component, so `dist/compression.json` is the authoritative exact-size record for whichever qualified snapshot is currently committed.
+The checked-in `dist/unicorn-stampede.zip` is required to remain below the **13,312-byte** js13k limit. The compression search has a small stochastic component, so **`dist/compression.json` is the authoritative exact-size record** for the qualified snapshot currently committed to `main`.
 
 ### Why `dist/` is committed
 
