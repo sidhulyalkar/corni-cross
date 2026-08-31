@@ -50,6 +50,7 @@ So the player is orchestrating six characters without juggling six simultaneous 
 
 ### Mouse: Rainbow Whip / Prism Chase
 
+- The mouse pointer is an animated **three-band rainbow whip coil**. The small white ring/cross at its center is the exact click and whip origin, so the strike point stays readable even when the town is chaotic.
 - Aim slightly **beside** the highlighted Yellow captain, inside the visible whip orbit.
 - Click to crack the Rainbow Whip instantly from that point toward the moving unicorn.
 - A successful hit splashes paint and launches the unicorn away from the whip origin.
@@ -70,7 +71,7 @@ Modifier keys are not gameplay controls. Ctrl/Meta/Alt combinations are filtered
 
 ## Onboarding philosophy
 
-The game now follows a **teach when actionable** rule. It does not explain Smart Next before another unicorn exists to switch to, and it does not force optional mechanics into the opening lesson merely because they exist.
+The game follows a **teach when actionable** rule. It does not explain Smart Next before another unicorn exists to switch to, and it does not force optional mechanics into the opening lesson merely because they exist.
 
 ### Little Cross
 
@@ -119,11 +120,27 @@ Time: **90 s**
 
 Mastery goals: conquer Town Hall, 54% final paint, 3 successful 3X chains.
 
+## Stampede+ encore
+
+Conquering Cloudtop once unlocks **Stampede+** automatically. The three-town loop does not end; it cycles back into tougher remixed invasions using the same learned verbs instead of introducing another tutorial or a separate upgrade menu.
+
+Encore towns add pressure economically:
+
+- six fewer seconds on the clock;
+- one additional cleanup van from the opening;
+- traffic moves 10% faster;
+- Prismborough and Washwater inherit a roaming lateral gust, mixing Cloudtop's prediction skill into earlier towns;
+- four optional **Prism Gates** appear across the map.
+
+A Prism Gate is both scenery and a micro-objective. Route any live unicorn through its rainbow arch to collect it, gain score, and receive a short speed boost. Collected gates disappear for that run.
+
+The gates intentionally use no image assets and almost no bespoke state. Each one is three differently sized canvas arcs stacked into a rainbow arch, positions are generated from a tiny formula, and collection state occupies unused high bits of the existing district mask. The goal is **combinatorial richness**: make familiar geometry do visual, navigational, and scoring work at the same time.
+
 ## Replay variation
 
 Every main-world attempt advances a persisted deterministic remix seed. Generic buildings, civilians and local geometry vary, and several building-based landmarks are selected from broader strategic regions instead of fixed coordinates. Road hierarchy, landmark roles and world rules remain familiar.
 
-Design target: **same exam, different questions**.
+Design target: **same exam, different questions**. Stampede+ then starts mixing parts of those exams together.
 
 ## Three-crown mastery
 
@@ -170,6 +187,8 @@ Every build recreates one authoritative `dist/` folder:
 
 Do not use the aggressively packed competition HTML as the everyday test build. `local.html` deliberately uses **no Terser, Roadroller, `eval`, or `document.write`**, so it is the convenient human-facing artifact while the ZIP remains the competition artifact.
 
+The readable/local build keeps the richer cover and onboarding presentation. The competition build may compress redundant title/intermission briefing text more aggressively so scarce ZIP bytes remain available for gameplay; both builds retain the same controls, worlds, cursor, objectives, and Stampede+ mechanics.
+
 ## Compression laboratory
 
 Readable source stays modular. Release code is aggressively transformed only during the production build.
@@ -177,6 +196,7 @@ Readable source stays modular. Release code is aggressively transformed only dur
 The tournament currently compares combinations of:
 
 - release pruning of superseded interaction and UI layers;
+- competition-only title/intermission compaction that leaves `local.html` untouched;
 - competition-only shell/CSS stripping that leaves the readable preview untouched;
 - multi-pass Terser;
 - narrow and wider safe internal-property mangling;
@@ -188,13 +208,15 @@ The tournament currently compares combinations of:
 
 The smallest valid artifact wins. The exact competition artifact is then executed again in a browser-like runtime smoke before the size gate is accepted. A separate module-safe preview smoke protects the real-browser script semantics that the packed release is intentionally free to transform.
 
+Current v0.20 gameplay qualification selected `road-enum-wide-hard+zopfli` at **13,301 / 13,312 bytes**, leaving **11 bytes free**.
+
 ## Qualification
 
 ```bash
 npm test
 ```
 
-The test contract includes source syntax, the four-step tutorial, contextual switch teaching, Blue/Yellow handoff explanations, campaign progression, Rainbow Whip timing, Smart Director behavior, cleanup erasure, activity risk/reward, mastery accounting, release-pruning checks, browser-safe local/preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
+The test contract includes source syntax, the four-step tutorial, contextual switch teaching, Blue/Yellow handoff explanations, campaign progression, Rainbow Whip timing, custom whip-cursor presence, Smart Director behavior, cleanup erasure, activity risk/reward, mastery accounting, Stampede+ unlock/escalation, Prism Gate rewards, release-pruning checks, browser-safe local/preview boot, exact packed competition boot, ZIP integrity and the hard **13,312-byte** limit.
 
 GitHub Actions publishes a single **`unicorn-stampede-dist`** artifact containing `local.html`, the exact submission ZIP, packed `index.html`, browser-safe `preview.html`, and `compression.json` for every qualified head.
 
