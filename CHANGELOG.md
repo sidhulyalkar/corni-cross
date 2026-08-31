@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.20.0 - Whip reticle / Stampede+ encore
+
+- replaced the tiny native crosshair with a large animated three-band rainbow whip cursor and a crisp white precision center at the exact click origin
+- hid the browser cursor over the game canvas so aiming feedback has one authoritative visual target
+- added a post-campaign **Stampede+** encore that unlocks from the existing Cloudtop mastery crown instead of introducing another persistent progression structure
+- made encore towns tighter and more chaotic with six fewer seconds, an extra cleaner, faster traffic, and roaming lateral gusts outside Cloudtop
+- added four optional **Prism Gates** per encore town; crossing one grants score and a temporary speed boost
+- built Prism Gates entirely from stacked canvas arcs and reused high bits in the existing district mask for collection state, adding no sprite assets or dedicated gate-state array
+- added v0.20 headless regressions for the custom cursor contract, Stampede+ unlock/escalation, roaming gusts, and Prism Gate rewards
+- extended the build to include the expansion module and widened safe internal-property mangling
+- made the competition-only title/intermission/victory presentation more compact while leaving `dist/local.html` and the readable source presentation unchanged
+- after detecting compression-search variance near the limit, increased release headroom instead of accepting a lucky near-boundary build
+- two independent buffered qualification passes produced **13,182** and **13,190** bytes; the worst observed package is **13,190 / 13,312 bytes**, leaving **122 bytes free**
+
+## 0.19.0 - Teach when actionable / faster fun
+
+- shortened Little Cross from seven mandatory lessons to four core beats: Blue steer/release, Yellow Whip, 3X Prism, then smash the Bakery
+- removed mandatory powerup, distraction and rescue chores from the tutorial; those mechanics remain discoverable in normal play
+- lowered tutorial Bakery durability so the control lesson ends with a quick destructive payoff instead of a grind
+- stopped advertising Smart Next before another Blue or Yellow unicorn is actually live
+- made the four-unicorn arrival explicitly announce that switching is now available
+- made early switch callouts explain both sides of the handoff, e.g. `BLUE → DAISY • BOLT RUNS`
+- changed the HUD's opaque `STAMP` label to the clearer `ACTIVE` count
+- changed landmark celebrations to concrete progress such as `BAKERY SMASHED • 1/4`
+- reinforced the six-unicorn escalation with `ALL 6 • KEEP 4 RUNNING!`
+- added regressions for the shorter tutorial, switch-arrival teaching and Blue/Yellow handoff explanations
+
+## 0.18.0 - Six-unicorn control clarity / smaller competition shell
+
+- made the title state the actual mental model: **6 unicorns, control 2, 4 keep running**
+- split the roster clearly into Blue direct steering and Yellow Rainbow Whip control
+- made Blue handoff explicit: `WASD → release → route → next Blue`
+- made Yellow handoff explicit: `3X Prism → next Yellow`, with chain timeout also rotating Yellow automatically
+- added short `BLUE → name` / `YELLOW → name` handoff callouts and opening HUD reminders so switching is learned during play rather than only from a manual
+- corrected documentation to match the current instant-on-click Rainbow Whip instead of the older delayed-travel description
+- retained the v0.17 deterministic low-speed WASD release, rounded anti-stuck town boundary and HUD avoidance behavior
+- stripped nonessential title metadata and preview-only CSS behavior from the competition shell while keeping the browser-safe preview unchanged
+- extended packed-runtime qualification to require the six-unicorn / next-Blue / next-Yellow briefing contract
+- qualified the exact v0.18 gameplay head at **13,292 / 13,312 bytes**, leaving **20 bytes free**
+
 ## 0.14.0 - Unicorn Stampede recovery / browser-safe preview
 
 - renamed the game from **Corni Cross** to **Unicorn Stampede**

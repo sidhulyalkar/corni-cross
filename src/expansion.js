@@ -1,0 +1,4 @@
+let plus=!!S.g('ccC2');
+const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=!!S.g('ccC2');if(n&&plus){timeLeft-=6;addClean(1);for(let c of cars)c.v*=1.1;lmText='STAMPEDE+ • '+ZN[zone];lmTextT=2}};
+const _plusZone=updateZone;updateZone=function(dt){_plusZone(dt);if(!level||!plus)return;if(zone!==2)for(let u of unis)if(u.live)u.vx+=Math.sin(clock*.7)*45*dt;for(let i=4;i--;)if(!(dmask>>i+6&1)){let x=550+i*700,y=i%2?540:1130;for(let u of unis)if(u.live&&Math.hypot(u.x-x,u.y-y)<70){dmask|=64<<i;u.boost+=2;award('PRISM GATE',350);break}}};
+const _plusWorld=world;world=function(){_plusWorld();if(!level||!plus)return;X.save();X.translate(ox,oy);X.scale(z,z);for(let i=4;i--;)if(!(dmask>>i+6&1)){let x=550+i*700,y=i%2?540:1130;for(let q=3;q--;){X.strokeStyle=`hsl(${clock*60+i*70+q*100} 100% 65%)`;X.lineWidth=4+q*3;X.beginPath();X.arc(x,y,30+q*11,Math.PI,T);X.stroke()}}X.restore()};
