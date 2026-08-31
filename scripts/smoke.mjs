@@ -5,7 +5,7 @@ function game(){
  const ctx=new Proxy({createLinearGradient:()=>({addColorStop(){}}),measureText:()=>({width:10})},{get:(o,k)=>k in o?o[k]:(()=>{})});
  const canvas={getContext:()=>ctx,getBoundingClientRect:()=>({left:0,top:0,width:1280,height:720}),addEventListener:(n,f,c)=>on('c:'+n,f,c)};
  const node=()=>({gain:{value:0,setValueAtTime(){},exponentialRampToValueAtTime(){}},frequency:{setValueAtTime(){},exponentialRampToValueAtTime(){}},connect(){},start(){},stop(){}});class AudioContext{constructor(){this.currentTime=0;this.destination={}}createGain(){return node()}createOscillator(){return node()}}
- const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx})},addEventListener:(n,f,c)=>on(n,f,c),requestAnimationFrame:()=>{}};vm.createContext(box);vm.runInContext(['core.js','herd.js','render.js','ui.js','top10.js','polish.js','hud12.js','whip.js','worlds.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
+ const box={console,Math,Date,Uint8Array,AudioContext,localStorage:{},document:{getElementById:()=>canvas,createElement:()=>({width:0,height:0,getContext:()=>ctx})},addEventListener:(n,f,c)=>on(n,f,c),requestAnimationFrame:()=>{}};vm.createContext(box);vm.runInContext(['core.js','herd.js','render.js','ui.js','top10.js','polish.js','hud12.js','whip.js','worlds.js','expansion.js'].map(f=>fs.readFileSync('src/'+f,'utf8')).join('\n'),box);
  const ev=s=>vm.runInContext(s,box),fire=(n,e={})=>{let E={code:'',repeat:false,button:0,clientX:0,clientY:0,preventDefault(){},stopImmediatePropagation(){this.stop=1},...e};for(const h of [...(H[n]||[])].sort((a,b)=>b.c-a.c)){h.f(E);if(E.stop)break}};
  const press=()=>{fire('c:mousemove',{clientX:ev('(unis[caps[1]].x+100)*z+ox'),clientY:ev('unis[caps[1]].y*z+oy')});fire('c:mousedown')},click=()=>{press();ev('update(.12)')};return{ev,fire,press,click,box};
 }
@@ -45,4 +45,8 @@ function game(){
 {
  const {ev,click}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==2||ev('timeLeft')!==90)throw Error('cloudtop unlock');let v=ev('unis[0].vx');ev('stamp=6;windT=0;updateZone(.2)');if(ev('unis[0].vx')===v)throw Error('cloudtop crosswind');click();if(ev('unis[caps[1]].tapT')>.51)throw Error('cloudtop whip window');
 }
-console.log('headless v0.19 clarity/fun smoke: PASS');
+{
+ const {ev}=game();ev("startLevel(1);zone=2;landWin=1;state='end';startLevel(1)");if(ev('plus')!==1||ev("S.g('ccPlus')")!==1||ev('zone')!==0||ev('timeLeft')!==96||ev('cleaners.length')!==1)throw Error('stampede+ unlock/escalation');let v=ev('unis[0].vx');ev('windT=0;updateZone(.1)');if(ev('unis[0].vx')===v)throw Error('stampede+ roaming gust');ev('unis[0].x=390;unis[0].y=540;updateZone(.01)');if(!(ev('gates')&1)||ev('unis[0].boost')<2)throw Error('prism gate reward');ev('draw()');
+}
+if(!fs.readFileSync('src/style.css','utf8').includes('cursor:none'))throw Error('native cursor not hidden');
+console.log('headless v0.20 cursor/encore smoke: PASS');
