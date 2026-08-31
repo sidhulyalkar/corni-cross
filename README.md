@@ -208,7 +208,7 @@ The tournament currently compares combinations of:
 
 The smallest valid artifact wins. The exact competition artifact is then executed again in a browser-like runtime smoke before the size gate is accepted. A separate module-safe preview smoke protects the real-browser script semantics that the packed release is intentionally free to transform.
 
-Current buffered v0.20 gameplay qualification selected `road-enum-wide-hard+zopfli` at **13,182 / 13,312 bytes**, leaving **130 bytes free**. The extra buffer was added after repeated compression searches showed that an earlier 11-byte margin was not stable enough for release confidence.
+Two independent buffered v0.20 qualification passes on the same packed gameplay source produced **13,182** and **13,190** bytes. The winning Roadroller lane varied between passes, confirming small search variance; the worse observed package is still **13,190 / 13,312 bytes**, leaving **122 bytes free**.
 
 ## Qualification
 
