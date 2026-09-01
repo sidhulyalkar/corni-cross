@@ -2,7 +2,7 @@ let zone=S.g('ccZone')%10,runN=S.g('ccRun'),seedZone=0,pwash=[],washT=0,heli=0,w
 const Z=[['PRISMBOROUGH',100,1,0],['WASHWATER BAY',94,1.12,1],['CLOUDTOP HEIGHTS',90,1.25,2],['STAMPEDE+ CIRCUIT',86,1.32,4],['NEON JUNCTION',84,1.38,12],['FROSTFALL VILLAGE',82,1.44,20],['GEARWORKS QUARTER',80,1.5,36],['MIRAGE MESA',78,1.56,68],['MOONFAIR METRO',76,1.64,132],['ROYAL RAINBOW CITADEL',74,1.75,55]],ZN=Z.map(a=>a[0]),wf=n=>Z[zone][3]&n;
 const _rain=paintStamp;paintStamp=(u,x=u.x,y=u.y,r=28)=>_rain(u,x,y,r+(level?stamp:0));
 const _day=today;today=()=>_day()+seedZone*173+runN*19;
-function grade(){return landWin?1+(paintPct()>.48+(zone%3)*.04)+(chains>1+(zone>1)):0}
+function grade(){let p=zone<3?[.6,.48,.54][zone]:.55+zone*.015,c=zone<3?[2,2,3][zone]:2+(zone>6)+(zone>8);return landWin?1+(paintPct()>p)+(chains>=c):0}
 function finishZone(){crowns=grade();let k='ccC'+zone;if(crowns>S.g(k))S.s(k,crowns)}
 function canZone(z){return !z||S.g('ccC'+(z-1))}
 addEventListener('keydown',e=>{if(state==='title'&&S.g('ccIntro16')&&(e.code==='KeyA'||e.code==='KeyD')){let n=(zone+(e.code==='KeyD'?1:9))%10;if(canZone(n)){zone=n;S.s('ccZone',zone);tone(280,.05,'triangle',.012,420)}}});
