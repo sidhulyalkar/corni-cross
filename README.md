@@ -1,6 +1,6 @@
 # 🦄 Unicorn Stampede
 
-**A six-unicorn arcade-strategy score chase built for js13kGames 2026.** You directly control two unicorns at a time while the others keep executing the routes and impulses you leave behind. The rhythm is **steer → release → whip → switch → improvise**, then do it faster and cleaner than everyone else.
+**A ten-world, six-unicorn arcade-strategy score chase built for js13kGames 2026.** You directly control two unicorns at a time while the other four keep executing the routes and impulses you leave behind. The rhythm is **steer → release → whip → switch → improvise**, then carry that skill through increasingly hostile towns and do it faster, louder, and cleaner than everyone else.
 
 <p align="center">
   <img src="docs/how-to-play.svg" alt="Unicorn Stampede competitive how-to-play guide" width="100%" />
@@ -16,7 +16,20 @@ On `main`, the repository keeps a qualified `dist/` snapshot:
 - **`dist/preview.html`** — browser-safe self-contained build.
 - **`dist/compression.json`** — exact compression/size provenance.
 
-The current v0.21 work lives in draft PR #10 until its score economy and 13 KB package are qualified.
+v0.22 is developed in draft PR #11 on top of the qualified v0.21 competitive-scoring branch. It remains draft until the ten-world campaign, title experience, and packed size are independently qualified and human-playtested.
+
+## ✨ The title screen is the game in miniature
+
+The v0.22 title is an animated procedural arcade poster rather than an instruction wall:
+
+- six unicorns visibly charge through a silhouetted town with rainbow trails;
+- a shielded Town Hall and rainbow arcs establish the destruction fantasy before the first click;
+- **ENTER / SPACE** is the obvious Play action;
+- **A / D** exposes the current unlocked world and `Wn/10` campaign position;
+- **L** exposes the Top 50 and best score;
+- the permanent Blue / Yellow control grammar and the `4 landmarks + 28% chaos → Town Hall` conquest rule stay visible without competing with the hero scene.
+
+The readable/local build spends bytes on this presentation. The 13 KB submission uses a tighter version of the same identity and preserves the ten-world progression contract.
 
 ## ⚡ The 20-second mental model
 
@@ -48,7 +61,7 @@ Think: **“that route is good enough; what else can I improve?”**
 - Reacquire and hit again for **2X**, then **3X Prism**.
 - 3X gives a strong reward and rotates control to another Yellow.
 
-The best Whip is rarely just a hit. It should launch Yellow toward useful paint, a landmark, a powerup, a cleaner, or the next route.
+The best Whip is rarely just a hit. It should launch Yellow toward useful paint, a landmark, a powerup, a cleaner, a Prism Gate, or the next route.
 
 ### Shared / utility
 
@@ -69,28 +82,29 @@ Every town has five landmark objectives:
 4. Clock Tower
 5. Town Hall
 
-Town Hall now has **two locks**:
+Town Hall has **two locks**:
 
 1. destroy the first four landmarks;
 2. reach at least **28% combined town chaos** from paint coverage + structural destruction.
 
 Only then can Town Hall be smashed to complete the conquest.
 
-That rule exists because landmark sniping should not be enough. A player who races through five buildings while barely affecting the rest of the town can finish, but cannot produce an elite leaderboard run.
+That rule exists because landmark sniping should not be enough. A player who races through the mandatory buildings while barely affecting the town can finish, but cannot produce an elite leaderboard run.
 
 ## 🏁 Competitive score
 
-Your final score combines **six different kinds of skill** instead of rewarding one exploit:
+Your final score combines several independent kinds of skill instead of rewarding one exploit:
 
 - **Speed** — every second left is worth points.
 - **Paint coverage** — spread the stampede across the map.
-- **Structural destruction** — wreck more than the five mandatory objectives.
+- **Structural destruction** — wreck more than the mandatory objectives.
 - **Prism execution** — successful 3X chains matter, with a cap to prevent farming.
 - **Orchestration** — maintaining a high average `ACTIVE` herd is valuable.
 - **Counterplay** — stunning cleanup vehicles matters.
-- **Stampede+ routing** — Prism Gates add optional score and speed opportunities.
+- **Advanced routing** — Prism Gates add optional score and speed opportunities from World 4 onward.
+- **Difficulty** — the same base skill score is worth progressively more in harder worlds.
 
-The live HUD shows a projected score and score class while you play, so you can see immediately whether a decision is improving the run.
+The live HUD shows a projected score while you play, so you can see whether a decision is improving the run.
 
 ### Score classes
 
@@ -102,75 +116,67 @@ The live HUD shows a projected score and score class while you play, so you can 
 | **HIGHER** | `260,000–339,999` | Expert orchestration |
 | **HIGHEST** | `340,000+` | Record-hunting territory |
 
-The exact formula is documented in [`docs/COMPETITIVE_SCORING.md`](docs/COMPETITIVE_SCORING.md).
+The exact formula is documented in [`docs/COMPETITIVE_SCORING.md`](docs/COMPETITIVE_SCORING.md). These bands are design goals, not fixed population percentiles; once enough real runs exist, they can be recalibrated from the observed distribution without changing score ordering.
 
-These bands are goals, not fixed population percentiles. Once enough real leaderboard runs exist, we can recalibrate the labels from the observed distribution without changing the underlying score ordering.
+## 🌍 Ten-world campaign
 
-## 🌍 World progression
+Winning a world advances directly into the next one. A single-crown conquest unlocks the next world; replaying for stronger crowns and leaderboard score remains optional mastery.
 
-Winning a world advances directly into the next one. The results screen explicitly tells you what comes next.
+| # | World | Time | Score | Dominant remix |
+| ---: | --- | ---: | ---: | --- |
+| **1** | **Prismborough** | 100s | ×1.00 | Baseline orchestration exam |
+| **2** | **Washwater Bay** | 94s | ×1.12 | Powerwashers + telegraphed helicopter water drops |
+| **3** | **Cloudtop Heights** | 90s | ×1.25 | Reversing crosswinds + stronger predictive Whips |
+| **4** | **Stampede+ Circuit** | 86s | ×1.32 | Encore pressure, extra cleanup, faster traffic, Prism Gates |
+| **5** | **Neon Junction** | 84s | ×1.38 | Blackout pulses temporarily disable cleanup |
+| **6** | **Frostfall Village** | 82s | ×1.44 | Ice-like momentum compounds every route and Whip |
+| **7** | **Gearworks Quarter** | 80s | ×1.50 | Alternating conveyor bands push routes sideways |
+| **8** | **Mirage Mesa** | 78s | ×1.56 | Heat currents bend vertical movement |
+| **9** | **Moonfair Metro** | 76s | ×1.64 | 3X Prism chains accelerate combo credit |
+| **10** | **Royal Rainbow Citadel** | 74s | ×1.75 | Wash + wind + ice + conveyors combine into the final exam |
 
-### 1. Prismborough — orchestration
+### Why the later worlds fit inside js13k
 
-The baseline exam. Learn to keep multiple useful plans alive while traffic, cleanup, distractions, and landmarks compete for attention.
+Worlds 5–10 are not six independent engines. v0.22 encodes their identity through a tiny compositional grammar:
 
-- **100 seconds**
-- score multiplier **×1.00**
+- world names are one shared string vector;
+- timers are **derived mathematically** rather than stored ten times;
+- feature masks are **derived from the world index** rather than stored ten times;
+- only the score-multiplier vector remains explicit;
+- later worlds reuse the same wind, cleanup, Whip, velocity, paint, Prism Gate, and movement primitives in different combinations;
+- visual accents are procedural Canvas geometry rather than image assets.
 
-### 2. Washwater Bay — defend success
-
-Powerwashers and a helicopter attack areas where you are doing well. Helicopter drops are telegraphed, so strong players can reroute before impact or reclaim the area immediately afterward.
-
-- **94 seconds**
-- score multiplier **×1.12**
-
-### 3. Cloudtop Heights — prediction
-
-Crosswinds bias the entire herd, Whips launch farther, and the chain window tightens. This is the first world where prediction becomes as important as reaction.
-
-- **90 seconds**
-- score multiplier **×1.25**
-
-### 4. Stampede+ — record hunting
-
-Conquering Cloudtop unlocks the encore loop. Prismborough, Washwater, and Cloudtop cycle again with mixed pressure:
-
-- six fewer seconds;
-- an extra cleanup van immediately;
-- 10% faster traffic;
-- roaming gusts in earlier worlds;
-- four optional **Prism Gates**;
-- an additional **×1.15 score multiplier**.
-
-Harder worlds therefore pay more for the same underlying skill. Serious record hunting should naturally migrate from Prismborough toward Cloudtop and Stampede+ instead of farming the easiest map forever.
+The final Citadel is therefore mostly a *composition* of mechanics already paid for elsewhere. More game emerges from combinations rather than new object systems.
 
 ## 🏆 Top-50 leaderboard
 
 The hosted/local build includes a leaderboard layer **outside the 13 KB competition payload**.
 
-- Finish a conquest and your run metrics are recorded.
+- Finish a conquest and the underlying run metrics are recorded.
 - Press **L** from the title or results screen to view the top 50.
 - A reachable shared service is labeled **GLOBAL TOP 50**.
 - If the service is unavailable, the game falls back to this browser's saved scores and clearly labels them **LOCAL TOP 50**.
+- v0.22 records all ten world identities in leaderboard rows.
 
-The leaderboard payload stores the score *and* the underlying metrics: world, time, paint, destruction, Prism chains, average ACTIVE, cleanup stuns, Prism Gates, duration, and game version.
+The payload stores the score *and* its ingredients: world, time, paint, destruction, Prism chains, average ACTIVE, cleanup stuns, Prism Gates, duration, and game version.
 
-A real public leaderboard must **recompute the score server-side** rather than trust the submitted number. The client contract is implemented in `src/leaderboard.js`; persistent global storage is intentionally separate from the js13k game payload.
+A real public leaderboard must **recompute the score server-side** rather than trust the submitted number. The client contract is implemented in `src/leaderboard.js`; persistent global storage remains intentionally separate from the js13k game payload.
 
 ## 🌪️ How the game should feel
 
 A strong sequence might look like this:
 
 1. steer Bolt toward the Market;
-2. release him before he arrives so he keeps doing useful work;
-3. Whip Mallow from below-left so her 2X launch crosses an unpainted district and clips the Greenhouse;
+2. release him before arrival so he keeps doing useful work;
+3. Whip Mallow from below-left so the launch crosses an unpainted district and clips the Greenhouse;
 4. abandon the 3X chase because a cleaner is deleting your strongest territory;
 5. rotate Blue, stun the cleaner while boosted, and send that unicorn toward the Clock Tower;
 6. use `Space` only when both current captains can turn the dash into value;
-7. glance at the projected score and decide whether the run needs more speed, more destruction, or more ACTIVE herd time;
-8. break Town Hall only when ending now is worth more than squeezing extra score from the remaining seconds.
+7. glance at the projected score and decide whether the run needs more speed, destruction, paint, or ACTIVE herd time;
+8. in later worlds, account for wind / ice / conveyors / heat currents *before* committing the route;
+9. break Town Hall only when ending now is worth more than squeezing extra score from the remaining seconds.
 
-The tension is deliberate: **finishing earlier preserves the time bonus, but staying longer may earn paint, damage, Prism, ACTIVE, and cleanup points.** The best run finds the frontier between those incentives.
+The tension is deliberate: **finishing earlier preserves the time bonus, but staying longer may earn paint, damage, Prism, ACTIVE, Gate, and cleanup points.** The best run finds the frontier between those incentives.
 
 ## 🧠 Strategies worth learning
 
@@ -180,15 +186,19 @@ Once Blue has a productive trajectory, stop babysitting it. Release it and solve
 
 ### Aim Whips for aftermath
 
-Cursor placement determines Yellow's launch vector. Use one crack to satisfy multiple objectives: continue a chain, cross weak territory, collide with an objective, grab a powerup, or intercept cleanup.
+Cursor placement determines Yellow's launch vector. Use one crack to satisfy multiple objectives: continue a chain, cross weak territory, collide with an objective, grab a powerup, intercept cleanup, or thread a Prism Gate.
 
 ### Do not worship 3X
 
-Prism chains are valuable, but they are capped and opportunity cost matters. Dropping a chain to save a district or finish a critical route can be the higher-scoring decision.
+Prism chains are valuable, but they are capped and opportunity cost matters. Dropping a chain to save a district or finish a critical route can be the higher-scoring decision. Moonfair changes that arithmetic by accelerating chain credit, so the same habit should not be applied blindly everywhere.
 
 ### Treat `ACTIVE` as a mastery meter
 
-A high `ACTIVE` count means several unicorns are currently productive. That directly contributes to competitive score, but it also causes stronger pressure. You are rewarded for sustaining success under the consequences of success.
+A high `ACTIVE` count means several unicorns are productive. That contributes directly to score, but it also causes stronger pressure. You are rewarded for sustaining success under the consequences of success.
+
+### Read the world, not just the unicorn
+
+Frostfall exaggerates momentum. Gearworks changes horizontal drift by band. Mirage bends vertical motion. Cloudtop and Citadel push the whole herd. Skilled play becomes prediction: aim for where the route will become useful after the environment touches it.
 
 ### Destroy beyond the objective list
 
@@ -196,15 +206,15 @@ Mandatory landmarks get you through the campaign; broad structural destruction g
 
 ### Fight cleanup when the math says so
 
-A cleaner stun scores directly *and* protects painted territory. A perfectly timed intercept can therefore pay twice.
+A cleaner stun scores directly *and* protects painted territory. Neon temporarily handles some of that work for you; Washwater and Citadel do the opposite and attack successful territory harder.
 
-### Use harder worlds when you are ready
+### Graduate into multipliers
 
-Washwater, Cloudtop, and Stampede+ multiply the same core score. Learn the route grammar in Prismborough, then carry it into environments that pay more because they demand more.
+Prismborough is where you learn a route grammar. The real record chase moves outward because later worlds pay substantially more for executing the same fundamentals under more hostile dynamics.
 
 ## 🧪 Little Cross tutorial
 
-The tutorial deliberately teaches only the permanent verbs:
+The tutorial deliberately teaches only permanent verbs:
 
 1. steer Blue with WASD and release it;
 2. crack Yellow with the Whip;
@@ -229,20 +239,20 @@ Their differences are intended to become something you feel and exploit rather t
 ```bash
 npm install
 npm run build:fast   # quick browser-safe dist/local.html
-npm test             # behavior + competitive + compression + packed-runtime qualification
+npm test             # behavior + ten-world + compression + packed-runtime qualification
 npm run build        # full compression tournament
 ```
 
-Readable gameplay source lives in `src/`. The leaderboard host layer is also readable source but is excluded from the 13 KB packed game.
+Readable gameplay source lives in `src/`. The leaderboard host layer is readable source too, but is excluded from the 13 KB packed game.
 
 The submission build compares Terser/property-mangling/Roadroller/DEFLATE/AdvZIP/Zopfli variants and selects the smallest valid archive. `dist/unicorn-stampede.zip` must remain below the **13,312-byte** js13k limit; `dist/compression.json` is the authoritative size record for a qualified snapshot.
 
-`dist/` is committed only as a qualified release snapshot. Source remains authoritative.
+CI uses per-PR concurrency with `cancel-in-progress`, so superseded compression tournaments do not waste runners. On `main`, only a successful exact release-input change may refresh the committed `dist/` snapshot.
 
 ## 📚 Design notes
 
 - [`docs/COMPETITIVE_SCORING.md`](docs/COMPETITIVE_SCORING.md)
-- `docs/CAMPAIGN_WORLDS.md`
+- [`docs/CAMPAIGN_WORLDS.md`](docs/CAMPAIGN_WORLDS.md)
 - `docs/CREATIVE_RESERVE.md`
 - `docs/COMPRESSION.md`
 - `docs/PRISM_CHASE.md`
@@ -251,4 +261,4 @@ The submission build compares Terser/property-mangling/Roadroller/DEFLATE/AdvZIP
 
 ---
 
-**Design target:** a first-time player can conquer a town; a good player learns to orchestrate it; an expert starts seeing the whole map as a score optimization problem. 🌈
+**Design target:** a first-time player can conquer a town; a good player learns to orchestrate six unicorns; an expert starts seeing ten different towns as ten versions of the same score-optimization language. 🌈

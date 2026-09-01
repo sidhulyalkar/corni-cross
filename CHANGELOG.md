@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.22.0 - Arcade identity / ten-world campaign
+
+- rebuilt the readable/local title screen as an animated procedural arcade poster with a charging six-unicorn herd, rainbow trails, city silhouette, shielded Town Hall, visible Play / World / Top-50 actions, and the permanent control/conquest grammar
+- expanded the campaign from three worlds + implicit encore into **ten explicit worlds**, ending in Royal Rainbow Citadel
+- introduced Neon Junction, Frostfall Village, Gearworks Quarter, Mirage Mesa, Moonfair Metro, and Royal Rainbow Citadel as compositional remixes of existing systems rather than six bespoke engines
+- formalized Stampede+ Circuit as World 4 and kept Prism Gates, extra cleanup, faster traffic, and roaming pressure as the advanced-campaign baseline
+- made later worlds progressively shorter and more valuable, from Prismborough `100s ×1.00` through Citadel `74s ×1.75`
+- compressed campaign configuration by deriving timers and feature masks from the world index; only world names and the score-multiplier vector remain explicitly stored
+- added world-specific mechanics: Neon cleanup-blackout windows, Frostfall momentum amplification, Gearworks conveyor drift, Mirage heat currents, Moonfair accelerated Prism credit, and a Citadel multi-system remix
+- preserved the established Prismborough / Washwater / Cloudtop crown thresholds rather than silently changing existing mastery expectations
+- extended the hosted/local leaderboard to label all ten worlds and submit game version `0.22`; the leaderboard remains outside the 13 KB competition payload
+- restored the full mature gameplay smoke harness after an early v0.22 test rewrite exposed missing capture-phase semantics, then layered the new world tests on top rather than replacing prior regression coverage
+- added explicit tests that exercise the mechanics of Worlds 5–10, not merely their names/feature flags
+- added packed-runtime qualification that boots Royal Rainbow Citadel from the exact competition artifact and requires the `CAMPAIGN MASTERED` ending
+- updated release pruning so the packed results screen names the real next world across the ten-world campaign instead of the obsolete generic Stampede+ shortcut
+- added per-PR GitHub Actions concurrency with `cancel-in-progress` so superseded Roadroller/Zopfli tournaments stop wasting qualification time
+- exact js13k size / compression-variance qualification is recorded on PR #11 once the final gameplay head completes its two-pass gate
+
 ## 0.21.0 - Competitive conquest / top-50 foundation
 
 - separated **conquest** from **score excellence**: Town Hall now requires all four outer landmarks **and 28% combined town chaos**, so minimal landmark sniping no longer produces a valid fast finish
@@ -12,7 +30,7 @@
 - kept leaderboard networking/UI outside the 13 KB competition payload while retaining the authoritative competitive score formula inside the packed game
 - redesigned `docs/how-to-play.svg` at 1400×860 with dedicated non-overlapping layout zones and the new conquest/score progression explained visually
 - documented the score economy, leaderboard contract, and server-side recomputation requirements in `docs/COMPETITIVE_SCORING.md`
-- qualified the first exact v0.21 competitive head at **13,092 / 13,312 bytes**, leaving **220 bytes free**; a second unchanged-source compression pass is used as the variance gate before merge
+- qualified v0.21 on two unchanged-gameplay compression searches at **13,092** and **13,097 / 13,312 bytes**, leaving **215 bytes** of worst-observed headroom
 
 ## 0.20.0 - Whip reticle / Stampede+ encore
 
