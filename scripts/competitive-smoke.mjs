@@ -5,7 +5,12 @@ e('startLevel(1);LM.slice(0,-1).forEach(l=>l.os.forEach(o=>o.hp=0))');let hp=e('
 e('painted=PW*PH*.4;hitObj(unis[0],LM[4].os[0],999)');if(!e('landWin'))throw Error('Town Hall should unlock after landmarks + chaos');
 e('timeLeft=75;painted=PW*PH*.08;townDamage=townMax*.16;chains=0;actT=40;actS=40*1.5;stuns=0');let low=e('comp()');if(low>=120000||e(`tier(${low})`)!=='LOW')throw Error('minimal conquest must remain low tier');
 e('timeLeft=45;painted=PW*PH*.55;townDamage=townMax*.58;chains=4;actT=60;actS=60*4.5;stuns=6');let high=e('comp()');if(high<=low||!['HIGH','HIGHER','HIGHEST'].includes(e(`tier(${high})`)))throw Error('skillful run must outrank minimal conquest');
-e("landWin=1;state='end';startLevel(1)");if(e('zone')!==1||e('timeLeft')!==94||!e('heli'))throw Error('Washwater progression');
-e("landWin=1;state='end';startLevel(1)");if(e('zone')!==2||e('timeLeft')!==90)throw Error('Cloudtop progression');
-e("S.s('ccC2',1);state='end';landWin=1;startLevel(1)");if(!e('plus')||e('zone')!==0||e('timeLeft')!==94)throw Error('Stampede+ progression');
-console.log(`competitive v0.21 smoke: PASS low=${low} skilled=${high}`);
+let steps=[[1,94,1],[2,90,2],[3,86,4],[4,84,12],[5,82,20],[6,80,36],[7,78,68],[8,76,132],[9,74,55]];for(let [z,t,f]of steps){e("landWin=1;state='end';startLevel(1)");if(e('zone')!==z||e('timeLeft')!==t||e('wv()')!==f)throw Error('world progression '+z);if(z>2&&!e('plus'))throw Error('Stampede+ missing '+z)}if(!e('heli')||!e('wf(1)&&wf(2)&&wf(16)&&wf(32)'))throw Error('Citadel remix');
+e("state='title';landWin=0;zone=4;startLevel(1);washT=0;cleaners[0].stun=0;updateZone(.1)");if(e('cleaners[0].stun')<=0)throw Error('Neon blackout');
+e("state='title';landWin=0;zone=5;startLevel(1);unis[0].vx=100;unis[0].vy=100;clock=0");let frost=e('Math.hypot(unis[0].vx,unis[0].vy)');e('updateZone(.1)');if(e('Math.hypot(unis[0].vx,unis[0].vy)')<=frost)throw Error('Frost momentum');
+e("state='title';landWin=0;zone=6;startLevel(1);clock=0;unis[0].x=500;unis[0].y=200;unis[0].vx=unis[0].vy=0;updateZone(.1)");if(!e('unis[0].vx'))throw Error('Gearworks conveyor');
+e("state='title';landWin=0;zone=7;startLevel(1);clock=1;unis[0].x=500;unis[0].vy=0;updateZone(.1)");if(!e('unis[0].vy'))throw Error('Mirage current');
+e("state='title';landWin=0;zone=8;startLevel(1);let u=unis[caps[1]];u.tap=2;u.tapT=1;chains=0;whip={x:u.x-100,y:u.y,i:caps[1],hit:0};crackWhip()");if(e('chains')!==2)throw Error('Moonfair Prism amplifier');
+e("state='title';landWin=0;zone=9;startLevel(1)");if(!e('heli')||!e('wf(1)&&wf(2)&&wf(16)&&wf(32)'))throw Error('Citadel systems');
+e("landWin=1;state='end';startLevel(1)");if(e('zone')!==0||e('timeLeft')!==100)throw Error('campaign loop');
+console.log(`competitive v0.22 smoke: PASS low=${low} skilled=${high} worlds=${e('ZN.length')}`);
