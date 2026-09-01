@@ -1,8 +1,8 @@
 let plus=zone>2,actS=0,actT=0,stuns=0,finalScore=0;
 const gates=()=>[6,7,8,9].filter(i=>dmask>>i&1).length;
-function comp(){let a=actT?actS/actT/6:0;return Math.round(((landWin?2e4:0)+Math.max(0,timeLeft)*600+paintPct()*9e4+structPct()*7e4+Math.min(chains,6)*6e3+a*45e3+Math.min(stuns,10)*1800+gates()*3e3)*Z[zone][2])}
+function comp(){let a=actT?actS/actT/6:0;return Math.round(((landWin?2e4:0)+Math.max(0,timeLeft)*600+paintPct()*9e4+structPct()*7e4+Math.min(chains,6)*6e3+a*45e3+Math.min(stuns,10)*1800+gates()*3e3)*ZM[zone])}
 function tier(n=comp()){return n<12e4?'LOW':n<19e4?'MEDIUM':n<26e4?'HIGH':n<34e4?'HIGHER':'HIGHEST'}
-const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=zone>2;actS=actT=stuns=finalScore=0;if(n&&plus){addClean(1);for(let c of cars)c.v*=1.04+zone*.012;lmText=`WORLD ${zone+1}/10 • ${ZN[zone]} • ×${Z[zone][2]}`;lmTextT=2}};
+const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=zone>2;actS=actT=stuns=finalScore=0;if(n&&plus){addClean(1);for(let c of cars)c.v*=1.04+zone*.012;lmText=`WORLD ${zone+1}/10 • ${ZN[zone]} • ×${ZM[zone]}`;lmTextT=2}};
 const _plusClean=updateCleaners;updateCleaners=function(dt){let a=cleaners.map(c=>c.stun);_plusClean(dt);for(let i=cleaners.length;i--;)if(!a[i]&&cleaners[i].stun)stuns++};
 const _plusHit=hitObj;hitObj=function(u,o,d){if(o&&o.lm==='hall'&&outerDone()&&takeover()<.28){msg='HALL SHIELD • NEED 28% CHAOS';msgT=1;return}_plusHit(u,o,d)};
 const _plusZone=updateZone;updateZone=function(dt){_plusZone(dt);if(!level||!plus)return;if(!wf(2))for(let u of unis)if(u.live)u.vx+=Math.sin(clock*.7)*45*dt;for(let i=4;i--;)if(!(dmask>>i+6&1)){let x=550+i*700,y=i%2?540:1130;for(let u of unis)if(u.live&&Math.hypot(u.x-x,u.y-y)<70){dmask|=64<<i;u.boost+=2;award('PRISM GATE',350);break}}};
