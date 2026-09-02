@@ -1,6 +1,7 @@
 let plus=!!S.g('ccC2'),heat=S.g('ccHeat'),actS=0,actT=0,stuns=0,finalScore=0;
 const gates=()=>[6,7,8,9].filter(i=>dmask>>i&1).length,chaos=()=>.28+(plus?Math.min(heat,8)*.01:0);
 function comp(){let a=actT?actS/actT/6:0,m=[1,1.12,1.25][zone]*(plus?1.12+Math.min(heat,9)*.04:1);return Math.round(((landWin?2e4:0)+Math.max(0,timeLeft)*600+paintPct()*9e4+structPct()*7e4+Math.min(chains,6)*6e3+a*45e3+Math.min(stuns,10)*1800+gates()*3e3)*m)}
+function tier(n=comp()){return n<12e4?'LOW':n<19e4?'MEDIUM':n<26e4?'HIGH':n<34e4?'HIGHER':'HIGHEST'}
 const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=!!S.g('ccC2');heat=S.g('ccHeat');actS=actT=stuns=finalScore=0;if(n&&plus){let h=Math.min(heat,9);timeLeft-=4+h;addClean(1+(h>3));for(let c of cars)c.v*=1.08+h*.02;lmText='HEAT '+(h+1)+' • '+ZN[zone];lmTextT=2}};
 const _plusClean=updateCleaners;updateCleaners=function(dt){let a=cleaners.map(c=>c.stun);_plusClean(dt);for(let i=cleaners.length;i--;)if(!a[i]&&cleaners[i].stun)stuns++};
 const _plusHit=hitObj;hitObj=function(u,o,d){if(o&&o.lm==='hall'&&outerDone()&&takeover()<chaos()){msg='HALL SHIELD • NEED '+(chaos()*100|0)+'% CHAOS';msgT=1;return}_plusHit(u,o,d)};
