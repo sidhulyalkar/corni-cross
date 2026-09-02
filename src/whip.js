@@ -1,12 +1,12 @@
 let whip=0,suggested=-1;
 /* release-prune compatibility: YELLOW: CLICK MALLOW RING */
 function roadAt(u){if(!u||!PM)return 0;let x=cl(u.x/PS|0,0,PW-1),y=cl(u.y/PS|0,0,PH-1);return PM[y*PW+x]}
-function bestIdle(){let j=-1,b=-1;for(let u of unis)if(u.live&&u.id!==caps[0]&&u.cool>b)b=u.cool,j=u.id;return j}
+function bestIdle(){let j=-1,b=-1;for(let i=0;i<unis.length;i++){let u=unis[i];if(u.live&&i!==caps[0]&&u.cool>b)b=u.cool,j=i}return j}
 const _soloStart=startLevel;startLevel=function(n){_soloStart(n);caps[0]=0;caps[1]=-1;suggested=-1;for(let i=0;i<unis.length;i++){let u=unis[i];u.power=0;u.cool=i*.22;u.tap=u.tapT=0}};
 capSide=function(i){return i===caps[0]?1:0};
 const _soloAI=moveAI;moveAI=function(u,dt){let c=caps[1];caps[1]=caps[0];let a=_soloAI(u,dt);caps[1]=c;return a};
 const _soloDistract=distractForce;distractForce=function(u){let f=_soloDistract(u);if(u.id!==caps[0]&&roadAt(u))f[0]*=.55,f[1]*=.55;return f};
-cycle=function(){if(state!=='play')return;let old=caps[0],u=unis[old],v=Math.hypot(u.vx,u.vy);if(v>35){u.order=roadAt(u)?5.2:4;u.ox=Math.cos(u.a);u.oy=Math.sin(u.a)}if(level)dmask|=dmask&16?32:16;let j=bestIdle();if(j<0){let a=unis.filter(q=>q.live).map(q=>q.id),k=a.indexOf(old);j=a[(k+1)%a.length]}caps[0]=j;caps[1]=-1;u=unis[j];u.order=0;u.cool=0;u.distract=Math.max(0,u.distract-.2);cue[0]=1.15;cueWhy[0]=0;if(!level)intro.power=1;msg='CONTROL → '+u.name;msgT=1;tone(420,.06,'triangle',.018,650)};
+cycle=function(){if(state!=='play')return;let old=caps[0],u=unis[old],v=Math.hypot(u.vx,u.vy);if(v>35){u.order=roadAt(u)?5.2:4;u.ox=Math.cos(u.a);u.oy=Math.sin(u.a)}if(level)dmask|=dmask&16?32:16;let j=bestIdle();if(j<0)j=old;caps[0]=j;caps[1]=-1;u=unis[j];u.order=0;u.cool=0;u.distract=Math.max(0,u.distract-.2);cue[0]=1.15;cueWhy[0]=0;if(!level)intro.power=1;msg='CONTROL → '+u.name;msgT=1;tone(420,.06,'triangle',.018,650)};
 const _soloWave=waveUp;waveUp=function(w){_soloWave(w);if(level){msg=w===2?'4 UNICORNS • SHIFT TO SWITCH':'ALL 6 • YOU CONDUCT THE CHAOS';lmText=w===2?'MANUAL SWITCHING':'FULL HERD';lmTextT=2}};
 function dashSolo(){if(state!=='play'||dashCd)return;let u=unis[caps[0]],n=u.power|0;if(!n){msg='WHIP TO CHARGE DASH';msgT=.7;tone(95,.05,'square',.01,60);return}dashCd=.35;dashT=.28+n*.07;dashHit=0;u.dash=dashT;u.anger=cl(u.anger+.08*n,0,1);let v=580+n*145;u.vx=Math.cos(u.a)*v;u.vy=Math.sin(u.a)*v;paintStamp(u,u.x,u.y,38+n*12);fx(u.x,u.y,9+n*4,120+n*30);tone(120+n*45,.13,'sawtooth',.035,480+n*110);u.power=u.tap=u.tapT=0;intro.dash=1;if(n===3)award('PRISM DASH',850);else{msg='DASH!';msgT=.6}}
 C.addEventListener('mousedown',e=>{if(state!=='play'||e.button)return;e.preventDefault();e.stopImmediatePropagation();audio();let u=unis[caps[0]],x=(mx-ox)/z,y=(my-oy)/z,d=Math.hypot(x-u.x,y-u.y);if(d>38&&d<180){whip={x,y,i:caps[0],l:.14,hit:0};crackWhip()}else{msg=d<38?'AIM BESIDE UNICORN':'CLICK THE WHIP RING';msgT=.65;fx(x,y,3,50);tone(105,.04,'square',.008,70)}},true);
