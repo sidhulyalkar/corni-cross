@@ -40,17 +40,20 @@ function game(){
  const {ev}=game();ev('startLevel(1);paintStamp(unis[0],400,400,80)');let p=ev('painted');ev('eraseStamp(400,400,50)');if(ev('painted')>=p)throw Error('cleanup erasure');
 }
 {
- const {ev,fire}=game();ev("S.s('ccIntro10',1);S.s('ccIntro16',1);S.s('ccC0',1);state='title';zone=0");fire('keydown',{code:'KeyD'});if(ev('zone')!==1||ev("S.g('ccZone')")!==1)throw Error('campaign world select');
+ const {ev,fire}=game();ev("S.s('ccIntro16',1);S.s('ccC0',1);state='title';zone=0");fire('keydown',{code:'KeyD'});if(ev('zone')!==1||ev("S.g('ccZone')")!==1)throw Error('campaign world select');
 }
 {
- const {ev,click}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==1||ev('timeLeft')!==94||ev('pwash.length')!==3||!ev('heli'))throw Error('washwater unlock');ev('paintStamp(unis[0],400,400,90);pwash[0].x=400;pwash[0].y=400;washT=0');let p=ev('painted');ev('updateZone(.1)');if(ev('painted')>=p)throw Error('powerwasher erasure');ev("landWin=1;chains=2;painted=PW*PH*.5");if(ev('grade()')!==3)throw Error('washwater crowns');click();
+ const {ev}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==1||ev('timeLeft')!==94||ev('cleaners.length')!==2||Math.abs(ev('cleaners[0].v'))<190)throw Error('washwater must remix cleanup pressure');ev("landWin=1;chains=2;painted=PW*PH*.5");if(ev('grade()')!==3)throw Error('washwater crowns');
 }
 {
  const {ev,click}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==2||ev('timeLeft')!==90)throw Error('cloudtop unlock');click();if(ev('unis[caps[0]].tapT')>.39)throw Error('cloudtop tighter whip window');
 }
 {
- const {ev}=game();ev("S.s('ccC2',1);startLevel(1)");if(!ev('plus')||ev('timeLeft')!==94||ev('cleaners.length')!==1||!ev("lmText.includes('STAMPEDE+')"))throw Error('stampede+ mastery unlock/escalation');ev('unis[0].x=550;unis[0].y=1130;updateZone(.01)');if(!(ev('dmask')&64)||ev('unis[0].boost')<2)throw Error('prism gate reward');ev('draw()');
+ const {ev}=game();ev("S.s('ccC2',1);S.s('ccHeat',0);startLevel(1)");if(!ev('plus')||ev('heat')!==0||ev('timeLeft')!==96||ev('cleaners.length')!==1||!ev("lmText.includes('HEAT 1')"))throw Error('Stampede+ Heat 1 unlock');if(Math.abs(ev('chaos()')-.28)>1e-6)throw Error('Heat 1 chaos target');ev('unis[0].x=550;unis[0].y=1130;updateZone(.01)');if(!(ev('dmask')&64)||ev('unis[0].boost')<2)throw Error('prism gate reward');ev('victoryT=.01;landWin=1;update(.02)');if(ev("S.g('ccHeat')")!==1)throw Error('winning must advance Heat');
 }
-let ws=fs.readFileSync('src/whip.js','utf8');if(!ws.includes('X.arc(-7,7,14+i*7,.2,5.6)'))throw Error('rainbow coiled whip cursor missing');
+{
+ const {ev}=game();ev("S.s('ccC2',1);S.s('ccHeat',5);startLevel(1)");if(ev('heat')!==5||ev('timeLeft')!==91||ev('cleaners.length')!==2||Math.abs(ev('chaos()')-.33)>1e-6)throw Error('Heat ladder must compound time, cleanup and chaos pressure');
+}
+let ws=fs.readFileSync('src/whip.js','utf8');if(!ws.includes('X.arc(-7,7,14+i*7,.2,5.6)')||!ws.includes('quadraticCurveTo'))throw Error('animated rainbow whip missing');
 if(!fs.readFileSync('src/style.css','utf8').includes('cursor:none'))throw Error('native cursor not hidden');
-console.log('headless v0.23 free-switch tutorial + rainbow whip cursor: PASS');
+console.log('headless v0.23 animated whip + endless heat ladder: PASS');
