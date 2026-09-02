@@ -7,5 +7,6 @@ e('timeLeft=75;painted=PW*PH*.08;townDamage=townMax*.16;chains=0;actT=40;actS=40
 e('timeLeft=45;painted=PW*PH*.55;townDamage=townMax*.58;chains=4;actT=60;actS=60*4.5;stuns=6');let high=e('comp()');if(high<=low||!['HIGH','HIGHER','HIGHEST'].includes(e(`tier(${high})`)))throw Error('skillful run must outrank minimal conquest');
 e("landWin=1;state='end';startLevel(1)");if(e('zone')!==1||e('timeLeft')!==94||e('cleaners.length')!==2)throw Error('Washwater cleanup remix progression');
 e("landWin=1;state='end';startLevel(1)");if(e('zone')!==2||e('timeLeft')!==90)throw Error('Cloudtop progression');
-e("S.s('ccC2',1);state='end';landWin=1;startLevel(1)");if(!e('plus')||e('zone')!==0||e('timeLeft')!==96||e('heat')!==0||!e("lmText.includes('HEAT 1')"))throw Error('Stampede+ Heat progression');
+e("S.s('ccC2',1);state='end';landWin=1;startLevel(1)");if(!e('plus')||e('zone')!==0||e('timeLeft')!==96||e('heat')!==0||!e("lmText.includes('HEAT 1/10')"))throw Error('Stampede+ Heat progression');
+e("S.s('ccHeat',9);startLevel(1);landWin=1;victoryT=.01;update(.02)");if(e("S.g('ccHeat')")!==9)throw Error('Heat 10 must be mastery cap');
 console.log(`competitive v0.21 smoke: PASS low=${low} skilled=${high}`);
