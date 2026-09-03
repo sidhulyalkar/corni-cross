@@ -1,7 +1,7 @@
 let zone=S.g('ccZone')%3,runN=S.g('ccRun'),seedZone=0,wind=1,windT=0,chains=0,crowns=0;
 const _rain=paintStamp;paintStamp=(u,x=u.x,y=u.y,r=28)=>_rain(u,x,y,r+(level?stamp:0));
 const ZN=['PRISMBOROUGH','WASHWATER BAY','CLOUDTOP HEIGHTS'],_day=today;today=()=>_day()+seedZone*173+runN*19;
-function grade(){let p=paintPct()>goal()+.07;return landWin?1+p+(p&&chains>[1,1,2][zone]):0}
+function grade(){let p=paintPct()>stageGoal+.07;return landWin?1+p+(p&&chains>[1,1,2][zone]):0}
 function finishZone(){crowns=grade();let k='ccC'+zone;if(crowns>S.g(k))S.s(k,crowns)}
 function canZone(z){return !z||S.g('ccC'+(z-1))}
 addEventListener('keydown',e=>{if(state==='title'&&S.g('ccIntro16')&&(e.code==='KeyA'||e.code==='KeyD')){let n=(zone+(e.code==='KeyD'?1:2))%3;if(canZone(n)){zone=n;S.s('ccZone',zone);tone(280,.05,'triangle',.012,420)}}});
