@@ -18,7 +18,7 @@ The draft release candidate lives on PR #12. Qualified builds contain:
 - `dist/preview.html` — browser-safe self-contained preview.
 - `dist/compression.json` — compression provenance and exact size.
 
-Current qualified v0.26 candidate: **13,293 / 13,312 bytes**.
+Current qualified v0.26 candidate: **13,289 / 13,312 bytes**.
 
 ## ⚡ The 20-second mental model
 
@@ -26,8 +26,8 @@ Current qualified v0.26 candidate: **13,293 / 13,312 bytes**.
 - **WASD** steers that unicorn and paints the road behind it.
 - **Click beside the white ring** to crack the Rainbow Whip.
 - Each successful whip adds one charge, from **1/5 → 5/5**.
-- **Space** spends the stored charge on a directional dash. More charge means a longer, stronger dash.
-- **Shift** switches to the next live unicorn at any time.
+- **Two Whips unlock Dash. Space at 2/5 through 5/5 always spends the stored charge on a directional dash.** More charge means a longer, stronger dash; 5/5 is MAX.
+- **Shift** switches to the next live unicorn at any time. Charge belongs to each unicorn and survives switching away and back.
 - A moving unicorn keeps following its last useful direction after you switch away.
 - Painted ground becomes a **Rainbow Highway**, helping unattended unicorns resist distractions and maintain useful routes.
 - **NEXT** is only a recommendation. It points toward a unicorn that may need attention. It never switches for you.
@@ -41,7 +41,7 @@ You can play carefully and orchestrate the herd, or Shift like a caffeinated con
 | **WASD** | steer the active unicorn + paint |
 | **Mouse** | aim the coiled Rainbow Whip cursor |
 | **Left click beside active ring** | crack Whip and add charge |
-| **Space** | spend charge on dash |
+| **Space** | dash whenever the active unicorn has **2+ Whips**; consumes its charge |
 | **Shift** | switch to the next live unicorn |
 | **A / D on title** | select unlocked world |
 | **C on title** | controls |
@@ -172,17 +172,19 @@ The score is best understood as a personal optimization target: finish the same 
 Training starts with two unicorns and teaches the permanent verbs in a small town:
 
 1. move the active unicorn;
-2. Whip to 5/5;
-3. dash;
+2. Whip twice to unlock Dash;
+3. press Space to Dash, or keep charging toward 5/5 MAX;
 4. Shift control;
 5. leave an old route running;
 6. rescue a distracted unicorn;
-7. charge again;
-8. smash the Bakery;
+7. Whip twice again;
+8. dash into the Bakery;
 9. unleash all six unicorns in the miniature town;
 10. spend a short free-play burst using **Shift + Whip + Dash** before entering the real city.
 
-That final six-herd moment is fully interactive. Whipping remains enabled after all six appear, specifically so the tutorial ends with experimentation rather than a locked cinematic.
+The Dash rule never changes during Training: **if the active unicorn has 2/5 or more charge, Space works.** The tutorial does not silently lock Dash at intermediate lesson steps.
+
+That final six-herd moment is fully interactive. Whipping and 2+ Dash remain enabled after all six appear, specifically so the tutorial ends with experimentation rather than a locked cinematic.
 
 ## 🎨 Visual philosophy
 
@@ -216,24 +218,4 @@ npm test
 npm run build
 ```
 
-`npm test` covers source syntax, tutorial progression, free six-herd switching, Whip charging/dash scaling, refocus-safe Whipping, campaign progression, competitive score invariants, compression, packed browser behavior, archive integrity and the 13,312-byte ceiling.
-
-Readable gameplay source lives in `src/`. `dist/` is a generated qualification artifact. Source remains authoritative.
-
-## 🎯 Current playtest questions
-
-The current draft should not merge until direct playtesting answers these well:
-
-1. Does the Whip read as a **snap/crack**, not a wiggling string?
-2. Are the colored manes enough to make the six unicorns easier and more enjoyable to follow?
-3. Can you Whip, Shift and Dash freely during the six-unicorn training finale?
-4. Does the larger time bank create more strategy rather than merely making runs slower?
-5. Do fountains, flowers, butterflies, traffic and cleanup produce funny recoverable problems rather than visual noise?
-6. Does `NEXT` help attention without making the game feel automated?
-7. Around Heat 4–8, are you learning better routing and handoffs?
-8. After a loss, do you immediately understand one thing you could do better next run?
-9. Can the game hold attention for roughly **30 minutes** without an external leaderboard or explanation?
-
----
-
-**Design target:** simple enough to understand in one training run, chaotic enough to make you laugh, strategic enough that thirty minutes later you are still discovering better ways to keep six unicorns productively out of trouble. 🌈
+`npm test` covers source syntax, tutorial progression, the **2+ Whip Dash contract across tutorial steps 0–9**, free six-herd switching, Whip charging/dash scaling, refocus-safe Whipping, campaign progression, competitive score invariants, compression, packed browser behavior, archive integrity and the 13,312-byte ceiling.
