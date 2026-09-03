@@ -18,7 +18,7 @@ The draft release candidate lives on PR #12. Qualified builds contain:
 - `dist/preview.html` — browser-safe self-contained preview.
 - `dist/compression.json` — compression provenance and exact size.
 
-Current qualified v0.26 candidate: **13,306 / 13,312 bytes**.
+The current v0.26 candidate is qualified below the **13,312-byte** js13k ceiling. Compression search can choose slightly different byte-equivalent winners between runs, so `dist/compression.json` is the authoritative exact-size record for each qualified artifact.
 
 ## ⚡ The 20-second mental model
 
