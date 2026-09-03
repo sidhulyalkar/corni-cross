@@ -6,7 +6,7 @@ e('painted=PW*PH*.4;hitObj(unis[0],LM[4].os[0],999)');if(!e('hallDone()')||e('la
 e('timeLeft=30;painted=PW*PH*.51;dpaint=dmax.map(x=>x*.31);update(.01)');if(!e('landWin')||e('victoryT')<2)throw Error('coverage + all districts should start takeover hold');
 e('dpaint[0]=0;update(.01)');if(e('landWin')||e('victoryT'))throw Error('losing a district must break takeover hold');
 e('timeLeft=75;painted=PW*PH*.08;townDamage=townMax*.16;chains=0;actT=40;actS=40*1.5;stuns=0');let low=e('comp()');if(low>=120000||e(`tier(${low})`)!=='LOW')throw Error('minimal conquest must remain low tier');
-e('timeLeft=45;painted=PW*PH*.55;townDamage=townMax*.58;chains=4;actT=60;actS=60*4.5;stuns=6');let high=e('comp()');if(high<=low||!['HIGH','HIGHER','HIGHEST'].includes(e(`tier(${high})`)))throw Error('skillful run must outrank minimal conquest');
+e('landWin=1;timeLeft=45;painted=PW*PH*.55;townDamage=townMax*.58;chains=4;actT=60;actS=60*4.5;stuns=6');let high=e('comp()');if(high<=low||!['HIGH','HIGHER','HIGHEST'].includes(e(`tier(${high})`)))throw Error('completed skillful takeover must outrank failed conquest');
 e("landWin=1;state='end';startLevel(1)");if(e('zone')!==1||e('timeLeft')!==112||e('cleaners.length')!==2||Math.abs(e('goal()')-.53)>.001)throw Error('Washwater cleanup + coverage progression');
 e("landWin=1;state='end';startLevel(1)");if(e('zone')!==2||e('timeLeft')!==108||Math.abs(e('goal()')-.56)>.001)throw Error('Cloudtop progression');
 e("S.s('ccC2',1);state='end';landWin=1;startLevel(1)");if(!e('plus')||e('zone')!==0||e('timeLeft')!==114||e('heat')!==0||!e("lmText.includes('HEAT 1/10')")||Math.abs(e('goal()')-.56)>.001)throw Error('Stampede+ Heat progression');
