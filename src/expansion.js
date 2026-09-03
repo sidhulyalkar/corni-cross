@@ -1,10 +1,10 @@
 let plus=!!S.g('ccC2'),heat=S.g('ccHeat');
 /* PRISM GATE retired: its bytes now fund the takeover mastery loop. */
-const chaos=()=>.28+(plus?Math.min(heat,8)*.01:0),DR=['SWEEP','SNATCH','REBUILD'];
+const chaos=()=>.28+(plus?Math.min(heat,8)*.01:0);
 function comp(){let m=[1,1.12,1.25][zone]*(plus?1.12+Math.min(heat,9)*.04:1);return Math.round(((landWin?2e4:0)+Math.max(0,timeLeft)*600+paintPct()*9e4+structPct()*7e4+Math.min(chains,6)*6e3)*m)}
 function tier(n=comp()){return n<1e5?'LOW':n<15e4?'MEDIUM':n<22e4?'HIGH':n<3e5?'HIGHER':'HIGHEST'}
-const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=!!S.g('ccC2');heat=S.g('ccHeat');stageGoal=.5+zone*.03+plus*(.06+Math.min(heat,9)*.018);distGoal=stageGoal*.58;if(n){unis[2].live=unis[4].live=0;timeLeft+=18;lmText=DR[defense()]+' • HERD 4/6';lmTextT=2}if(n&&plus){let h=Math.min(heat,9);timeLeft-=4+h;addClean(1+(h>3));for(let c of cars)c.v*=1.08+h*.02;lmText='HEAT '+(h+1)+'/10 • '+DR[defense()];lmTextT=2}};
-const _plusWave=waveUp;waveUp=function(w){if(level&&(w===2&&LM.filter(lmDone).length<2||w===3&&!outerDone()))return;_plusWave(w);if(level){msg=w===2?'COMET JOINS • '+DR[defense()]:'BUMPER! • '+DR[defense()];msgT=2}};
+const _plusStart=startLevel;startLevel=function(n){_plusStart(n);plus=!!S.g('ccC2');heat=S.g('ccHeat');stageGoal=.5+zone*.03+plus*(.06+Math.min(heat,9)*.018);distGoal=stageGoal*.58;if(n){unis[2].live=unis[4].live=0;timeLeft+=18;lmText='HERD 4/6';lmTextT=2}if(n&&plus){let h=Math.min(heat,9);timeLeft-=4+h;addClean(1+(h>3));for(let c of cars)c.v*=1.08+h*.02;lmText='HEAT '+(h+1)+'/10 • HERD 4/6';lmTextT=2}};
+const _plusWave=waveUp;waveUp=function(w){if(level&&(w===2&&LM.filter(lmDone).length<2||w===3&&!outerDone()))return;_plusWave(w);if(level){msg=w===2?'COMET JOINS':'BUMPER!';msgT=2}};
 const _plusHit=hitObj;hitObj=function(u,o,d){if(level&&u.distract>1.1)return msg='BICKER!',msgT=.7;if(o&&o.lm==='hall'&&outerDone()&&takeover()<chaos()){msg='NEED '+(chaos()*100|0)+'% CHAOS';msgT=1;return}if(o&&(o.lm==='clock'||o.lm==='hall'&&outerDone())){let k=o.lm==='hall'?3:2,n=unis.filter(q=>q.live&&Math.hypot(q.x-o.x-o.w/2,q.y-o.y-o.h/2)<320).length;if(n<k){msg='RALLY '+n+'/'+k;msgT=1;return}}_plusHit(u,o,d)};
 const _plusBoom=landmarkBoom;landmarkBoom=function(l,u){_plusBoom(l,u);if(level&&l.k!=='hall'){timeLeft+=6;if(cleaners.length<9)addClean(1);lmText+=' • +6s'}if(level&&l.k==='hall'){landWin=victoryT=0;timeLeft+=12;addClean(2+(heat>5));lmText='FINAL CLEANUP • COLOR '+(stageGoal*100|0)+'%';lmTextT=2}};
 const _plusZone=updateZone;updateZone=function(dt){_plusZone(dt);if(level&&plus&&zone!==2)for(let u of unis)if(u.live)u.vx+=Math.sin(clock*.7)*(45+heat*6)*dt};
