@@ -18,7 +18,7 @@ The draft release candidate lives on PR #12. Qualified builds contain:
 - `dist/preview.html` — browser-safe self-contained preview.
 - `dist/compression.json` — compression provenance and exact size.
 
-Current qualified v0.26 candidate: **13,289 / 13,312 bytes**.
+Current qualified v0.26 candidate: **13,306 / 13,312 bytes**.
 
 ## ⚡ The 20-second mental model
 
