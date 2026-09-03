@@ -43,7 +43,7 @@ function game(){
  const {ev,fire}=game();ev("S.s('ccIntro16',1);S.s('ccC0',1);state='title';zone=0");fire('keydown',{code:'KeyD'});if(ev('zone')!==1||ev("S.g('ccZone')")!==1)throw Error('campaign world select');
 }
 {
- const {ev}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==1||ev('timeLeft')!==112||ev('cleaners.length')!==2||Math.abs(ev('cleaners[0].v'))<190)throw Error('washwater must remix cleanup pressure');ev("landWin=1;chains=2;painted=PW*PH*.5");if(ev('grade()')!==3)throw Error('washwater crowns');
+ const {ev}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==1||ev('timeLeft')!==112||ev('cleaners.length')!==2||Math.abs(ev('cleaners[0].v'))<190)throw Error('washwater must remix cleanup pressure');ev("landWin=1;chains=2;painted=PW*PH*.65");if(ev('grade()')!==3)throw Error('washwater crowns');
 }
 {
  const {ev,click}=game();ev("startLevel(1);landWin=1;state='end';startLevel(1);landWin=1;state='end';startLevel(1)");if(ev('zone')!==2||ev('timeLeft')!==108)throw Error('cloudtop unlock');click();if(ev('unis[caps[0]].tapT')>.39)throw Error('cloudtop tighter whip window');
@@ -54,6 +54,6 @@ function game(){
 {
  const {ev}=game();ev("S.s('ccC2',1);S.s('ccHeat',5);startLevel(1)");if(ev('heat')!==5||ev('timeLeft')!==109||ev('cleaners.length')!==2||Math.abs(ev('chaos()')-.33)>1e-6)throw Error('Heat ladder must compound time, cleanup and chaos pressure');
 }
-let ws=fs.readFileSync('src/whip.js','utf8'),es=fs.readFileSync('src/expansion.js','utf8'),rs=fs.readFileSync('src/render.js','utf8'),hs=fs.readFileSync('src/herd.js','utf8');if(!ws.includes('X.arc(-7,7,14+i*7,.2,5.6)')||!ws.includes('quadraticCurveTo')||ws.includes('*700-56')||!ws.includes('whip.l*520'))throw Error('snap whip regression');if(!ws.includes("if(n<2){msg='WHIP 2X → DASH'")||ws.includes("msg='FOLLOW LESSON'"))throw Error('two-whip dash contract regression');if(!rs.includes('u.h+120')||!hs.includes('f.r+155')||!es.includes("lmText+=' • +6s'"))throw Error('mane/distraction/time-bank regression');
+let ws=fs.readFileSync('src/whip.js','utf8'),es=fs.readFileSync('src/expansion.js','utf8'),rs=fs.readFileSync('src/render.js','utf8'),hs=fs.readFileSync('src/herd.js','utf8');if(!ws.includes('X.arc(-7,7,14+i*7,.2,5.6)')||!ws.includes('quadraticCurveTo')||ws.includes('*700-56')||!ws.includes('whip.l*520'))throw Error('snap whip regression');if(!ws.includes("if(n<2){msg='WHIP 2X → DASH'")||ws.includes("msg='FOLLOW LESSON'"))throw Error('two-whip dash contract regression');if(!rs.includes('u.h+120')||!hs.includes('f.r+155')||!es.includes("lmText+=' • +6s'")||!es.includes('FINAL CLEANUP')||!es.includes('claim=()=>paintPct()>=goal()&&districtsOK()'))throw Error('mane/distraction/takeover regression');
 if(!fs.readFileSync('src/style.css','utf8').includes('cursor:none'))throw Error('native cursor not hidden');
-console.log('headless v0.26 snap whip + reliable 2+ dash + strategic time bank: PASS');
+console.log('headless v0.27 takeover mastery + reliable 2+ dash: PASS');
